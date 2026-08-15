@@ -119,6 +119,24 @@ VICTIM ──▶ tdata.tar.bz2 (klucze sesji) + marker "pishmarg"
 - `keylo` → pyHook keylogger + clipboard.
 - `close` → exit.
 
+### Pełne odpalenie (dynamicznie, `.57` 15.08)
+
+Uruchomiono payload (Python 2.7, stdlib-core) na `.57` z C2 na `127.0.0.1:7777`:
+
+```
+[C2] victim connected
+[C2] hostname: WIN-T5BVVHUNVJI
+[C2] os: Microsoft Windows Server 2022 Standard Evaluation
+[C2] users: Alias name users ...
+[C2] tdata response: not                        ← brak Telegrama na .57 → "not"
+[C2] shell whoami: win-t5bvvhunvji\administrator  ← reverse shell WYKONAŁ whoami ✅
+```
+
+**Potwierdzone dynamicznie:** connect → recon → `tdata` check → **reverse shell (wykonanie `whoami`)**.
+
+⚠️ **Keylogger (pyHook) NIE odpalił** — pywin32/pyHook dla Python 2.7 nie doinstalowane
+(broken download: SourceForge→HTML, GitHub b220→404). Core (recon+tdata+shell) = stdlib → działa.
+
 ## Reguły detekcji
 
 YARA → `/root/android-pipeline/tools/yara-rules/custom/telegram_stealer.yar`.
