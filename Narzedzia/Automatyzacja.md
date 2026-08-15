@@ -18,6 +18,7 @@ Co już jest spięte, a czego Sliver **nie** umie.
 | Logi terminala Linux | `script` w `.bashrc` na `.133` → `Logs/terminal_*.log` | działa |
 | Logi Sliver | cron ogona `sliver.log` + **eksport sesji** | działa |
 | Telegram → vault | bot: Inbox + Daily + `Dzienniki/Telegram/YYYY-MM-DD.md` | działa |
+| Alerty RAT/stealer | `alert_roles.py` po `classify_roles` i po jobie dashboardu | działa |
 | Screenshoty Windows | zadanie „Obsidian Screenshot” co 30 min (gdy sesja interaktywna) | `.57` |
 | Git backup + sync | `git_autocommit.sh` co 15 min → bare `obsidian-vault.git`; Kali pull/push przez Obsidian Git | [[Git_Sync]] |
 | Podgląd HTML | `export_vault_html.py` + Caddy `127.0.0.1:8081` | tunel SSH, nie :8080 |

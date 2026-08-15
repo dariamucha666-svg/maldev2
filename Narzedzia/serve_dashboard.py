@@ -456,7 +456,10 @@ def run_pipeline(sample: Path) -> None:
         shutil.copy2(src, ROOT / "iocs.json")
     hist = Path("/root/obsidian-vault/Narzedzia/build_dashboard_history.py")
     if hist.is_file():
-        subprocess.run(["/usr/bin/python3", str(hist)], check=False)
+        subprocess.run([sys.executable, str(hist)], check=False)
+    alert = Path("/root/obsidian-vault/Narzedzia/alert_roles.py")
+    if alert.is_file():
+        subprocess.run([sys.executable, str(alert)], timeout=40, check=False)
 
 
 def run_job(digest: str, action: str) -> None:

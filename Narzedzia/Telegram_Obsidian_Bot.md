@@ -32,6 +32,7 @@ Jedna instancja pollingu — nie odpalaj równolegle na Kali.
 | `/status` | Liczby: próbki, role, sesje Sliver |
 | `/pobierz <hash>` | Ściąga próbkę (MalwareBazaar → kwarantanna), śledzi job |
 | `/klasyfikuj <hash>` | Pokazuje rolę albo odpala pipeline |
+| `/alerty` | Ostatnie RAT/stealer. Pipeline sam pisze przy nowym trafieniu. |
 | `/xmask` `/post` | Gotowce na kanał XMask |
 | `/nowa` | Nowa notatka (tytuł, folder, treść) |
 | `/dziennik tekst` | Dopisek do [[Daily]] |
