@@ -21,7 +21,7 @@ Powiązane: [[Dashboard]] · [[Daily/2026-08-15]] · [[Daily/2026-08-14]] · [[L
 - [[Klasyfikacja_Korpus]] — tabela „co to oznacza” (RAT 1, backdoor 1, stealer 4+, dropper 5+, packed 3+, cryptojacker 0).
 - Karty: [[410a5cba Android RAT kira]], [[4d0f7a96 Android SMS stealer avanegar]], [[a710209e Android NFC skimmer]], [[1b3ceba6 Chrome bank stealer]].
 - `classify_roles.py` w `pipeline.sh` po auto-YARA — raporty JSON dostają `tags` + `classification.role`.
-- Next RE: de4dot na NanoCore (offline) albo native packed APK.
+- Next: jadx Zirex ComposeUrl albo de4dot NanoCore offline.
 
 ### Static RE — kira
 
@@ -40,6 +40,11 @@ Powiązane: [[Dashboard]] · [[Daily/2026-08-15]] · [[Daily/2026-08-14]] · [[L
 
 - 3× NanoCore (`NanoCore Client.exe`), 1× Loader 9.8 MB, 1× NursultanCrack, 1× system32+webcam.
 - [[DotNet_cluster]] · YARA `nanocore_client.yar`
+
+### Static RE — native packed APK
+
+- Zirex + Dobby (`b5e8b4ae`), hhcbcu/`nvcgehin` ×2, perski WebView, blob dropper.
+- [[Android_native_packed]] · YARA `zirex_native.yar`
 
 ## 2026-08-14
 
