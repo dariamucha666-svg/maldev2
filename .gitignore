@@ -11,3 +11,6 @@ Logs/pipeline_*.log
 *.dll
 *.bin
 Samples/
+
+__pycache__/
+*.pyc
