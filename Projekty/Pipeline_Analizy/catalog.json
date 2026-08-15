@@ -1,0 +1,446 @@
+{
+  "version": 2,
+  "updated": "2026-08-14",
+  "roles": ["rat", "stealer", "backdoor", "dropper", "phishing", "packed", "cryptojacker"],
+  "cryptojacking": {
+    "found": false,
+    "note": "W całym korpusie (14 APK + 1 PE w iocs + 14 plików z kwarantanny) brak stringów XMRig/stratum/Monero/NiceHash/Coinhive. Brak potwierdzonego cryptojackera. Wysoka entropia = packer, nie miner."
+  },
+  "samples": {
+    "178cb931cc846c4ac7bbf2370259e8b9f7d8a45459974115818b5c1e608533c4": {
+      "title": "Backdoor Go (easports.gg)",
+      "role": "backdoor",
+      "aka": ["Precision Agriculture", "payload.exe", "stage-2"],
+      "kind": "pe",
+      "family": "Backdoor.Win64.EASportsGo",
+      "verdict": "Własny backdoor / RAT w Go 1.25.4. Fałszywy certyfikat easports.gg. Drugi etap po instalatorze Electron „Runtime Components”.",
+      "behavior": "Decoy UI (rolnictwo + winda). API Windows: konta, udziały, logon. C2 składane w runtime, nie ma go w plaintext.",
+      "confidence": "średnia (static, bez detonacji)",
+      "defense": "Nie uruchamiaj. Zablokuj SHA256. Nie ufaj podpisowi easports.gg. Jeśli był instalator Runtime Components — odinstaluj i zmień hasła z czystego sprzętu.",
+      "xmask": "XMask/Backdoor_Go_easports.md"
+    },
+    "410a5cbaabc1cdee003ac2fd1d6c1ca8b58c9eb75cd7c671dfa163653b5ae712": {
+      "title": "Android RAT (kira.malware)",
+      "role": "rat",
+      "aka": ["Malware APK", "HiddenActivity"],
+      "kind": "apk",
+      "family": "Android.RAT.Kira",
+      "verdict": "Klasyczny Android RAT. Pakiet dosłownie `com.kira.malware`. Accessibility + overlay + podgląd powiadomień + ukryta aktywność + WebSocket.",
+      "behavior": "OverlayService, AccessibilityService, IntentOverlayService, NotificationService, HiddenActivity. Setki trafień WebSocket/OkHttp, anty-Frida/Xposed, schowek, IMEI.",
+      "confidence": "wysoka (manifest + nazwy serwisów)",
+      "defense": "Nie instaluj. Jeśli jest: odinstaluj, wyłącz Accessibility dla nieznanych aplikacji, zmień hasła z innego telefonu. Play Protect.",
+      "xmask": "XMask/Android_RAT_kira.md"
+    },
+    "4d0f7a96a4859f47820ffa8e08b89ff7c7159fa3414a1cfe88db4949d65e48a4": {
+      "title": "Android SMS-stealer (avanegar)",
+      "role": "stealer",
+      "aka": ["ir.avanegar.core", "libsyncer"],
+      "kind": "apk",
+      "family": "Android.Stealer.Avanegar",
+      "verdict": "Spyware / SMS-stealer. Czyta i wysyła SMS, kontakty, lokalizację, stan telefonu, aparat. Native `libsyncer*.so` — typowy kanał exfilu.",
+      "behavior": "READ/SEND/RECEIVE_SMS, READ_CONTACTS, CALL_PHONE, CAMERA, lokalizacja, BOOT_COMPLETED. Brak URL w plaintext (pewnie w native).",
+      "confidence": "wysoka (uprawnienia + native syncer)",
+      "defense": "Nie dawaj aplikacji dostępu do SMS. Odinstaluj, sprawdź przekierowania SMS u operatora, zmień hasła bankowe (kody 2FA z SMS mogły wyciec).",
+      "xmask": "XMask/Android_SMS_stealer.md"
+    },
+    "a710209edb0b786d20eed3ac5c656546e40da8a07e9f771014434cf656934778": {
+      "title": "NFC / karta-stealer (newcartao)",
+      "role": "stealer",
+      "aka": ["com.newcartao.protegido", "EmulationService", "MQTT"],
+      "kind": "apk",
+      "family": "Android.Stealer.NewCartao",
+      "verdict": "Aplikacja udająca „chronioną kartę”. W środku emulacja NFC (HCE) + klient MQTT — typowy skimmer / kradzież danych kart zbliżeniowych.",
+      "behavior": "EmulationService + Paho MQTT. Setki markerów C2, xposed, schowek, Accessibility. Stos React/Tailwind jako UI.",
+      "confidence": "średnia–wysoka",
+      "defense": "Nie zbliżaj karty do telefonu z taką apką. Odinstaluj, zastrzeż kartę w banku jeśli była użyta, włącz 2FA.",
+      "xmask": "XMask/Android_NFC_skimmer.md"
+    },
+    "417406b7e03f1c125d48996a24d0224a013d396d1c5e3e82ff79a34fe5d14aaf": {
+      "title": "Android WebView phishing",
+      "role": "phishing",
+      "aka": ["React/Tailwind wrap"],
+      "kind": "apk",
+      "family": "Android.Phishing.WebView",
+      "verdict": "Opakowana strona WWW w APK (React + Tailwind). Typowy wektor kradzieży loginu (bank, poczta, krypto).",
+      "behavior": "WebView + overlay/xposed/clipboard w stringach. Manifest androguard nie wstał (wysoka entropia).",
+      "confidence": "średnia",
+      "defense": "Nie wpisuj haseł w apce spoza sklepu. Bank tylko z oficjalnego wydawcy.",
+      "xmask": "XMask/Android_webview_react.md"
+    },
+    "44f9d5c684fb6f34465cd7593709a37cadb57aaf41430b0d043fa593e4faacab": {
+      "title": "Android dropper (shelltemplate)",
+      "role": "dropper",
+      "aka": ["video.lotus19.ridenovel31", "upgrade-template"],
+      "kind": "apk",
+      "family": "Android.Dropper.ShellTemplate",
+      "verdict": "Dropper z szablonem fałszywej aktualizacji + VPN-blocker. Może dociągnąć kolejny APK (REQUEST_INSTALL_PACKAGES).",
+      "behavior": "BlockingVpnService, WebView, JS bridge, schowek, fałszywy Play Store.",
+      "confidence": "średnia–wysoka",
+      "defense": "Nie instaluj APK spoza sklepu. Odmów nakładek i Accessibility.",
+      "xmask": "XMask/Android_dropper_shelltemplate.md"
+    },
+    "a1416a250bf7219f95961f484421dda844b5013b5561c4a40591489dcfcdd384": {
+      "title": "Android dropper (shelltemplate)",
+      "role": "dropper",
+      "aka": ["store.pandaac.task9d"],
+      "kind": "apk",
+      "family": "Android.Dropper.ShellTemplate",
+      "verdict": "Drugi wariant tego samego szablonu fałszywej aktualizacji (shelltemplate + VPN).",
+      "behavior": "BlockingVpnService, heartbeat/polling, JS bridge, REQUEST_INSTALL_PACKAGES.",
+      "confidence": "średnia–wysoka",
+      "defense": "Nie instaluj APK spoza sklepu. Sprawdź uprawnienia nakładek.",
+      "xmask": "XMask/Android_dropper_shelltemplate.md"
+    },
+    "0fa3360a6a00ec8d3c988f4f81be8e79674bb8cf58c9350237062eb60f54bf4a": {
+      "title": "Dropper „Porntok” (Fake VPN)",
+      "role": "dropper",
+      "aka": ["com.flmao.zmpelbh", "Porntok"],
+      "kind": "apk",
+      "family": "Android.Dropper.Porntok",
+      "verdict": "Aplikacja udająca treść dla dorosłych. Fake VPN + WebView + instalacja pakietów + stringi portfela. Loader kolejnego etapu.",
+      "behavior": "FakeVpnService, InstallActivity, DexClassLoader, QUERY_ALL_PACKAGES, 180 markerów C2, seed/wallet.",
+      "confidence": "średnia–wysoka",
+      "defense": "Nie instaluj „darmowych” aptek dla dorosłych spoza sklepu. Odinstaluj, sprawdź czy nie dociągnęła drugiej apki.",
+      "xmask": "XMask/Android_dropper_porntok.md"
+    },
+    "f651876e9185c206d770229b0cb312b7ae620225e0e6768709b93d4258bbbced": {
+      "title": "Dropper/backdoor Codo Preload",
+      "role": "dropper",
+      "aka": ["teuq.lbnn.zzo", "com.codo.preload", "PpVpn"],
+      "kind": "apk",
+      "family": "Android.Dropper.CodoPreload",
+      "verdict": "Loader z persystencją VPN i WorkManager. Dużo stringów portfela (14), overlay, xposed, TelephonyManager. Kolejny etap szyfrowany (FeiyingCipher).",
+      "behavior": "PpVpn (BIND_VPN_SERVICE), BOOT_COMPLETED, REQUEST_INSTALL_PACKAGES, MediaProjection, schowek.",
+      "confidence": "średnia–wysoka",
+      "defense": "Odinstaluj, wyłącz VPN tej apki, sprawdź listę aplikacji (mogła doinstalować inną). Nie wpisuj seedów krypto.",
+      "xmask": "XMask/Android_dropper_codo.md"
+    },
+    "f19df82abf0d66389467746f519557e81ca5b373a97e23da7e414204e4931242": {
+      "title": "Android dropper (bwfospen)",
+      "role": "dropper",
+      "aka": ["com.bwfospen.vovrentqm"],
+      "kind": "apk",
+      "family": "Android.Dropper.Generic",
+      "verdict": "Dropper: start z bootem + prawo do instalacji pakietów. 14 MB, entropia ~8 — spakowany / zaciemniony.",
+      "behavior": "FOREGROUND_SERVICE, RECEIVE_BOOT_COMPLETED, REQUEST_INSTALL_PACKAGES. Brak URL w plaintext.",
+      "confidence": "średnia",
+      "defense": "Nie instaluj. Sprawdź autostart i nowo doinstalowane apki.",
+      "xmask": "XMask/Jak_sie_bronic.md"
+    },
+    "b5e8b4ae37f13f2f0d5395712afb4c8f8b71034915d2a76ef2bbc0297b555aa0": {
+      "title": "APK z hooking packerem (Dobby)",
+      "role": "packed",
+      "aka": ["libdobby", "libshadowhook", "crashguard"],
+      "kind": "apk",
+      "family": "Android.Packed.Dobby",
+      "verdict": "Androguard nie czyta manifestu (entropia 7.97). W środku Dobby + shadowhook + bytehook — frameworki do hookowania native. Często packer RAT/stealera, nie miner.",
+      "behavior": "DexClassLoader, refleksja. Brak XMRig/stratum.",
+      "confidence": "średnia (packer pewny, payload nieodpakowany)",
+      "defense": "Traktuj jako złośliwą. Nie instaluj. Do pełnej rodziny trzeba rozpakować native offline.",
+      "xmask": "XMask/Android_packed.md"
+    },
+    "b2bc6d34c0c63b77be89d1c82b20512ad0519839665264c1b7ef13714fee4aaf": {
+      "title": "APK packed (libhhcbcu)",
+      "role": "packed",
+      "aka": ["libhhcbcu.so"],
+      "kind": "apk",
+      "family": "Android.Packed.Hhcbcu",
+      "verdict": "Prawie maksymalna entropia (7.999). Jeden native `libhhcbcu.so` — typowy komercyjny packer. Payload schowany.",
+      "behavior": "Brak manifestu w androguard. Brak stringów minera.",
+      "confidence": "niska–średnia",
+      "defense": "Nie instaluj. Hash do AV.",
+      "xmask": "XMask/Android_packed.md"
+    },
+    "d5b948179c8cc33e4cbeebe0369c7dca452d968646a588d730341c3879d64880": {
+      "title": "APK packed (libhhcbcu) #2",
+      "role": "packed",
+      "aka": ["libhhcbcu.so"],
+      "kind": "apk",
+      "family": "Android.Packed.Hhcbcu",
+      "verdict": "Ten sam packer co b2bc6d34 (identyczny libhhcbcu). Druga budowa / przebudowa.",
+      "behavior": "Jak sibling — payload w native.",
+      "confidence": "niska–średnia",
+      "defense": "Nie instaluj.",
+      "xmask": "XMask/Android_packed.md"
+    },
+    "fdbee28882e9c13941fc4fc4575935af1ab37ca84114ec4bc039b50f770ce218": {
+      "title": "APK packed (libabtest)",
+      "role": "packed",
+      "aka": ["libabtest_3217.so"],
+      "kind": "apk",
+      "family": "Android.Packed.Abtest",
+      "verdict": "Manifest nieczytelny. Native `libabtest_3217.so` — zaciemniony loader. Brak IoC minera.",
+      "behavior": "Brak stringów w raporcie.",
+      "confidence": "niska",
+      "defense": "Nie instaluj.",
+      "xmask": "XMask/Android_packed.md"
+    },
+    "7834f2efa3912d964764357bbf96752ba2f4ea2712c814664a1bd32ee95616e3": {
+      "title": "APK zaciemniony — triage",
+      "role": "packed",
+      "aka": [],
+      "kind": "apk",
+      "family": "Android.Packed.Generic",
+      "verdict": "Androguard padł (fallback string-scan). AES/Base64/refleksja. Rodzina nieustalona. To nie jest potwierdzony miner.",
+      "behavior": "Mało sygnału poza packerem.",
+      "confidence": "niska",
+      "defense": "Nie instaluj.",
+      "xmask": "XMask/Android_packed.md"
+    },
+    "1b3ceba6a82929b53c72e137e257f7f8924173d8b0de5852253b7437723f153e": {
+      "title": "Stealer bankowy Chrome (Receita Federal)",
+      "role": "stealer",
+      "aka": ["MV3", "Bradesco", "Caixa"],
+      "kind": "chrome",
+      "family": "Chrome.Stealer.ReceitaFederal",
+      "verdict": "Fałszywe rozszerzenie Chrome „Receita Federal”. Wstrzykuje skrypty w banki BR (Bradesco, BB, Caixa) + Cobrowse (podgląd sesji). C2: suahoje.com:3000, off-game.com:3000.",
+      "behavior": "cookies, tabs, scripting, <all_urls>, content scripts na domenach bankowych, socket.io.",
+      "confidence": "wysoka (manifest)",
+      "defense": "Usuń rozszerzenie. Zmień hasła bankowe z innego komputera. Sprawdź historię przelewów i pełnomocnictwa.",
+      "xmask": "XMask/Chrome_bank_stealer.md"
+    },
+    "963800f7e55fca015738f5ab5f09200c4be803c5740c2801fdf86d0de105fb4f": {
+      "title": "NSIS dropper (Runtime Components)",
+      "role": "dropper",
+      "aka": ["Electron", "stage-1"],
+      "kind": "pe",
+      "family": "Win32.Dropper.ElectronNSIS",
+      "verdict": "Instalator NSIS ~74 MB z Electronem. Stage-1 łańcucha backdoora Go (easports.gg).",
+      "behavior": "Pobiera payload.exe, wyłączenia Defender, persistence.",
+      "confidence": "wysoka",
+      "defense": "Nie odpalaj.setup „Runtime Components”.",
+      "xmask": "XMask/Stage1_Electron_Runtime.md"
+    },
+    "b3fe68aed174cddb9128327e932a27183a19ecc1aee2962a294f6e80485b8bf3": {
+      "title": "JS WScript dropper",
+      "role": "dropper",
+      "aka": ["ActiveX"],
+      "kind": "js",
+      "family": "JS.Dropper.WScript",
+      "verdict": "Zaciemniony JS (bardzo długie linie) z WScript/ActiveX — loader kolejnego stealera na Windows.",
+      "behavior": "Brak URL w plaintext.",
+      "confidence": "średnia",
+      "defense": "Nie otwieraj .js z załącznika. WScript nie powinien startować z poczty.",
+      "xmask": "XMask/Jak_sie_bronic.md"
+    },
+    "31d54f8ca8b8f38857b719f97ad4e88218256bcf2690b3ae876196a4366abf57": {
+      "title": "Windows .NET packed (stealer/RAT)",
+      "role": "stealer",
+      "aka": ["Confuser-style"],
+      "kind": "pe",
+      "family": "Win32.Packed.DotNet",
+      "verdict": "Małe assembly .NET bez stringów — typowy packer stealera (AgentTesla/Formbook/RedLine-class). Rodzina po de4dot.",
+      "behavior": "Brak C2 w plaintext.",
+      "confidence": "średnia (klasa), niska (konkretna rodzina)",
+      "defense": "Nie uruchamiaj EXE z maila. Hash do EDR.",
+      "xmask": "XMask/Win_dotnet_packed.md"
+    },
+    "45b98ab01e767954f09e59ec7a27cc551d6ffef6ef09559903368dc36833e26a": {
+      "title": "Windows .NET packed (stealer/RAT)",
+      "role": "stealer",
+      "kind": "pe",
+      "family": "Win32.Packed.DotNet",
+      "verdict": "Ten sam klaster packera .NET co 31d54f8c.",
+      "confidence": "średnia (klasa)",
+      "defense": "Nie uruchamiaj.",
+      "xmask": "XMask/Win_dotnet_packed.md"
+    },
+    "7ae00fe824c9740db553a800fae168a1a06de02eee3688694f05563a91416f33": {
+      "title": "Windows .NET packed (stealer/RAT)",
+      "role": "stealer",
+      "kind": "pe",
+      "family": "Win32.Packed.DotNet",
+      "verdict": "Klaster packera .NET — prawdopodobny stealer.",
+      "confidence": "średnia (klasa)",
+      "defense": "Nie uruchamiaj.",
+      "xmask": "XMask/Win_dotnet_packed.md"
+    },
+    "85915561f854b2443c197b6b440425c440f85baad1cabb573a66c2ed39af3e29": {
+      "title": "Windows .NET packed (stealer/RAT)",
+      "role": "stealer",
+      "kind": "pe",
+      "family": "Win32.Packed.DotNet",
+      "verdict": "Klaster packera .NET — prawdopodobny stealer.",
+      "confidence": "średnia (klasa)",
+      "defense": "Nie uruchamiaj.",
+      "xmask": "XMask/Win_dotnet_packed.md"
+    },
+    "98df0a98985b1d5cfc8278f8eb65adab2e5c5a512cbc02dac39abc5f265a7344": {
+      "title": "Windows .NET packed (stealer/RAT)",
+      "role": "stealer",
+      "kind": "pe",
+      "family": "Win32.Packed.DotNet",
+      "verdict": "Klaster packera .NET — prawdopodobny stealer.",
+      "confidence": "średnia (klasa)",
+      "defense": "Nie uruchamiaj.",
+      "xmask": "XMask/Win_dotnet_packed.md"
+    },
+    "f53ceeb84e158b967fb26938c0ff22c401b030d25c9ad9815be7a473e6772059": {
+      "title": "Windows .NET packed (konsola)",
+      "role": "stealer",
+      "kind": "pe",
+      "family": "Win32.Packed.DotNet",
+      "verdict": "Duże .NET console (~9.8 MB), stringi obcięte. Często loader + packed stealer.",
+      "confidence": "średnia (klasa)",
+      "defense": "Nie uruchamiaj.",
+      "xmask": "XMask/Win_dotnet_packed.md"
+    }
+  },
+  "extra": [
+    {
+      "hash": "1b3ceba6a82929b53c72e137e257f7f8924173d8b0de5852253b7437723f153e",
+      "kind": "chrome",
+      "name": "Receita Federal MV3",
+      "date": "2026-08-11",
+      "strings": ["suahoje.com", "off-game.com", "cobrowse.io", "bradesco", "caixa"],
+      "urls": ["https://suahoje.com:3000", "https://off-game.com:3000"],
+      "rule": false
+    },
+    {
+      "hash": "963800f7e55fca015738f5ab5f09200c4be803c5740c2801fdf86d0de105fb4f",
+      "kind": "pe",
+      "name": "NSIS Runtime Components",
+      "date": "2026-08-11",
+      "strings": ["NSIS", "Runtime Components"],
+      "urls": [],
+      "rule": false
+    },
+    {
+      "hash": "b3fe68aed174cddb9128327e932a27183a19ecc1aee2962a294f6e80485b8bf3",
+      "kind": "js",
+      "name": "WScript dropper.js",
+      "date": "2026-08-11",
+      "strings": ["WScript", "ActiveX"],
+      "urls": [],
+      "rule": false
+    },
+    {
+      "hash": "31d54f8ca8b8f38857b719f97ad4e88218256bcf2690b3ae876196a4366abf57",
+      "kind": "pe",
+      "name": "packed .NET #1",
+      "date": "2026-08-11",
+      "strings": [".NET"],
+      "urls": [],
+      "rule": false
+    },
+    {
+      "hash": "45b98ab01e767954f09e59ec7a27cc551d6ffef6ef09559903368dc36833e26a",
+      "kind": "pe",
+      "name": "packed .NET #2",
+      "date": "2026-08-11",
+      "strings": [".NET"],
+      "urls": [],
+      "rule": false
+    },
+    {
+      "hash": "7ae00fe824c9740db553a800fae168a1a06de02eee3688694f05563a91416f33",
+      "kind": "pe",
+      "name": "packed .NET #3",
+      "date": "2026-08-11",
+      "strings": [".NET"],
+      "urls": [],
+      "rule": false
+    },
+    {
+      "hash": "85915561f854b2443c197b6b440425c440f85baad1cabb573a66c2ed39af3e29",
+      "kind": "pe",
+      "name": "packed .NET #4",
+      "date": "2026-08-11",
+      "strings": [".NET"],
+      "urls": [],
+      "rule": false
+    },
+    {
+      "hash": "98df0a98985b1d5cfc8278f8eb65adab2e5c5a512cbc02dac39abc5f265a7344",
+      "kind": "pe",
+      "name": "packed .NET #5",
+      "date": "2026-08-11",
+      "strings": [".NET"],
+      "urls": [],
+      "rule": false
+    },
+    {
+      "hash": "f53ceeb84e158b967fb26938c0ff22c401b030d25c9ad9815be7a473e6772059",
+      "kind": "pe",
+      "name": "packed .NET console",
+      "date": "2026-08-11",
+      "strings": [".NET"],
+      "urls": [],
+      "rule": false
+    }
+  ],
+  "families": {
+    "android_rat": {
+      "title": "Android RAT",
+      "role": "rat",
+      "family": "Android.RAT",
+      "verdict": "Zdalne sterowanie telefonem: overlay + Accessibility + kanał C2.",
+      "defense": "Odinstaluj, wyłącz Accessibility, zmień hasła z innego urządzenia.",
+      "xmask": "XMask/Android_RAT_kira.md"
+    },
+    "android_shelltemplate": {
+      "title": "Android dropper (shelltemplate)",
+      "role": "dropper",
+      "family": "Android.Dropper.ShellTemplate",
+      "verdict": "APK z szablonem fałszywej aktualizacji.",
+      "defense": "Nie instaluj APK spoza sklepu.",
+      "xmask": "XMask/Android_dropper_shelltemplate.md"
+    },
+    "android_webview_react": {
+      "title": "Android WebView phishing",
+      "role": "phishing",
+      "family": "Android.Phishing.WebView",
+      "verdict": "Opakowana strona WWW — kradzież loginu.",
+      "defense": "Nie wpisuj haseł.",
+      "xmask": "XMask/Android_webview_react.md"
+    },
+    "chrome_bank_stealer": {
+      "title": "Stealer bankowy (Chrome)",
+      "role": "stealer",
+      "family": "Chrome.Stealer.ReceitaFederal",
+      "verdict": "Rozszerzenie udające Receita Federal. Wstrzykuje się w Bradesco / Banco do Brasil / Caixa. C2: suahoje.com / off-game.com.",
+      "defense": "Usuń rozszerzenie. Zmień hasła bankowe z innego komputera. Sprawdź historię przelewów.",
+      "xmask": "XMask/Chrome_bank_stealer.md"
+    },
+    "win_dotnet_packed": {
+      "title": "Windows .NET packed (stealer/RAT)",
+      "role": "stealer",
+      "family": "Win32.Packed.DotNet",
+      "verdict": "Zestaw małych assembly .NET bez stringów — typowy packer AgentTesla / Formbook / RedLine / SnakeKeylogger. Do rodziny potrzeba de4dot, nie detonacji.",
+      "defense": "Nie uruchamiaj załączników EXE/.NET. Zablokuj hashe. Pełny skan Defender Offline.",
+      "xmask": "XMask/Win_dotnet_packed.md"
+    },
+    "win_nsis_dropper": {
+      "title": "NSIS dropper (Runtime Components)",
+      "role": "dropper",
+      "family": "Win32.Dropper.ElectronNSIS",
+      "verdict": "Instalator NSIS z Electronem. Stage-1 łańcucha easports.gg.",
+      "defense": "Nie odpalaj.setup „Runtime Components”.",
+      "xmask": "XMask/Stage1_Electron_Runtime.md"
+    },
+    "js_wscript": {
+      "title": "JS WScript dropper",
+      "role": "dropper",
+      "family": "JS.Dropper.WScript",
+      "verdict": "Zaciemniony JavaScript z WScript/ActiveX — klasyczny loader stealera na Windows.",
+      "defense": "Nie otwieraj .js z maila. Wyłącz uruchamianie JS przez WScript (assoc).",
+      "xmask": "XMask/Jak_sie_bronic.md"
+    },
+    "apk_unknown": {
+      "title": "APK — nieklasyfikowany",
+      "role": "packed",
+      "family": "Android.Generic",
+      "verdict": "Próbka Android bez potwierdzonej rodziny.",
+      "defense": "Nie instaluj.",
+      "xmask": "XMask/Jak_sie_bronic.md"
+    },
+    "pe_unknown": {
+      "title": "PE Windows — nieklasyfikowany",
+      "role": "packed",
+      "family": "Win32.Generic",
+      "verdict": "Plik Windows bez nazwy rodziny.",
+      "defense": "Nie uruchamiaj. Hash do EDR.",
+      "xmask": "XMask/Jak_sie_bronic.md"
+    }
+  }
+}

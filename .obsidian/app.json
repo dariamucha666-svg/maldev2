@@ -1,0 +1,13 @@
+{
+  "legacyEditor": false,
+  "livePreview": true,
+  "alwaysUpdateLinks": true,
+  "newFileLocation": "folder",
+  "newFileFolderPath": "Inbox",
+  "attachmentFolderPath": "Screenshots",
+  "showUnsupportedFiles": true,
+  "strictLineBreaks": false,
+  "readableLineLength": false,
+  "defaultViewMode": "preview",
+  "promptDelete": true
+}

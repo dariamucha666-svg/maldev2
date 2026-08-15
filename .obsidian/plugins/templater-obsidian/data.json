@@ -1,0 +1,34 @@
+{
+  "templates_folder": "_Templates",
+  "trigger_on_file_creation": true,
+  "auto_jump_to_cursor": true,
+  "enable_system_commands": false,
+  "shell_path": "",
+  "user_scripts_folder": "",
+  "enable_folder_templates": true,
+  "folder_templates": [
+    {
+      "folder": "Analizy/Malware",
+      "template": "_Templates/Analiza_Malware.md"
+    },
+    {
+      "folder": "Analizy/IOC",
+      "template": "_Templates/IOC.md"
+    },
+    {
+      "folder": "Daily",
+      "template": "_Templates/Dziennik_Lab.md"
+    },
+    {
+      "folder": "Projekty",
+      "template": "_Templates/Projekt.md"
+    }
+  ],
+  "syntax_highlighting": true,
+  "syntax_highlighting_mobile": false,
+  "enabled_templates_hotkeys": [
+    "_Templates/Analiza_Malware.md"
+  ],
+  "startup_templates": [],
+  "enable_ribbon_icon": true
+}

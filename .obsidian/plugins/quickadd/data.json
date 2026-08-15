@@ -1,0 +1,72 @@
+{
+  "choices": [
+    {
+      "id": "qa-analiza-malware",
+      "name": "Nowa analiza malware",
+      "type": "Template",
+      "command": true,
+      "templatePath": "_Templates/Analiza_Malware.md",
+      "fileNameFormat": { "enabled": true, "format": "{{VALUE:nazwa}}" },
+      "folder": {
+        "enabled": true,
+        "folders": ["Analizy/Malware"],
+        "chooseWhenCreatingNote": false,
+        "createInSameFolderAsActiveFile": false,
+        "chooseFromSubfolders": false
+      },
+      "appendLink": false,
+      "incrementFileName": true,
+      "openFile": true,
+      "fileExistsMode": "Increment the file name"
+    },
+    {
+      "id": "qa-ioc",
+      "name": "Nowy IOC",
+      "type": "Template",
+      "command": true,
+      "templatePath": "_Templates/IOC.md",
+      "fileNameFormat": { "enabled": true, "format": "{{VALUE:hash}}" },
+      "folder": {
+        "enabled": true,
+        "folders": ["Analizy/IOC"],
+        "chooseWhenCreatingNote": false,
+        "createInSameFolderAsActiveFile": false,
+        "chooseFromSubfolders": false
+      },
+      "appendLink": false,
+      "incrementFileName": true,
+      "openFile": true,
+      "fileExistsMode": "Increment the file name"
+    },
+    {
+      "id": "qa-projekt",
+      "name": "Nowy projekt",
+      "type": "Template",
+      "command": true,
+      "templatePath": "_Templates/Projekt.md",
+      "fileNameFormat": { "enabled": true, "format": "{{VALUE:nazwa}}" },
+      "folder": {
+        "enabled": true,
+        "folders": ["Projekty"],
+        "chooseWhenCreatingNote": true,
+        "createInSameFolderAsActiveFile": false,
+        "chooseFromSubfolders": true
+      },
+      "appendLink": false,
+      "incrementFileName": true,
+      "openFile": true,
+      "fileExistsMode": "Increment the file name"
+    }
+  ],
+  "inputPrompt": "single-line",
+  "devMode": false,
+  "templatePrefix": "Template: ",
+  "announceUpdates": false,
+  "version": "2.22.0",
+  "globalVariables": {},
+  "onePageInputEnabled": true,
+  "disableOnlineFeatures": true,
+  "enableRibbonIcon": true,
+  "showCaptureNotification": true,
+  "showInputCancellationNotification": false
+}

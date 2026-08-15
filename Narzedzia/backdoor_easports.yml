@@ -1,0 +1,105 @@
+title: Backdoor EASports – Local User Created
+id: 7c3a1b90-5e2f-4d11-9c4a-18e0b2d4a101
+status: experimental
+description: >
+  Tworzenie lokalnego konta (Security 4720). W tym sample resolver ładuje
+  NetUserAdd — to pierwszy człon sekwencji konto + Run key.
+references:
+  - sha256:178cb931cc846c4ac7bbf2370259e8b9f7d8a45459974115818b5c1e608533c4
+author: lab
+date: 2026-08-14
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4720
+  condition: selection
+falsepositives:
+  - Legalne zakładanie kont przez helpdesk / provisioning
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1136.001
+
+---
+title: Backdoor EASports – Autostart Run Key Modified
+id: 7c3a1b90-5e2f-4d11-9c4a-18e0b2d4a102
+status: experimental
+description: >
+  Modyfikacja klucza autostartu Run (Security 4657). Wymaga auditowania
+  Object Access na rejestrze — bez SACL to zdarzenie zwykle nie spadnie.
+  Węższy filtr niż samo 'Run' (unikamy RuntimeBroker itd.).
+references:
+  - sha256:178cb931cc846c4ac7bbf2370259e8b9f7d8a45459974115818b5c1e608533c4
+author: lab
+date: 2026-08-14
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4657
+    ObjectName|contains:
+      - '\CurrentVersion\Run'
+      - '\CurrentVersion\RunOnce'
+  condition: selection
+falsepositives:
+  - Instalatory, które legalnie dopisują się do Run
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1547.001
+
+---
+title: Backdoor EASports – Run Key Modified (Sysmon)
+id: 7c3a1b90-5e2f-4d11-9c4a-18e0b2d4a103
+status: experimental
+description: >
+  To samo co 4657, ale przez Sysmon Event 13 — praktyczniejsze, bo 4657
+  bez SACL na HKLM\...\Run nie istnieje.
+author: lab
+date: 2026-08-14
+logsource:
+  product: windows
+  service: sysmon
+  category: registry_set
+detection:
+  selection:
+    EventID: 13
+    TargetObject|contains:
+      - '\CurrentVersion\Run'
+      - '\CurrentVersion\RunOnce'
+  condition: selection
+falsepositives:
+  - Instalatory, które legalnie dopisują się do Run
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1547.001
+
+---
+title: Backdoor EASports – NetUserAdd + RegSetValueExW
+id: 7c3a1b90-5e2f-4d11-9c4a-18e0b2d4a104
+status: experimental
+description: >
+  Korelacja czasowa: utworzenie konta (4720) i zapis do Run w oknie 15 min
+  na tym samym hoście. Nie da się tego zapisać jako
+  `EventID 4720 and EventID 4657` w jednym evencie — to dwa logi.
+author: lab
+date: 2026-08-14
+correlation:
+  type: temporal
+  rules:
+    - Backdoor EASports – Local User Created
+    - Backdoor EASports – Autostart Run Key Modified
+  group-by:
+    - Computer
+  timespan: 15m
+  condition:
+    gte: 2
+level: high
+tags:
+  - attack.persistence
+  - attack.t1136.001
+  - attack.t1547.001

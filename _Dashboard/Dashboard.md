@@ -1,0 +1,64 @@
+---
+title: "Centrum Operacyjne"
+date: 2026-08-15
+tags: [dashboard, index]
+status: active
+priority: high
+cssclasses: [dashboard]
+---
+
+# 🧠 Centrum Operacyjne
+
+Szybki start: [[QuickStart]] · indeks: [[Home]] · zadania: [[Backlog]] · kanban: [[Kanban]]
+
+## 📋 Aktywne projekty
+
+```dataview
+TABLE status, priority, category
+FROM #projekt AND !"Projekty/Zakończone" AND !"\_Templates"
+SORT file.mtime DESC
+```
+
+## 🦠 Ostatnie analizy malware
+
+```dataview
+TABLE date, status, hash, category
+FROM #malware AND !"\_Templates"
+SORT date DESC
+LIMIT 10
+```
+
+## 🧷 IOC
+
+```dataview
+TABLE date, hash, status
+FROM #ioc AND !"\_Templates"
+SORT date DESC
+LIMIT 10
+```
+
+## ✅ Zadania do zrobienia
+
+```tasks
+not done
+short mode
+```
+
+## 📅 Dzienniki
+
+```dataview
+LIST
+FROM "Daily"
+SORT file.name DESC
+LIMIT 7
+```
+
+## 📂 Mapa vaultu
+
+- [[Home]] — spis całej bazy
+- [[QuickStart]] — najczęściej używane
+- [[Backlog]] — lista zadań
+- [[Kanban]] — tablica przepływu
+- [[Obsidian/Plugins]] — wtyczki
+- [[Obsidian_Workflow]] — jak pisać
+- [[Obsidian_Auto_Log]] — logi z `.133`

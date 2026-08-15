@@ -1,0 +1,12 @@
+.trash/
+.smart-env/
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+Logs/terminal_*.log
+Logs/sliver_*.log
+Logs/pipeline_*.log
+*.exe
+*.apk
+*.dll
+*.bin

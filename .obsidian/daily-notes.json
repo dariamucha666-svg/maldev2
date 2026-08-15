@@ -1,0 +1,6 @@
+{
+  "folder": "Daily",
+  "format": "YYYY-MM-DD",
+  "template": "_Templates/Dziennik_Lab",
+  "autorun": false
+}
