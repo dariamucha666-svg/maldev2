@@ -96,6 +96,29 @@ Brak publicznego repo (kampania). Z publicznej wiedzy:
 4. **Exfil**: socket / Telegram Bot API / `Invoke-WebRequest`.
 5. **Zabijanie procesu**: `taskkill Telegram.exe` (odblokowanie sesji).
 
+## Dynamiczna analiza — payload TeleKiller (15.08)
+
+### Wyekstrahowany payload (wstrzykiwany na ofiarę)
+
+- **hash (payload.py)**: `cab953de2399f51159f79027e4a4b2dd1c776781d77ddd89a6a5716cc9e432a7`
+- **size**: 15 100 B · Python 2 (pywin32 + pyHook)
+- **stringi**: `.send(` (20×), `tdata` (5×), `.recv(` (5×), `make_archive`, `Telegram Desktop`,
+  `HookManager`, `GetClipboardData`, `taskkill`, `socket()`, `connect`.
+
+### Protokół C2 (z kodu + przechwycone tsharkiem)
+
+```
+VICTIM ──connect──▶ C2 (socket)
+VICTIM ──▶ hostname, OS, users          (recon — przechwycone: "VICTIM-PC", "Windows 10 Pro")
+C2 ──▶ komendy: tdata | shell | keylo | close
+VICTIM ──▶ tdata.tar.bz2 (klucze sesji) + marker "pishmarg"
+```
+
+- `tdata` → `taskkill Telegram.exe` + `make_archive(tdata)` → exfil sesji.
+- `shell` → reverse shell (cmd.exe przez socket).
+- `keylo` → pyHook keylogger + clipboard.
+- `close` → exit.
+
 ## Reguły detekcji
 
 YARA → `/root/android-pipeline/tools/yara-rules/custom/telegram_stealer.yar`.
