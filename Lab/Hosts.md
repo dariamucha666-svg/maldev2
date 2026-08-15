@@ -38,6 +38,8 @@ Zrzut panelu na pulpicie `.133`: `acerdp-my-servers.png` (bez kolumny IP, bez da
 
 - narzędzia: systemowe (`yara`, `binwalk`, `tshark`, `inetsim`, `r2`, `vol`)
 - OSINT toolkit: [[Narzedzia/OSINT_Toolkit]] — Recon-ng, amass, subfinder, nuclei, httpx, theHarvester, SpiderFoot, sherlock
+- Phishing lab: [[Lab/Phishing_Sim_Lab]] — GoPhish (service `gophish`), SET (`/opt/set`)
+- .NET RE: `monodis` (mono-utils)
 - SSH: klucz z `.133` (id_ed25519, bez hasła)
 
 **.57**
