@@ -1,19 +1,25 @@
 ---
-tags: [xmask, channel, windows, stealer]
+tags: [xmask, channel, windows, stealer, rat, nanocore]
 channel: true
-updated: 2026-08-14
+updated: 2026-08-15
 ---
 
-🪟 XMask | Alert — załącznik .NET (stealer / RAT)
+🪟 XMask | Alert — załączniki .NET (NanoCore + loadery)
 
 Co to za wirus?
-Małe programy Windows napisane w .NET, bez czytelnych napisów w środku. Tak pakuje się kradzież haseł z przeglądarki, Discorda, portfeli (klasa AgentTesla / Formbook / RedLine).
+W naszym korpusie jest **sześć** małych/średnich EXE w .NET. Trzy z nich to ten sam szczep **NanoCore** — stary, ale wciąż używany RAT (zdalny pulpit, pliki, czasem kamera). W pliku widać napis „NanoCore Client.exe”; właściwy adres serwera jest schowany w zasobach.
 
-Wyglądają jak „faktura.exe”, „CV.exe”, „update.exe”.
+Pozostałe:
+• stub udający aktualizację (pomieszane nazwy: Audacity, Lightroom, XAMPP…)
+• `system32.exe` z obsługą kamery
+• duży „Loader” (~10 MB, prawie cały zaszyfrowany)
+
+Wyglądają jak faktura.exe / update.exe / crack.
 
 Jak się bronić?
-• Nie otwieraj EXE / ISO / JS z maila ani z Telegrama.
-• Windows pokazuje „nieznany wydawca” — to nie jest aktualizacja.
-• Jeśli odpaliłeś: odłącz internet, nie loguj się do banku z tej maszyny, Defender Offline + zmiana haseł z czystego sprzętu.
+• Nie otwieraj EXE z maila, Discorda, Telegrama, „cracków”.
+• Windows: nieznany wydawca + .NET = nie klikaj.
+• Jeśli odpaliłeś: odłącz sieć, Defender Offline, hasła z czystego sprzętu.
+• Hashe do zablokowania są w labie (trzy NanoCore + trzy loadery).
 
-#XMask #Windows #stealer
+#XMask #Windows #NanoCore #RAT

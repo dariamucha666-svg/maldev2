@@ -1,7 +1,7 @@
 ---
 title: "Sliver sessions"
 date: 2026-08-15
-updated: 2026-08-15T00:30:05Z
+updated: 2026-08-15T00:36:33Z
 tags: [sliver, c2, sessions, auto]
 status: active
 category: infra
@@ -9,7 +9,7 @@ category: infra
 
 # Sliver — sesje i beacon'y
 
-Wygenerowane: `2026-08-15T00:30:05Z` (auto, nie ręcznie z konsoli).
+Wygenerowane: `2026-08-15T00:36:33Z` (auto, nie ręcznie z konsoli).
 
 Sliver **nie ma** `sessions --save`. Eksport: `Narzedzia/export_sliver_to_obsidian.sh`.
 
@@ -19,23 +19,23 @@ Sliver **nie ma** `sessions --save`. Eksport: `Narzedzia/export_sliver_to_obsidi
 Connecting to 127.0.0.1:31337 ...
  ID         Name                   Transport   Remote Address                        Hostname        Username        Process (PID)                                  Integrity   Operating System   Locale   Last Message                                   Health 
 ========== ====================== =========== ===================================== =============== =============== ============================================== =========== ================== ======== ============================================== ========
- 3cb3f905   SEPARATE_CONCLUSION    http(s)     tcp(127.0.0.1:59476)->5.175.189.139   WINLAB          Administrator   C:\Windows\Explorer.EXE (4032)                 -           windows/amd64      en-US    Thu Aug 13 01:19:37 UTC 2026 (47h10m29s ago)   [DEAD] 
- 3ffaa554   SIMPLE_BIRTHDAY        http(s)     tcp(127.0.0.1:41738)->5.175.189.139   vserver580088   root            /root/payload_linux (42170)                    -           linux/amd64        C        Wed Aug 12 15:57:10 UTC 2026 (56h32m56s ago)   [DEAD] 
- 4396e80d   SEPARATE_CONCLUSION    http(s)     tcp(127.0.0.1:55750)->5.175.189.139   WINLAB          Administrator   C:\Users\Public\p.exe (1212)                   -           windows/amd64      en-US    Wed Aug 12 21:18:33 UTC 2026 (51h11m33s ago)   [DEAD] 
- 514150c7   SMOOTH_TARGET          http(s)     tcp(127.0.0.1:41738)->5.175.189.139   vserver580088   root            /root/payload_linux_debug (42713)              -           linux/amd64        C        Wed Aug 12 15:57:09 UTC 2026 (56h32m57s ago)   [DEAD] 
- 56374b2a   SEPARATE_CONCLUSION    http(s)     tcp(127.0.0.1:46188)->5.175.189.139   WINLAB          Administrator   C:\Windows\Explorer.EXE (4032)                 -           windows/amd64      en-US    Thu Aug 13 01:19:37 UTC 2026 (47h10m29s ago)   [DEAD] 
- 5fd8984b   FIT_MINOR-LEAGUE       http(s)     tcp(127.0.0.1:54718)->5.175.189.139   WINLAB          Administrator   C:\Users\Public\p.exe (1212)                   -           windows/amd64      en-US    Wed Aug 12 15:57:09 UTC 2026 (56h32m57s ago)   [DEAD] 
- 752cfecc   SMOOTH_TARGET          http(s)     tcp(127.0.0.1:41738)->5.175.189.139   vserver580088   root            /root/payload_linux_debug (42375)              -           linux/amd64        C        Wed Aug 12 15:57:08 UTC 2026 (56h32m58s ago)   [DEAD] 
- 7d9121b9   SIMPLE_BIRTHDAY        http(s)     tcp(127.0.0.1:36376)->5.175.189.139   vserver580088   root            /root/payload_linux (42170)                    -           linux/amd64        C        Thu Aug 13 01:19:38 UTC 2026 (47h10m28s ago)   [DEAD] 
- ac7aee00   SMOOTH_TARGET          http(s)     tcp(127.0.0.1:36376)->5.175.189.139   vserver580088   root            /root/payload_linux_debug (42713)              -           linux/amd64        C        Thu Aug 13 01:13:54 UTC 2026 (47h16m12s ago)   [DEAD] 
- be61ae84   SMOOTH_TARGET          http(s)     tcp(127.0.0.1:36382)->5.175.189.139   vserver580088   root            /root/payload_linux_debug (42375)              -           linux/amd64        C        Thu Aug 13 01:13:17 UTC 2026 (47h16m49s ago)   [DEAD] 
- c0e249f8   MARVELLOUS_AUTOMATON   http(s)     tcp(127.0.0.1:42698)->5.175.189.139   WINLAB          Administrator   C:\Windows\System32\RuntimeBroker.exe (4292)   -           windows/amd64      en-US    Thu Aug 13 01:19:37 UTC 2026 (47h10m29s ago)   [DEAD] 
- e0606627   WILD_HABIT             http(s)     tcp(127.0.0.1:40942)->5.175.189.139   WINLAB          Administrator   C:\Users\Public\fb1.exe (5608)                 -           windows/amd64      en-US    Wed Aug 12 21:18:32 UTC 2026 (51h11m34s ago)   [DEAD] 
- f650c1ad   SEPARATE_CONCLUSION    http(s)     tcp(127.0.0.1:56130)->5.175.189.139   WINLAB          Administrator   C:\Windows\Explorer.EXE (4032)                 -           windows/amd64      en-US    Thu Aug 13 01:19:37 UTC 2026 (47h10m29s ago)   [DEAD] 
- fe76ef79   FIT_MINOR-LEAGUE       http(s)     tcp(127.0.0.1:36434)->5.175.189.139   WINLAB          Administrator   C:\Users\Public\p.exe (1212)                   -           windows/amd64      en-US    Wed Aug 12 21:18:33 UTC 2026 (51h11m33s ago)   [DEAD] 
+ 3cb3f905   SEPARATE_CONCLUSION    http(s)     tcp(127.0.0.1:59476)->5.175.189.139   WINLAB          Administrator   C:\Windows\Explorer.EXE (4032)                 -           windows/amd64      en-US    Thu Aug 13 01:19:37 UTC 2026 (47h16m56s ago)   [DEAD] 
+ 3ffaa554   SIMPLE_BIRTHDAY        http(s)     tcp(127.0.0.1:41738)->5.175.189.139   vserver580088   root            /root/payload_linux (42170)                    -           linux/amd64        C        Wed Aug 12 15:57:10 UTC 2026 (56h39m23s ago)   [DEAD] 
+ 4396e80d   SEPARATE_CONCLUSION    http(s)     tcp(127.0.0.1:55750)->5.175.189.139   WINLAB          Administrator   C:\Users\Public\p.exe (1212)                   -           windows/amd64      en-US    Wed Aug 12 21:18:33 UTC 2026 (51h18m0s ago)    [DEAD] 
+ 514150c7   SMOOTH_TARGET          http(s)     tcp(127.0.0.1:41738)->5.175.189.139   vserver580088   root            /root/payload_linux_debug (42713)              -           linux/amd64        C        Wed Aug 12 15:57:09 UTC 2026 (56h39m24s ago)   [DEAD] 
+ 56374b2a   SEPARATE_CONCLUSION    http(s)     tcp(127.0.0.1:46188)->5.175.189.139   WINLAB          Administrator   C:\Windows\Explorer.EXE (4032)                 -           windows/amd64      en-US    Thu Aug 13 01:19:37 UTC 2026 (47h16m56s ago)   [DEAD] 
+ 5fd8984b   FIT_MINOR-LEAGUE       http(s)     tcp(127.0.0.1:54718)->5.175.189.139   WINLAB          Administrator   C:\Users\Public\p.exe (1212)                   -           windows/amd64      en-US    Wed Aug 12 15:57:09 UTC 2026 (56h39m24s ago)   [DEAD] 
+ 752cfecc   SMOOTH_TARGET          http(s)     tcp(127.0.0.1:41738)->5.175.189.139   vserver580088   root            /root/payload_linux_debug (42375)              -           linux/amd64        C        Wed Aug 12 15:57:08 UTC 2026 (56h39m25s ago)   [DEAD] 
+ 7d9121b9   SIMPLE_BIRTHDAY        http(s)     tcp(127.0.0.1:36376)->5.175.189.139   vserver580088   root            /root/payload_linux (42170)                    -           linux/amd64        C        Thu Aug 13 01:19:38 UTC 2026 (47h16m55s ago)   [DEAD] 
+ ac7aee00   SMOOTH_TARGET          http(s)     tcp(127.0.0.1:36376)->5.175.189.139   vserver580088   root            /root/payload_linux_debug (42713)              -           linux/amd64        C        Thu Aug 13 01:13:54 UTC 2026 (47h22m39s ago)   [DEAD] 
+ be61ae84   SMOOTH_TARGET          http(s)     tcp(127.0.0.1:36382)->5.175.189.139   vserver580088   root            /root/payload_linux_debug (42375)              -           linux/amd64        C        Thu Aug 13 01:13:17 UTC 2026 (47h23m16s ago)   [DEAD] 
+ c0e249f8   MARVELLOUS_AUTOMATON   http(s)     tcp(127.0.0.1:42698)->5.175.189.139   WINLAB          Administrator   C:\Windows\System32\RuntimeBroker.exe (4292)   -           windows/amd64      en-US    Thu Aug 13 01:19:37 UTC 2026 (47h16m56s ago)   [DEAD] 
+ e0606627   WILD_HABIT             http(s)     tcp(127.0.0.1:40942)->5.175.189.139   WINLAB          Administrator   C:\Users\Public\fb1.exe (5608)                 -           windows/amd64      en-US    Wed Aug 12 21:18:32 UTC 2026 (51h18m1s ago)    [DEAD] 
+ f650c1ad   SEPARATE_CONCLUSION    http(s)     tcp(127.0.0.1:56130)->5.175.189.139   WINLAB          Administrator   C:\Windows\Explorer.EXE (4032)                 -           windows/amd64      en-US    Thu Aug 13 01:19:37 UTC 2026 (47h16m56s ago)   [DEAD] 
+ fe76ef79   FIT_MINOR-LEAGUE       http(s)     tcp(127.0.0.1:36434)->5.175.189.139   WINLAB          Administrator   C:\Users\Public\p.exe (1212)                   -           windows/amd64      en-US    Wed Aug 12 21:18:33 UTC 2026 (51h18m0s ago)    [DEAD] 
  ID         Name                      Tasks   Transport   Remote Address                        Hostname   Username        Process (PID)                                              Integrity   Operating System   Locale   Last Check-In                                  Next Check-In                                
 ========== ========================= ======= =========== ===================================== ========== =============== ========================================================== =========== ================== ======== ============================================== ==============================================
- fc609c70   MATHEMATICAL_MAYONNAISE   0/0     http(s)     tcp(127.0.0.1:47848)->5.175.189.139   WINLAB     Administrator   C:\Windows\system32\UsersPublicbeacon_windows.exe (2196)   -           windows/amd64      en-US    Wed Aug 12 21:17:36 UTC 2026 (51h12m30s ago)   Wed Aug 12 21:18:46 UTC 2026 (51h11m20s ago) 
+ fc609c70   MATHEMATICAL_MAYONNAISE   0/0     http(s)     tcp(127.0.0.1:47848)->5.175.189.139   WINLAB     Administrator   C:\Windows\system32\UsersPublicbeacon_windows.exe (2196)   -           windows/amd64      en-US    Wed Aug 12 21:17:36 UTC 2026 (51h18m57s ago)   Wed Aug 12 21:18:46 UTC 2026 (51h17m47s ago) 
  ID   Name    Protocol   Port   Domains 
 ==== ======= ========== ====== =========
  1    https   tcp        443            

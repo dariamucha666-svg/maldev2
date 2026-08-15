@@ -1,26 +1,32 @@
 ---
-tags: [xmask, channel, android, rat]
+tags: [xmask, channel, android, rat, lab]
 channel: true
-updated: 2026-08-14
+updated: 2026-08-15
+sha256: 410a5cbaabc1cdee003ac2fd1d6c1ca8b58c9eb75cd7c671dfa163653b5ae712
 ---
 
-🐀 XMask | Alert — Android RAT
+🐀 XMask | Analiza — „kira.malware” (lab APK, nie kampania)
 
-Co to za wirus?
-To nie „zwykła apka”. To RAT — ktoś może zdalnie sterować telefonem.
+Co to jest?
+Hash z naszego pipeline (410a5cba…) to publiczny zestaw szkoleniowy Ivana Sinceka: malware-apk. Pakiet nazywa się wprost com.kira.malware, na ekranie jest „Malware APK”.
 
-W tej próbce pakiet nazywa się wprost com.kira.malware. Włącza:
-• nakładki na inne okna (fałszywy ekran banku)
-• Accessibility (czyta co klikasz i co jest na ekranie)
-• podgląd powiadomień (kody SMS/2FA)
-• ukryte okno + kanał WebSocket do operatora
+To nie jest cichy wirus z maila. To apka-laboratorium, która POKAZUJE prawdziwe sztuczki RAT-a:
+• Accessibility — czyta tekst z okien innych aplikacji
+• nakładka (overlay) — okno nad innymi apkami
+• podgląd powiadomień — stąd biorą się kody 2FA
+• schowek, enumeracja pakietów, HTTP z formularza
 
-Jak się bronić?
-• Nie instaluj APK spoza Google Play.
-• Ustawienia → Accessibility — wyłącz nieznane usługi.
-• Ustawienia → Aplikacje specjalne → nakładki — zabierz zgodę.
-• Już zainstalowane: odinstaluj, zmień hasła banku/maila z INNEGO telefonu, sprawdź czy 2FA nie poszło w powiadomieniu.
+Nie ma zaszytego adresu C2. WebSocket w skanerze to biblioteka OkHttp, nie tunel do operatora.
 
-Nie wysyłaj nam APK na grupę — wystarczy hash.
+Dlaczego to i tak ważne?
+Bo dokładnie tak samo wygląda „prawdziwy” Android RAT — tylko bez przycisków i z ukrytą ikoną. Jak ktoś prosi o Accessibility + nakładki, to jest ten sam wzorzec.
 
-#XMask #Android #RAT
+Jak się bronić (prawdziwe RAT-y, nie ten lab):
+• Nie instaluj APK spoza sklepu.
+• Accessibility tylko dla apki, której ufasz (np. menedżer haseł, nie „wygaszacz”).
+• Zabierz zgodę na „wyświetlanie nad innymi aplikacjami”.
+• Podejrzenie: odinstaluj, zmień hasła banku z innego telefonu.
+
+Ten konkretny hash: nie traktuj jako IoC kampanii. To znany projekt MIT na GitHubie.
+
+#XMask #Android #RAT #lab

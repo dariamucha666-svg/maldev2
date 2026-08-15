@@ -21,7 +21,25 @@ Powiązane: [[Dashboard]] · [[Daily/2026-08-15]] · [[Daily/2026-08-14]] · [[L
 - [[Klasyfikacja_Korpus]] — tabela „co to oznacza” (RAT 1, backdoor 1, stealer 4+, dropper 5+, packed 3+, cryptojacker 0).
 - Karty: [[410a5cba Android RAT kira]], [[4d0f7a96 Android SMS stealer avanegar]], [[a710209e Android NFC skimmer]], [[1b3ceba6 Chrome bank stealer]].
 - `classify_roles.py` w `pipeline.sh` po auto-YARA — raporty JSON dostają `tags` + `classification.role`.
-- Next RE: kira **albo** Chrome MV3. Static only.
+- Next RE: de4dot na NanoCore (offline) albo native packed APK.
+
+### Static RE — kira
+
+- `410a5cba` = [ivan-sincek/malware-apk](https://github.com/ivan-sincek/malware-apk) v5.5, lab/PoC, nie kampania.
+- Techniki RAT są prawdziwe (a11y + overlay + notifications), C2 nie jest zaszyte.
+- [[410a5cba Android RAT kira]]
+
+### Static RE — Chrome MV3 Receita Federal
+
+- `1b3ceba6` = stealer bankowy, nie lab.
+- Socket.IO `ws.servpopads.com`; config `servpopads.com`; manifest: `suahoje.com:3000`, `off-game.com:3000`, Cobrowse, update `serpopwin.com`.
+- Inputy + cookies + screenshot + fałszywe modale token/QR + ukryty pulpit sesji.
+- [[1b3ceba6 Chrome bank stealer]] · [[1b3ceba6]]
+
+### Static RE — klaster .NET
+
+- 3× NanoCore (`NanoCore Client.exe`), 1× Loader 9.8 MB, 1× NursultanCrack, 1× system32+webcam.
+- [[DotNet_cluster]] · YARA `nanocore_client.yar`
 
 ## 2026-08-14
 
