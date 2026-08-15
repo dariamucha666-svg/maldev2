@@ -1,7 +1,7 @@
 ---
 title: "Pipeline Status"
 date: 2026-08-14
-updated: 2026-08-15
+updated: 2026-08-15T09:00
 tags: [pipeline, lab, projekt]
 status: in_progress
 priority: medium
@@ -74,3 +74,13 @@ Werdykt: [[Klasyfikacja_Korpus]] · hook: [[Role_Tags]]
 - [[Daily/2026-08-14]]
 - [[Dziennik_Lab]]
 - [[Analizy/Malware/178cb931 Precision Agriculture Go PE]]
+
+
+## 15.08 wieczór — nightly / export
+
+- `classify_roles.py` **było** w `pipeline.sh` (log 02:12). Nightly teraz woła je **jeszcze raz zawsze**, też gdy brak APK (zostają same PE).
+- Usunięty zdublowany cron: zostaje tylko `/etc/cron.d/nightly-pipeline` (user crontab już nie odpala nightly drugi raz).
+- `export_pipeline_to_obsidian.sh` pisze krótki `Analizy/Raporty/analiza_*.md` (tabela ról + daily), nie skleja wszystkich historycznych MD.
+- Przykład: [[analiza_2026-08-15_08-59]] — 33 próbki: dropper 12, packed 11, rat 5, phishing 2, stealer 2, backdoor 1.
+
+Recap: [[Lab/Recap 2026-08-15]]

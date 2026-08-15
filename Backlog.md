@@ -14,7 +14,7 @@ priority: high
 
 - [ ] Static RE `kira` (Accessibility / WebSocket) 🔼
 - [ ] Static RE Chrome MV3 bank stealer 🔼
-- [ ] Sprawdzić że nightly woła `classify_roles.py` 📅 2026-08-16
+- [x] Sprawdzić że nightly woła `classify_roles.py` ✅ 2026-08-15 (przez pipeline.sh; nightly woła classify też gdy full skip / tylko PE)
 - [ ] UFW: 31337 i 8443 nie na `*` jeśli multiplayer ma być operatorski 🔼
 
 ## Vault / Obsidian
@@ -27,7 +27,7 @@ priority: high
 ## Pipeline
 
 - [ ] Sigma — jeszcze nie ma (patrz [[Dashboard_IOC]])
-- [ ] Po `pipeline.sh` sprawdzić `Analizy/Raporty/analiza_*.md`
+- [x] Po `pipeline.sh` sprawdzić `Analizy/Raporty/analiza_*.md` ✅ 2026-08-15 — eksport skrócony (role + daily, nie 233 KB dump)
 
 ## Lab
 
