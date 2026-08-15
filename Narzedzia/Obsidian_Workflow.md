@@ -78,7 +78,7 @@ rsync -av --exclude '.trash' \
 
 ## Notatki od razu
 
-Nie czekaj na koniec dnia. Po każdej zmianie w labie (bot, narzędzie, host, werdykt próbki) od razu:
+Nie czekaj na koniec dnia. Po każdej zmianie w labie (bot, narzędzie, host, werdykt próbki, **odpalony Goose / agent w terminalu**) od razu:
 
 1. Dopisz akapit do `Daily/YYYY-MM-DD.md`.
 2. Jeśli to większa sesja — `Lab/Recap YYYY-MM-DD.md`.
@@ -87,3 +87,5 @@ Nie czekaj na koniec dnia. Po każdej zmianie w labie (bot, narzędzie, host, we
 5. Hasła i tokeny **nigdy** do vaultu.
 
 Ostatni recap: [[Lab/Recap 2026-08-15]].
+
+Sesja Goose na `.133`: [[Goose_DeepSeek]].

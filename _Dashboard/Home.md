@@ -24,6 +24,7 @@ Statyczna analiza próbek + osobne notatki infrastruktury. Bez detonacji.
 - [[Hunt_Clipper]] — clipper (brak potwierdzonego w korpusie)
 - [[Hunt_Keylogger]] — keylog: DotNetCam capa + NanoCore / kira a11y
 - [[Lab/Hosts]] — hosty i ścieżki
+- [[Goose_DeepSeek]] — Goose + DeepSeek na `.133` (okno z Kali)
 
 ## Nawigacja
 

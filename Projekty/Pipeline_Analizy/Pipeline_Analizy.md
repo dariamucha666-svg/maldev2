@@ -50,7 +50,10 @@ Symlinki w `/root/`:
 │   ├── analyze_pe.py               # pefile → JSON/MD/HTML (PE)
 │   ├── aggregate_patterns.py       # features.csv + patterns_summary
 │   ├── deep_re_pass.py
-│   └── yara_generator.py           # auto-YARA + iocs.json
+│   ├── yara_generator.py           # auto-YARA + iocs.json
+│   ├── classify_roles.py           # role: rat/stealer/backdoor/…
+│   ├── hunt_phishing_stealer.py
+│   └── enrich_cti.py               # IOC → MalwareBazaar/URLhaus/VT/AbuseIPDB/OTX
 ├── web/
 │   ├── dashboard.html              # IOC UI
 │   ├── serve.py                    # http://127.0.0.1:8766/ + /api/iocs
@@ -91,6 +94,7 @@ Symlinki w `/root/`:
 | `batch_analyze.sh` | Szybki triage (APK i PE) do `output/` |
 | `pipeline.sh` | Pełna analiza z raportami JSON/MD/HTML + CSV wzorców |
 | `nightly_pipeline.sh` | Automatyczne nocne uruchomienie (02:00 UTC) |
+| `enrich_cti.py` | Wzbogacanie IOC z baz wirusów (MalwareBazaar, URLhaus, VirusTotal, AbuseIPDB, OTX) |
 
 ## Obsługiwane formaty
 
@@ -214,6 +218,7 @@ Flaga `--force` jest obsługiwana w `pipeline.sh`; `FORCE=1` też (skip-if-exist
 | `SKIP_NUSANTARA` | 0 | NusantaraScan na native |
 | `KEEP_DECOMPILED` | 1 (nightly: 0) | kasuj apktool output, oszczędza dysk |
 | `SKIP_PE` / `SKIP_APK` | 0 | wyłącz gałąź |
+| `SKIP_CTI` | 0 | pomiń krok CTI enrichment |
 | `MB_TAG` | `apk` | filtr MalwareBazaar |
 | `MB_LIMIT` | 10 (nightly) | ile próbek ściągnąć |
 
@@ -291,6 +296,35 @@ Dashboard: [[Dashboard_IOC]]
 ## Klasyfikacja ról (od 15.08)
 
 Po `generate_auto_yara` pipeline woła `lib/classify_roles.py`. Raport JSON dostaje `tags` (`rat`/`stealer`/`backdoor`/…) i `classification`. Opis: [[Role_Tags]] · wnioski: [[Klasyfikacja_Korpus]].
+
+## CTI enrichment — bazy wirusów (od 15.08)
+
+Po `classify_roles` pipeline woła `lib/enrich_cti.py "$REPORTS_DIR"`. Skrypt zbiera
+IoC (hash / URL / domena / IP / e‑mail) z raportów JSON + `iocs.json` i odpytuje:
+
+| Baza | IoC | Klucz | Bez klucza |
+|------|-----|-------|-----------|
+| MalwareBazaar (abuse.ch) | hash | `MB_API_KEY` / `~/.mb_api_key` | pomijana |
+| URLhaus (abuse.ch) | URL / domena | ten sam klucz abuse.ch | pomijana |
+| VirusTotal | hash | `VT_API_KEY` | pomijana |
+| AbuseIPDB | IP | `ABUSEIPDB_KEY` | pomijana |
+| AlienVault OTX | IP / domena / hash | `OTX_KEY` | pomijana |
+
+Wynik: `/root/samples/reports/cti_enrichment.json` (pełne) + `cti_enrichment.md` (trafienia).
+Klucze dokładaj w `config/secrets.env` (szablon: `secrets.env.example`).
+
+```bash
+source ~/android-pipeline/config/path.sh
+# pełne wzbogacenie istniejących raportów
+python3 ~/android-pipeline/lib/enrich_cti.py /root/samples/reports
+# szybki test (tylko 5 hashów)
+python3 ~/android-pipeline/lib/enrich_cti.py /root/samples/reports --limit 5
+# tylko zbierz IOC (offline)
+python3 ~/android-pipeline/lib/enrich_cti.py /root/samples/reports --offline
+```
+
+Flaga `SKIP_CTI=1` wyłącza ten krok w `pipeline.sh`. Analiza narzędzia OSINT
+(Recon-ng i podobne): [[Narzedzia/Recon_ng_Analiza]].
 
 ## Generator auto-YARA (ręcznie)
 

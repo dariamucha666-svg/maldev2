@@ -32,6 +32,7 @@ Zrzut panelu na pulpicie `.133`: `acerdp-my-servers.png` (bez kolumny IP, bez da
 - vault: `/root/obsidian-vault`
 - bot: `/root/obsidian-telegram-bot`
 - unit: `obsidian-telegram-bot.service`
+- goose: `/root/.local/bin/goose` (sesja `deepseek-vps`, DeepSeek) — [[Goose_DeepSeek]]
 
 **.139**
 

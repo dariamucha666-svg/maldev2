@@ -94,3 +94,14 @@ Recap: [[Lab/Recap 2026-08-15]]
 ## Hunt phishing/stealer (15.08)
 
 `lib/hunt_phishing_stealer.py` + szersze heurystyki. Raport: [[Hunt_Phishing_Stealer]]. YARA: `custom/hunt_stealer_phishing.yar`.
+
+## CTI enrichment — bazy wirusów (15.08)
+
+`lib/enrich_cti.py` po `classify_roles`. Zbiera IOC (hash/URL/domena/IP) z raportów
+i odpytuje zewnętrzne bazy threat-intel:
+
+- **MalwareBazaar** (hash) + **URLhaus** (URL/domena) — klucz abuse.ch (`~/.mb_api_key`, `MB_API_KEY`)
+- **VirusTotal** (hash, `VT_API_KEY`), **AbuseIPDB** (IP, `ABUSEIPDB_KEY`), **AlienVault OTX** (IP/domena/hash, `OTX_KEY`) — opcjonalne
+
+Wynik: `reports/cti_enrichment.json` + `cti_enrichment.md` (trafienia). Klucze w `secrets.env`.
+Flaga `SKIP_CTI=1` wyłącza krok. Analiza narzędzia OSINT: [[Narzedzia/Recon_ng_Analiza]].
