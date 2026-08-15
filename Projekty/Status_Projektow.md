@@ -29,10 +29,10 @@ Ostatnia aktualizacja: 2026-08-15 (automatycznie + ręcznie).
 
 | Projekt | Problem | Co zrobić |
 |---------|---------|-----------|
-| `tools/detection/*.rules` + `.zeek` | osierocone (niepodpięte do pipeline) | podpiąć do nightly albo usunąć |
-| `dashboard.html` (42 KB) | nieużywany | usunąć albo podpiąć |
+| ~~`tools/detection/*.rules` + `.zeek`~~ | ✅ udokumentowane (README) | IDS .139 |
+| ~~`dashboard.html`~~ | ✅ usunięty | — |
+| ~~Pliki `.bak*`~~ | ✅ usunięte | — |
 | `tools/ghidra` / `tools/Malware-Analyzer` | brak (opcjonalne) | `install.sh` albo udokumentować |
-| Pliki `.bak*` (6+) | śmieci po optymalizacji | usunąć |
 | Refog/Spyrix | brak binarki | czeka na plik do RE |
 | Laplas Clipper | brak binarki (IOC tylko) | Any.run/VT z kontem |
 | Still Sync / Windows Telemetry Update | brak repo/próbki | znaleźć próbkę |
