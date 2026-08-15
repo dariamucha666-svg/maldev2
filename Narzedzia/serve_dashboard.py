@@ -4,13 +4,27 @@ from __future__ import annotations
 
 import json
 import os
+import re
+import sys
+import shutil
+import subprocess
+import tempfile
 import urllib.error
 import urllib.parse
 import urllib.request
+import zipfile
+from datetime import datetime, timezone
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 ROOT = Path(os.environ.get("DASH_ROOT", "/var/www/ioc-dashboard"))
+JOBS = ROOT / "jobs"
+SAMPLES = Path(os.environ.get("SAMPLES_ROOT", "/root/samples"))
+RAW = SAMPLES / "raw"
+QUAR = SAMPLES / "quarantine"
+REPORTS = SAMPLES / "reports"
+PIPELINE = Path("/root/android-pipeline/bin/pipeline.sh")
+HASH_RE = re.compile(r"^[a-fA-F0-9]{64}$")
 MB_URL = "https://mb-api.abuse.ch/api/v1/"
 MB_KEY_FILES = (
     Path("/root/.mb_api_key"),
@@ -166,25 +180,276 @@ def hunt(q: str) -> dict:
     return out
 
 
+def utc_now() -> str:
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def job_path(digest: str) -> Path:
+    JOBS.mkdir(parents=True, exist_ok=True)
+    return JOBS / f"{digest.lower()}.json"
+
+
+def report_exists(digest: str) -> bool:
+    return (REPORTS / f"{digest}.json").is_file() or (REPORTS / digest / f"{digest}.json").is_file()
+
+
+def sample_on_disk(digest: str) -> Path | None:
+    skip = {".zip", ".json", ".log", ".md", ".txt"}
+    for folder in (RAW, QUAR):
+        if not folder.is_dir():
+            continue
+        for path in folder.iterdir():
+            if not path.is_file() or path.suffix.lower() in skip:
+                continue
+            if digest.lower() in path.name.lower():
+                return path
+    return None
+
+
+def read_job(digest: str) -> dict:
+    digest = digest.lower()
+    path = job_path(digest)
+    if path.is_file():
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+            if isinstance(data, dict):
+                return data
+        except Exception:
+            pass
+    state = "done" if report_exists(digest) else ("added" if sample_on_disk(digest) else "idle")
+    return {
+        "hash": digest,
+        "state": state,
+        "added": sample_on_disk(digest) is not None or report_exists(digest),
+        "analyzed": report_exists(digest),
+        "message": "już w raportach" if report_exists(digest) else "",
+        "updated": utc_now(),
+        "report": report_summary(digest),
+    }
+
+
+def write_job(digest: str, **fields) -> dict:
+    data = read_job(digest)
+    data.update(fields)
+    data["hash"] = digest.lower()
+    data["updated"] = utc_now()
+    job_path(digest).write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return data
+
+
+def _clean_strings(items) -> list[str]:
+    out = []
+    for raw in items or []:
+        s = str(raw).strip()
+        if 4 <= len(s) <= 48 and re.match(r"^[A-Za-z0-9_./:-]+$", s):
+            out.append(s)
+        if len(out) >= 8:
+            break
+    return out
+
+
+def report_summary(digest: str) -> dict:
+    for path in (REPORTS / f"{digest}.json", REPORTS / digest / f"{digest}.json"):
+        if not path.is_file():
+            continue
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        cls = data.get("classification") if isinstance(data.get("classification"), dict) else {}
+        return {
+            "role": cls.get("role") or data.get("kind") or "",
+            "family": cls.get("family") or "",
+            "analyzed_at": data.get("analyzed_at") or "",
+            "tags": data.get("tags") or [],
+            "urls": [str(u) for u in (data.get("urls") or [])[:6] if isinstance(u, str) and len(u) < 120],
+            "suspicious": _clean_strings(data.get("suspicious_strings")),
+        }
+    return {}
+
+
+def enqueue(digest: str, action: str) -> dict:
+    digest = digest.lower().strip()
+    if not HASH_RE.match(digest):
+        return {"error": "podaj pełny SHA256 (64 znaki hex)", "hash": digest}
+    if action not in {"add", "analyze", "re"}:
+        return {"error": "nieznana akcja", "hash": digest}
+    current = read_job(digest)
+    if current.get("state") in {"queued", "downloading", "analyzing"}:
+        return current
+    if action == "add" and sample_on_disk(digest):
+        return write_job(digest, state="added", added=True, message="już leży w próbkach")
+    if action in {"analyze", "re"} and report_exists(digest) and action != "analyze":
+        return write_job(
+            digest,
+            state="done",
+            added=True,
+            analyzed=True,
+            message="raport już jest — otwórz reverse engineering",
+            report=report_summary(digest),
+        )
+    write_job(digest, state="queued", message="w kolejce", action=action)
+    log = JOBS / f"{digest}.log"
+    subprocess.Popen(
+        ["/usr/bin/python3", str(Path(__file__).resolve()), "--job", digest, action],
+        stdout=open(log, "ab"),
+        stderr=subprocess.STDOUT,
+        start_new_session=True,
+    )
+    return read_job(digest)
+
+
+def download_sample(digest: str) -> Path:
+    RAW.mkdir(parents=True, exist_ok=True)
+    QUAR.mkdir(parents=True, exist_ok=True)
+    existing = sample_on_disk(digest)
+    if existing:
+        return existing
+    dest_zip = QUAR / f"{digest}.zip"
+    if not dest_zip.is_file() or dest_zip.stat().st_size < 32:
+        data = urllib.parse.urlencode({"query": "get_file", "sha256_hash": digest}).encode()
+        req = urllib.request.Request(MB_URL, data=data, method="POST")
+        key = mb_key()
+        if key:
+            req.add_header("Auth-Key", key)
+        with urllib.request.urlopen(req, timeout=90) as resp:
+            dest_zip.write_bytes(resp.read())
+    head = dest_zip.read_bytes()[:16]
+    if head.startswith(b"MZ"):
+        out = QUAR / f"{digest}.exe"
+        shutil.copy2(dest_zip, out)
+        return out
+    if not head.startswith(b"PK"):
+        raise RuntimeError(f"odpowiedź MalwareBazaar to nie ZIP (start={head[:8]!r})")
+    seven = shutil.which("7z") or shutil.which("7zz")
+    if not seven:
+        raise RuntimeError("brak 7z — ZIP z Bazaar jest AES, Python go nie otworzy")
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        proc = subprocess.run(
+            [seven, "x", f"-pinfected", f"-o{tmp_path}", "-y", str(dest_zip)],
+            capture_output=True,
+            text=True,
+        )
+        if proc.returncode != 0:
+            raise RuntimeError(f"7z nie rozpakował ZIP: {(proc.stderr or proc.stdout)[-300:]}")
+        files = [p for p in tmp_path.rglob("*") if p.is_file()]
+        if not files:
+            raise RuntimeError("ZIP pusty po rozpakowaniu")
+        prefer = {".apk", ".xapk", ".exe", ".dll", ".msi", ".jar", ".dex"}
+        ranked = [p for p in files if p.suffix.lower() in prefer] or files
+        picked = max(ranked, key=lambda p: p.stat().st_size)
+        ext = picked.suffix.lower() or ".bin"
+        extracted = QUAR / f"{digest}{ext}"
+        shutil.copy2(picked, extracted)
+        if ext == ".apk":
+            shutil.copy2(picked, RAW / f"{digest}.apk")
+    return extracted
+
+
+def run_pipeline(sample: Path) -> None:
+    if not PIPELINE.is_file():
+        raise RuntimeError("brak pipeline.sh")
+    env = os.environ.copy()
+    env.setdefault("HOME", "/root")
+    env.setdefault("USER", "root")
+    env.setdefault("PIPELINE_HOME", "/root/android-pipeline")
+    secrets = Path("/root/android-pipeline/config/secrets.env")
+    if secrets.is_file():
+        for line in secrets.read_text(encoding="utf-8", errors="replace").splitlines():
+            if "=" in line and not line.strip().startswith("#"):
+                k, v = line.split("=", 1)
+                env.setdefault(k.strip(), v.strip().strip('"'))
+    env["FORCE"] = "1"
+    proc = subprocess.run(
+        ["/bin/bash", str(PIPELINE), str(sample)],
+        env=env,
+        capture_output=True,
+        text=True,
+        timeout=900,
+    )
+    if proc.returncode != 0:
+        tail = (proc.stderr or proc.stdout or "")[-800:]
+        raise RuntimeError(f"pipeline exit {proc.returncode}: {tail}")
+    src = SAMPLES / "reports" / "iocs.json"
+    if src.is_file():
+        shutil.copy2(src, ROOT / "iocs.json")
+    hist = Path("/root/obsidian-vault/Narzedzia/build_dashboard_history.py")
+    if hist.is_file():
+        subprocess.run(["/usr/bin/python3", str(hist)], check=False)
+
+
+def run_job(digest: str, action: str) -> None:
+    digest = digest.lower()
+    try:
+        write_job(digest, state="downloading", message="pobieram z MalwareBazaar…")
+        sample = download_sample(digest)
+        write_job(digest, state="added", added=True, message=f"zapisano {sample.name}")
+        if action == "add":
+            return
+        write_job(digest, state="analyzing", message="pipeline (static, bez detonacji)…")
+        run_pipeline(sample)
+        write_job(
+            digest,
+            state="done",
+            added=True,
+            analyzed=True,
+            message="analiza skończona",
+            report=report_summary(digest),
+        )
+    except Exception as exc:  # noqa: BLE001
+        write_job(digest, state="error", message=str(exc)[:500])
+
+
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(ROOT), **kwargs)
 
+    def _json(self, payload: dict, code: int = 200) -> None:
+        body = json.dumps(payload, ensure_ascii=False).encode()
+        self.send_response(code)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
     def do_GET(self) -> None:
         parsed = urllib.parse.urlparse(self.path)
+        qs = urllib.parse.parse_qs(parsed.query)
         if parsed.path in {"/api/hunt", "/hunt"}:
-            q = urllib.parse.parse_qs(parsed.query).get("q", [""])[0]
-            body = json.dumps(hunt(q), ensure_ascii=False).encode()
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json; charset=utf-8")
-            self.send_header("Cache-Control", "no-store")
-            self.send_header("Content-Length", str(len(body)))
-            self.end_headers()
-            self.wfile.write(body)
+            self._json(hunt(qs.get("q", [""])[0]))
+            return
+        if parsed.path == "/api/job":
+            digest = (qs.get("hash", [""])[0] or "").lower()
+            if not HASH_RE.match(digest):
+                self._json({"error": "podaj pełny SHA256"}, 400)
+                return
+            self._json(read_job(digest))
+            return
+        if parsed.path == "/api/jobs":
+            raw = qs.get("hashes", [""])[0]
+            hashes = [h.lower() for h in raw.split(",") if HASH_RE.match(h.strip())]
+            self._json({h: read_job(h) for h in hashes})
             return
         if parsed.path == "/api/iocs":
             self.path = "/iocs.json"
         return super().do_GET()
+
+    def do_POST(self) -> None:
+        parsed = urllib.parse.urlparse(self.path)
+        if parsed.path != "/api/job":
+            self.send_error(404)
+            return
+        length = int(self.headers.get("Content-Length") or 0)
+        try:
+            payload = json.loads(self.rfile.read(length).decode("utf-8") or "{}")
+        except json.JSONDecodeError:
+            self._json({"error": "zły JSON"}, 400)
+            return
+        digest = str(payload.get("hash") or "").strip()
+        action = str(payload.get("action") or "analyze").strip()
+        self._json(enqueue(digest, action))
 
     def log_message(self, fmt: str, *args) -> None:
         if args and str(args[0]).startswith("GET /api/"):
@@ -200,4 +465,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) >= 3 and sys.argv[1] == "--job":
+        run_job(sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else "analyze")
+    else:
+        main()
