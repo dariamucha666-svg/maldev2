@@ -40,6 +40,33 @@ Idempotentny skrypt: `/opt/gophish/setup_campaign.py` (tworzy 5 encji przez API)
 Wynik przechwycony w SMTP sinku. Uwaga detekcyjna: mail ma `X-Mailer: gophish` i link
 `…/?rid=…` — to dwa klasyczne wskaźniki GoPhish (patrz [[Narzedzia/Phishing_Toolkit]]).
 
+## Webhook → Telegram (live feedback)
+
+| | |
+|--|--|
+| Odbiornik | `/opt/gophish/webhook_telegram.py`, service `gophish-webhook` |
+| Port | `127.0.0.1:9999` |
+| Token | `/opt/gophish/.telegram.env` (0600, skopiowany z `.133`) |
+
+GoPhish webhook (id=1, `Telegram alerts` → `http://127.0.0.1:9999/gophish`).
+Zdarzenia (Email Sent / Clicked Link / Submitted Data / Campaign Created) → Telegram.
+**Zweryfikowane**: `Clicked Link` dla `user1@acmecorp.local` dotarło do webhooka.
+
+## Kampania B — porównanie GoPhish vs SET (15.08)
+
+- **Page**: `Redirect -> SET Harvester` (meta-refresh → `http://127.0.0.1:8081/`).
+- **Campaign**: `SET Harvester comparison …` (id=2) — ten sam template + group.
+- Flow: mail → GoPhish tracking (click) → **redirect do SET** → SET łapie creds.
+
+**SET Credential Harvester** uruchomiony:
+- `setoolkit` → 1→2→3→2 (Social-Eng → Website → Credential Harvester → Site Cloner).
+- Klon: `http://127.0.0.1:8090/` (lokalny serwer z `landing.html`).
+- Harvester na **`0.0.0.0:8081`** (port zmieniony z 80 — 80 zajęty przez `inetsim`).
+- Raport creds: `HARVESTER_LOG=/var/www` (do weryfikacji w przeglądarce).
+
+**Porównanie:** GoPhish = pełny tracking (sent/clicked/submitted) + creds w DB;
+SET = sam harvest creds do pliku, bez trackingu — klasyczna różnica framework vs script-kit.
+
 ### Dostęp (tunel SSH z `.133`)
 
 ```bash
