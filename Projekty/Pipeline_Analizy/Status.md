@@ -112,3 +112,9 @@ Flaga `SKIP_CTI=1` wyłącza krok. Analiza narzędzia OSINT: [[Narzedzia/Recon_n
 - SSH klucz `.133 → .139` (bez hasła).
 - Wrapper `bin/recon_osint.sh`: raporty → domeny C2 → Recon-ng (moduł `hackertarget`) → `reports/osint/`.
 - Test: `off-game.com → 34.173.119.37`, `www.suahoje.com → 20.201.112.144`.
+
+## OSINT toolkit na .139 (15.08)
+
+Pełny zestaw: **Recon-ng 5.1.2, amass 5.1.1, subfinder 2.15.0, nuclei 3.11.1, httpx 1.10.0,
+theHarvester (py3.12), SpiderFoot 4.0.0, sherlock 0.16.0** — opis: [[Narzedzia/OSINT_Toolkit]].
+Drugi wrapper `bin/osint_recon.sh` (subfinder + amass + httpx) → `reports/osint/`.

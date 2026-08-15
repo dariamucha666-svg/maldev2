@@ -37,7 +37,7 @@ Zrzut panelu na pulpicie `.133`: `acerdp-my-servers.png` (bez kolumny IP, bez da
 **.139**
 
 - narzędzia: systemowe (`yara`, `binwalk`, `tshark`, `inetsim`, `r2`, `vol`)
-- Recon-ng 5.1.2: `/opt/recon-ng` (venv + git clone), wrapper `/usr/local/bin/recon-ng`
+- OSINT toolkit: [[Narzedzia/OSINT_Toolkit]] — Recon-ng, amass, subfinder, nuclei, httpx, theHarvester, SpiderFoot, sherlock
 - SSH: klucz z `.133` (id_ed25519, bez hasła)
 
 **.57**

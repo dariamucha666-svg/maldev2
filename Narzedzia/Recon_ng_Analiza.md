@@ -98,13 +98,13 @@ PY
 | Narzędzie | Typ | Kiedy użyć | U nas? |
 |-----------|-----|-----------|--------|
 | **Recon-ng** | framework OSINT (moduły + SQLite) | pivot domen/hostów, atrybucja C2 | analiza → tak |
-| **theHarvester** | e‑maile/subdomeny (wyszukiwarki) | szybkie zbieranie kontaktów/subdomen | opcjonalnie |
-| **SpiderFoot** | automatyczny OSINT (100+ modułów) | jeden skan „o wszystkim" dla domeny/IP | opcjonalnie |
+| **theHarvester** | e‑maile/subdomeny (wyszukiwarki) | szybkie zbieranie kontaktów/subdomen | zainstalowane (`.139`) |
+| **SpiderFoot** | automatyczny OSINT (100+ modułów) | jeden skan „o wszystkim" dla domeny/IP | zainstalowane (`.139`) |
 | **Maltego** | graf + transformy (GUI) | wizualna mapa C2 (płatne) | nie |
-| **Amass** (OWASP) | subdomeny/passive DNS/certyfikaty | głęboka enumeracja domen | warto |
-| **subfinder** | subdomeny (szybkie) | szybka lista subdomen | warto |
-| **sherlock** | username search | śledzenie operatora (nick) | opcjonalnie |
-| **nuclei** | skaner podatności (szablony) | sprawdzenie C2 pod kątem podatności | już jest (`/usr/local/bin/nuclei`) |
+| **Amass** (OWASP) | subdomeny/passive DNS/certyfikaty | głęboka enumeracja domen | zainstalowane (`.139`) |
+| **subfinder** | subdomeny (szybkie) | szybka lista subdomen | zainstalowane (`.139`) |
+| **sherlock** | username search | śledzenie operatora (nick) | zainstalowane (`.139`) |
+| **nuclei** | skaner podatności (szablony) | sprawdzenie C2 pod kątem podatności | zainstalowane (`.139`) |
 | **Fierce/dnsenum** | DNS recon | szybki DNS brute | opcjonalnie |
 
 ## Wniosek
