@@ -117,12 +117,42 @@ PY
   część modułów nie działa; trzon (brute_hosts, hacksy, bing, crt.sh) działa.
 - Instalacja w osobnym venv (dużo zależności) — nie do `.venv` pipeline'a.
 
-## Instalacja (do potwierdzenia na VPS)
+## Instalacja (zrobione 15.08)
+
+Zainstalowany **na `.139`** (`vserver580088`, Debian 12 / REMnux-lite) — to ten
+host ma wolne **5.1 GiB RAM** i jest SSH-osiągalny z pipeline. `.57` to Windows
+(WinRM/RDP, SSH zamknięty, ~3 GB RAM) — **nie** tam, bo Recon-ng to narzędzie Linuxowe.
+
+| | |
+|--|--|
+| Host | `5.175.189.139` (`vserver580088`) |
+| Venv | `/opt/recon-ng/.venv` |
+| Źródło | `git clone https://github.com/lanmaster53/recon-ng /opt/recon-ng/src` |
+| Wrapper | `/usr/local/bin/recon-ng` → `python /opt/recon-ng/src/recon-ng` |
+| Wersja | **5.1.2** |
+| SSH | klucz `.133 → .139` (id_ed25519, bez hasła) |
 
 ```bash
-python3 -m venv /opt/recon-ng/.venv && source /opt/recon-ng/.venv/bin/activate
-pip install recon-ng          # czysty pip (oficjalny sposób)
-# albo:
-# git clone https://github.com/lanmaster53/recon-ng /opt/recon-ng
-# pip install -r /opt/recon-ng/REQUIREMENTS
+# instalacja (już wykonana)
+python3 -m venv /opt/recon-ng/.venv
+/opt/recon-ng/.venv/bin/pip install -r /opt/recon-ng/src/REQUIREMENTS
+# wrapper
+printf '#!/bin/bash\nexec /opt/recon-ng/.venv/bin/python /opt/recon-ng/src/recon-ng "$@"\n' > /usr/local/bin/recon-ng
+chmod +x /usr/local/bin/recon-ng
 ```
+
+## Wrapper: `bin/recon_osint.sh` (na `.133`)
+
+Wyciąga domeny z raportów → odpala Recon-ng na `.139` przez SSH → ściąga JSON z powrotem.
+
+```bash
+# z raportów pipeline (auto-filtr infrastruktury)
+bash ~/android-pipeline/bin/recon_osint.sh
+RECON_LIMIT=5 bash ~/android-pipeline/bin/recon_osint.sh
+
+# domeny C2 wprost (znane z analiz)
+bash ~/android-pipeline/bin/recon_osint.sh suahoje.com off-game.com
+```
+
+Wynik: `/root/samples/reports/osint/{osint_*,domains_*,recon_*}`.  
+Test 15.08: `off-game.com → 34.173.119.37` · `www.suahoje.com → 20.201.112.144` (mapowanie C2 → hosting).

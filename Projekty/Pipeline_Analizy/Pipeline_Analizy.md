@@ -42,6 +42,7 @@ Symlinki w `/root/`:
 │   ├── batch_analyze.sh            # szybki triage APK i PE
 │   ├── nightly_pipeline.sh         # MalwareBazaar → batch → full → daily summary
 │   ├── download_malwarebazaar.sh
+│   ├── recon_osint.sh              # domeny C2 → Recon-ng (.139) → osint/
 │   ├── install.sh
 │   ├── rat5_clean_run.sh
 │   └── rat5_android_clean.sh
@@ -95,6 +96,7 @@ Symlinki w `/root/`:
 | `pipeline.sh` | Pełna analiza z raportami JSON/MD/HTML + CSV wzorców |
 | `nightly_pipeline.sh` | Automatyczne nocne uruchomienie (02:00 UTC) |
 | `enrich_cti.py` | Wzbogacanie IOC z baz wirusów (MalwareBazaar, URLhaus, VirusTotal, AbuseIPDB, OTX) |
+| `recon_osint.sh` | OSINT pivot domen C2 → Recon-ng na `.139` (hackertarget itp.) |
 
 ## Obsługiwane formaty
 

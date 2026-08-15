@@ -105,3 +105,10 @@ i odpytuje zewnętrzne bazy threat-intel:
 
 Wynik: `reports/cti_enrichment.json` + `cti_enrichment.md` (trafienia). Klucze w `secrets.env`.
 Flaga `SKIP_CTI=1` wyłącza krok. Analiza narzędzia OSINT: [[Narzedzia/Recon_ng_Analiza]].
+
+## Recon-ng + wrapper OSINT (15.08)
+
+- Recon-ng **5.1.2** zainstalowany na **`.139`** (Debian, 5.1 GiB RAM wolne) — nie na `.57` (Windows, RDP/WinRM, SSH zamknięty).
+- SSH klucz `.133 → .139` (bez hasła).
+- Wrapper `bin/recon_osint.sh`: raporty → domeny C2 → Recon-ng (moduł `hackertarget`) → `reports/osint/`.
+- Test: `off-game.com → 34.173.119.37`, `www.suahoje.com → 20.201.112.144`.

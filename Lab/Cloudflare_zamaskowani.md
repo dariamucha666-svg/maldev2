@@ -13,7 +13,7 @@ Powiązane: [[Daily/2026-08-15]] · maskencrypt.eu już na CF.
 |------|---------|
 | Registrar | nazwa.pl (NetArt) |
 | Zone | `zamaskowani.eu` |
-| Status | pending (czekamy na NS) |
+| Status | active |
 | Zone ID | `236cdbce95e3afd8aa12b3dc6bd07ff7` |
 | Nameservery | `raegan.ns.cloudflare.com` / `shane.ns.cloudflare.com` |
 | Origin | `85.128.197.150` (CloudHosting nazwa) |

@@ -13,7 +13,7 @@ Powiazane: [[Daily/2026-08-15]] · [[Lab/Cloudflare_zamaskowani]]
 |------|---------|
 | Registrar | nazwa.pl (NetArt) |
 | Zone | casinomask.eu |
-| Status | pending (czekamy na NS) |
+| Status | pending (NS w rejestrze .eu juz CF, cache resolverow jeszcze nazwa) |
 | Zone ID | ab571cabfb64ef02fe00a119e76942fd |
 | Nameservery | raegan.ns.cloudflare.com / shane.ns.cloudflare.com |
 | Origin | 85.128.197.150 (CloudHosting nazwa) |
