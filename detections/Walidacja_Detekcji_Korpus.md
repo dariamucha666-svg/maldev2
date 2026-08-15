@@ -80,3 +80,34 @@ FP (błędna rodzina):   ≥5  (Vidar→clipper, NWH→clipper, Go→Lumma, …)
 Walidacja **ujawniła realne problemy** (5 TP / 2 FN / ≥5 FP). Reguły NanoCore i Lumma są OK,
 reszta wymaga doprecyzowania. To jest dokładnie wartość, której brakowało — teraz wiemy co
 **naprawdę** działa, a co jest za szerokie/za wąskie.
+
+## Re-walidacja po poprawkach (15.08)
+
+Wprowadzone poprawki:
+1. `Clipper_Python_Clipboard` → wymaga `echo %s |clip` **lub** `bc1` (nie samo clipboard API).
+2. `Clipper_CPP_Xorstr` → wymaga `xorstr` + clipboard (usunięty FP na stealerach).
+3. `Lumma_Go_Loader` → **`Go_Stealer_Generic`** (uczciwa nazwa — generyczny Go, nie Lumma).
+4. Dodane hash-specific: `Lumma_e86fc24e_C2_smarture`, `SheetRAT_31d54f8c`.
+5. `AccountTakeover_PowerShell_Stealer` → próg 3-of-5.
+6. `XWorm_V74_Key` → oznaczone „tylko dump/odszyfrowany".
+
+### Metryki po poprawkach
+
+```
+TP (poprawna rodzina): 6   (Lumma×2, NanoCore×3, SheetRAT×1)   [było 5]
+FN (niewykryte):       3   (XWorm, Vidar, NWH)                 [było 2]
+FP (błędna rodzina):   ~2  (Clipper na Vidar/NWH)               [było ≥5]
+```
+
+### Co zostało (fundamentalna niejednoznaczność)
+
+- **`Clipper_Python_Clipboard` nadal trafia w Vidar/NWH** — bo crypto-stealerzy **też** mają
+  `bc1` + clipboard API (kradną portfele). Statycznie clipper vs stealer jest **nierozróżnialny**
+  bez analizy behawioralnej (czy PODMIENIA adres, czy tylko KOPIUJE).
+- **XWorm nadal FN** — stringi zaszyfrowane (FieldRva), statyczna YARA tego nie przeskoczy.
+
+### Finalny werdykt
+
+Walidacja → poprawki → re-walidacja **zadziałała**: FP spadło z ≥5 do ~2, TP wzrosło z 5 do 6.
+Reguły NanoCore, Lumma (hash), SheetRAT, Backdoor_Go są **wiarygodne**. Clipper-vs-stealer
+i XWorm-encrypted to **znane limity statycznej YARA** (wymagają dumpu/analizy dynamicznej).
