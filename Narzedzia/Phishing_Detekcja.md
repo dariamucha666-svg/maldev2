@@ -100,9 +100,10 @@ suricata -i lo -S /etc/suricata/rules/phishing_tools.rules \
 
 3 alerty potwierdzone na żywym ruchu laba.
 
-⚠️ **Fałszywy pozytyw:** `Server: BaseHTTP/0.6 Python` łapie też **webhook_telegram.py**
-(też Python http.server na 9999) — reguła 9000101 jest generyczna. Refinement: doprecyzować
-o ścieżkę `index.html` + POST `username=`/`password=`, żeby odróżnić SET od zwykłego py-http.
+✅ **False positive naprawiony (rev 2):** reguła 9000101 wymaga teraz `Server: BaseHTTP/0.6 Python`
+**+** ciała odpowiedzi z formularzem logowania (`<form` + `password`). Dzięki temu **nie łapie**
+już `webhook_telegram.py` (py-http, ale bez formularza). Zweryfikowane: po refine 9000101 odpala
+tylko na SET, nie na webhook.
 
 ## Uwagi
 
