@@ -10,3 +10,4 @@ Logs/pipeline_*.log
 *.apk
 *.dll
 *.bin
+Samples/

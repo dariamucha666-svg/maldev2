@@ -29,7 +29,8 @@ Centralny widok IoC z raportów pipeline. **Sigma** — jeszcze nie ma (do dodan
 | Katalog | `/var/www/ioc-dashboard/` |
 | Pliki | `index.html` + `iocs.json` (kopia z reports) |
 | Serwer | `python3 -m http.server 8080` (bind `0.0.0.0`) |
-| URL | http://5.175.189.133:8080 |
+| URL | **https://dash.maskencrypt.eu/** (Telegram + telefon) |
+| Fallback | http://5.175.189.133:8080 |
 | UFW | `8080/tcp` ALLOW (`ioc-dashboard`) — **publiczny** |
 | PID | `/var/www/ioc-dashboard/server.pid` |
 | Log | `/var/www/ioc-dashboard/server.log` |
