@@ -101,8 +101,18 @@ i przechwycenie loginu+hasła do pliku (pokaz, nie realny phishing).
 
 ## Bezpieczeństwo
 
-- Oba narzędzia **bindują tylko `127.0.0.1`** (GoPhish config `listen_url`).
+- GoPhish + SMTP sink + webhook **bindują `127.0.0.1`**; SET harvester na `0.0.0.0:8081`
+  (domyślnie) — ale **UFW blokuje go z zewnątrz**.
 - `.139` to host RE/REMnux — nie produkcyjny; i tak nie wystawiać na `0.0.0.0`.
 - Domena/kampania tylko w izolowanym labie; bez realnych celów.
+
+## Firewall (hardening 15.08)
+
+Skrypt: `/usr/local/bin/phish-lab-hardening.sh` (idempotentny).
+
+- UFW **default deny incoming** (już był aktywny) + jawne `DENY` dla portów laba:
+  `3333, 8080, 8081, 2525, 9999, 8090` (IPv4+IPv6).
+- Dozwolone z zewnątrz tylko: `22` (SSH, fail2ban), `443`, `31337` (Sliver).
+- **Zweryfikowane:** z `.133` porty laba **BLOKOWANE** (timeout), z localhost na `.139` działają.
 
 Powiązane: [[Narzedzia/Phishing_Toolkit]] · [[Lab/Hosts]] · [[Narzedzia/OSINT_Toolkit]]
