@@ -20,6 +20,7 @@ tags: [index, c2, detections, mapa]
 | [[sequence_detection_rules_2026-08-15]] | Sekwencje A/B/C (reguły atomowe + korelacja temporalna 5 min) | Sigma |
 | [[sequence_detection_eql_splunk_2026-08-15]] | Sekwencje A/B/C — gotowe zapytania | EQL, Splunk |
 | [[sequence_detection_kql_2026-08-15]] | Sekwencje A/B/C — gotowe zapytania | KQL (Sentinel/MDE) |
+| [[hashes_IOC_2026-08-15]] | Hashe SHA256 próbek + reguły hash-based | YARA, Sigma (plikowe) |
 
 ### 1.1 Reguły podstawowe (pojedyncze zdarzenia)
 
@@ -53,6 +54,7 @@ Obserwacja infrastruktury (netstat/ps/logi)
         │
         ▼
 Reguły podstawowe ──► C2_detection_rules_*.md  (Sigma/YARA/Suricata)
+        │              hashes_IOC_*.md        (SHA256 + reguły hash-based)
         │
         ▼
 Analiza artefaktów ──► Analiza_artefaktów_agenta_57.md
@@ -76,11 +78,12 @@ Reguły sekwencyjne ──► sequence_detection_rules_*.md
 | Sekwencja C (screenshot) | ✅ | — | — | ✅ | ✅ | ✅ |
 | Payload JSON (sieć) | — | — | ✅ | — | — | — |
 | Próbki plików (YARA) | — | ✅ | — | — | — | — |
+| Hash próbek (SHA256) | ✅ (plik) | ✅ | — | — | — | — |
 
 ## 5. Stan i status
 
 - Wszystkie reguły oznaczone jako **`experimental`** — oparte o nazwy/porty/stringi, nie o hashe próbek.
-- Do produkcji: dodać SHA256 próbek `agent.py`/`server.py`, potwierdzić format payloadu JSON i dopasować nazwy pól do docelowego SIEM.
+- Do produkcji: SHA256 próbek już spisane w [[hashes_IOC_2026-08-15]]; do dokończenia — potwierdzić format payloadu JSON i dopasować nazwy pól do docelowego SIEM.
 - Sekcje artefaktów dla `net_user_add`/`reg_set_value`/`keylog` w próbce **nie występują** w kodzie (`agent.py` implementuje tylko `screenshot`) — oznaczono je jako hipotetyczne.
 
 ---
