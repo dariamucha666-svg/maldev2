@@ -12,12 +12,18 @@ if ! git diff --cached --quiet; then
   git commit -m "Auto-sync: $(date '+%Y-%m-%d %H:%M:%S %Z')" >/dev/null
 fi
 
-if git remote get-url origin >/dev/null 2>&1; then
-  if ! git pull --rebase --autostash origin main >/dev/null 2>&1; then
+push_one() {
+  local remote="$1"
+  git remote get-url "$remote" >/dev/null 2>&1 || return 0
+  if ! git pull --rebase --autostash "$remote" main >/dev/null 2>&1; then
     git rebase --abort >/dev/null 2>&1 || true
-    echo "pull --rebase failed (conflict?) — not pushing"
-    exit 1
+    echo "pull --rebase $remote failed — skip push"
+    return 1
   fi
-  git push origin main >/dev/null
-fi
+  git push "$remote" main >/dev/null
+}
+
+# local bare (Kali SSH) + GitHub origin
+push_one local || true
+push_one origin || true
 echo "ok $(git rev-parse --short HEAD)"

@@ -14,7 +14,8 @@ Bez GitHuba. Źródło prawdy: gołe repo na VPS.
 | Working (pipeline, bot) | `/root/obsidian-vault` |
 | Bare (push/pull) | `/root/obsidian-vault.git` |
 | Kali | `/home/kali/obsidian-vault` |
-| Remote | `vps133:/root/obsidian-vault.git` |
+| Remote Kali | `vps133:/root/obsidian-vault.git` (`local`) |
+| Remote GitHub | `https://github.com/dariamucha666-svg/maldev2.git` (`origin`) |
 
 ## Automatyka
 
@@ -26,15 +27,11 @@ Bez GitHuba. Źródło prawdy: gołe repo na VPS.
 
 Hasła i `Logs/*.log` nie idą do Gita (`.gitignore`).
 
-## GitHub (opcjonalnie, później)
+## GitHub
 
-```bash
-# na VPS, po utworzeniu pustego repo
-git -C /root/obsidian-vault.git remote add github https://github.com/USER/obsidian-vault.git
-git -C /root/obsidian-vault.git push github main
-```
+`origin` na VPS = `maldev2`. Token **nie** jest w remote URL — leży w `/root/.git-credentials` (chmod 600), poza vaultem.
 
-Nie commituj tokenów.
+Auto-push: ten sam cron `*/15` wypycha na `local` i `origin`.
 
 ## Ręcznie z Kali
 
