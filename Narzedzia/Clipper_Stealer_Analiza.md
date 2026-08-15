@@ -66,15 +66,18 @@ tokeny, rejestr, procesy).
 
 ### C2 — ODSZYFROWANE dynamicznie (15.08, sandbox `.57`)
 
-Uruchomiono `lumma.exe` w kontrolowanym sandboxie (DNS logging + 12 s + kill).
-Wyczyszczony cache DNS → jedyny niestandardowy wpis:
+Uruchomiono próbki w kontrolowanym sandboxie (DNS logging + 12 s + kill).
+Wyczyszczony cache DNS → jedyne niestandardowe wpisy:
 
-| | |
-|--|--|
-| **C2 domena** | **`digitden.cyou`** |
-| **C2 IP** | `64.89.161.173` |
+| Próbka | C2 domena | IP |
+|--------|-----------|-----|
+| `00d3f42d…` | `digitden.cyou` | `64.89.161.173` |
+| `e86fc24e…` | **`smarture.cyou`** | `64.89.161.173` |
 
-- `.cyou` TLD (typowy dla C2). URLhaus: `no_results` (świeże/niezgłoszone).
+**Kluczowe:** obie próbki → **ten sam IP `64.89.161.173`** = **ta sama kampania Lumma**
+(atakujący rejestruje wiele domen `.cyou` na jeden serwer C2).
+
+- `.cyou` TLD (typowy dla C2). URLhaus: `no_results`.
 - Metoda: `DnsCache.log` + `Get-DnsClientCache` po uruchomieniu (bez detonacji exfilu — kill po 12 s).
 
 ---
