@@ -20,10 +20,25 @@ przez tunel SSH, zero ekspozycji publicznej.
 | Service | `systemctl status gophish` (persystentny) |
 | Admin UI | `https://127.0.0.1:3333` (TLS self-signed) |
 | Phish server | `http://127.0.0.1:8080` |
-| Log | `/var/log/gophish.log` |
+| API key | `/opt/gophish/.api_key` (0600) — `Authorization: Bearer <key>` |
+| SMTP sink | service `smtp-sink`, `127.0.0.1:2525`, maile → `/var/mail/gophish/` |
+| Log | `journalctl -u gophish` / `-u smtp-sink` |
 
-Hasło admina generowane przy **pierwszym uruchomieniu** → w `/var/log/gophish.log`
-(`Please login with the username admin and the password …`). Zmienić w panelu.
+Hasło admina generowane przy **pierwszym uruchomieniu** → w logu (`Please login with the
+username admin and the password …`). API key ustawiony w DB (`users.api_key`), plik `.api_key`.
+
+## Kampania demo (skonfigurowana 15.08)
+
+Idempotentny skrypt: `/opt/gophish/setup_campaign.py` (tworzy 5 encji przez API).
+
+- **Sending Profile**: `Local SMTP Sink` → `it-security@acmecorp.local` (nie wysyła na świat).
+- **Landing Page**: `Acme Corp - Employee Portal Login` (generyczny portal, capture creds).
+- **Email Template**: `Password Expiration Notice (awareness)` (pretekst wygaśnięcia hasła).
+- **Group**: `Awareness Test Group` — `user1..3@acmecorp.local` (tylko testowe).
+- **Campaign**: `Awareness Test …` — **uruchomiona**, status `In progress`, 3/3 `Email Sent`.
+
+Wynik przechwycony w SMTP sinku. Uwaga detekcyjna: mail ma `X-Mailer: gophish` i link
+`…/?rid=…` — to dwa klasyczne wskaźniki GoPhish (patrz [[Narzedzia/Phishing_Toolkit]]).
 
 ### Dostęp (tunel SSH z `.133`)
 
