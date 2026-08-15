@@ -146,6 +146,41 @@ Zamknięte źródło — opis z publicznej wiedzy + detekcji.
 4. **Persystencja**: rejestr `Run`, usługa, sterownik.
 5. **Artefakty**: pliki `keylogs.txt`, `logs/*.log`, tokeny Telegram w config.
 
+## RE artifacts — hash / stringi / IOC / YARA (statycznie)
+
+### 1. keylogger-for-windows (GiacomoLaw/Keylogger, C++)
+
+- **hash** (klog_main.cpp): `4441f3fc279c540ff83c4521bd4366278396f005ac9a7846e890cee0324f0c83`
+- **stringi**: `WH_KEYBOARD_LL`, `SetWindowsHookEx`, `HookCallback`, `CallNextHookEx`,
+  `[BACKSPACE]`, `GetForegroundWindow`, `GetWindowTextA`, `GetKeyboardLayout`
+- **IOC**: plik logów `logs/%Y-%m-%d__%H-%M-%S.log`; importy hookingu (SetWindowsHookEx + WH_KEYBOARD_LL)
+- **YARA**: `Keylog_Win_Cpp_Hook`
+
+### 2. KeyLogger (Python) — Xenotix
+
+- **hash**: `a50b93a4d73098184929b3fe72d38b31bd435ae640290f5a5fc380966fad2315`
+- **stringi**: `pyHook`, `pythoncom`, `OnKeyboardEvent`, `keylogs.txt`, `Xenotix Keylogger`,
+  `smtplib`, `ftplib`, `docs.google.com/forms`
+- **IOC**: rejestr `HKCU\...\Run` → `Xenotix Keylogger`; plik `keylogs.txt`; exfil Google Forms/SMTP/FTP
+- **YARA**: `Keylog_Python_Xenotix`
+
+### 3. Advanced Keylogger Tool V2 (Pegasus-Gram, Python 3)
+
+- **hashe**:
+  - keylogger.py: `28c1d2d04f113d79fb886b178c27bbbcddb882bb9e3cac4cc433daa3082e35bc`
+  - telegram_utils.py: `a6e6a2656543c6e5bcc1c635bc06b97d40c56ec8d1423a1e0fa0b9031c1b9f15`
+- **stringi**: `pynput`, `on_press`, `telegram.Bot`, `send_message(chat_id`, `api.telegram.org`,
+  `clipboard_monitor`, `screenshot_taker`, `YOUR_BOT_TOKEN_HERE`
+- **IOC**: exfil `https://api.telegram.org/bot<TOKEN>/sendMessage`; `config.py` z tokenem/chat_id
+- **YARA**: `Keylog_Advanced_Pynput`, `Keylog_Advanced_Telegram`
+
+### 4. Refog / Spyrix (komercyjne)
+
+- **hash/stringi**: ⛔ brak binarki — download gated rejestracją (`login.refog.com/account/signup/`).
+- **IOC** (publiczne): procesy `sx*`/`spyrix*` (Spyrix), ukryte usługi + sterownik (Refog),
+  logi szyfrowane `*.dat`, AV: `Refog.Keylogger` / `Spyrix.Keylogger`
+- **YARA**: `Keylog_Refog_Spyrix`
+
 ## Reguły detekcji
 
 YARA → `/root/android-pipeline/tools/yara-rules/custom/keyloggers.yar` (5 reguł).
