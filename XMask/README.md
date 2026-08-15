@@ -27,3 +27,9 @@ Gotowce do wklejenia na Telegram. Bot: `/xmask` albo `/post`. Przycisk **Dla Lai
 | [[Szablon_alert]] | szablon | — |
 
 Zasady: bez haseł, bez porad „jak odpalić”, tylko **co to jest** i **jak się bronić**. Dashboard: [[Dashboard_IOC]].
+
+## Z warsztatu (content marketing)
+
+Portfolio na filmach. Grupa 16–22. Krótki podpis + klip. OPSEC. Legalny skill, nie kurs wirusów.
+Folder: `XMask/Warsztat/`. Kolejka: `/kanal`. Cron 16:00 UTC.
+Start: [[01_Po_co_ten_kanal]].

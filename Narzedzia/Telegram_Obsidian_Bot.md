@@ -71,3 +71,9 @@ Recap sesji: [[Lab/Recap 2026-08-15]].
 ## Instagram (2026-08-15)
 
 `/ig` — liczby / demografy / delta własnego konta Professional. [[Instagram_Graph_Bot]]
+
+## Kanał — Z warsztatu (2026-08-15)
+
+Regularny content marketing dla ludzi. `/kanal`. Kolejka w `state/channel_queue.json`. Cron `xmask-channel` 16:00 UTC.
+Jak bot jest adminem kanału: `TELEGRAM_CHANNEL_ID=-100…` w `.env`.
+Editorial: [[Warsztat/README]].
