@@ -23,3 +23,14 @@ Prompt rozumie m.in.: pion/poziom, szybko/spokojnie, ciemno, zoom, przejścia, n
 ## Czego nie robimy
 
 Nie odpalamy pirackiego CapCut i nie zdejmujemy cudzych watermarków. Nasz eksport nigdy nie dostaje brandingu CapCut.
+
+## Optymalizacja (2026-08-15)
+
+Zostajemy przy ffmpeg. editly wymaga OpenGL/Dockera.
+
+- canvas domyślnie **720×1280** (dopisz `1080` w prompcie po HD)
+- zoom = scale+crop+sin, **nie zoompan**
+- `loudnorm` → `dynaudnorm`
+- xfade gdy 2 klipy
+- efekt się wywali → idzie dalej, i tak jest `out.mp4`
+- smoke: 2 klipy + głos + zoom/neon/xfade w **4.1 s**
