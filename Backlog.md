@@ -33,3 +33,5 @@ priority: high
 
 - [ ] Nie detonować próbek
 - [ ] Nie serwować PE na publicznym HTTP
+
+- [ ] Pomysł: analityka IG własnego konta (nie cudzy graf) — [[Instagram_Graph_Bot]]

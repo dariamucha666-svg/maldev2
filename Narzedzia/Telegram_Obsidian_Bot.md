@@ -67,3 +67,7 @@ Produkcja: `.133`, unit `obsidian-telegram-bot.service`, vault `/root/obsidian-v
 Username: `@Xmaskapp_bot`.
 
 Recap sesji: [[Lab/Recap 2026-08-15]].
+
+## Instagram (2026-08-15)
+
+`/ig` — liczby / demografy / delta własnego konta Professional. [[Instagram_Graph_Bot]]
