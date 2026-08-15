@@ -140,7 +140,7 @@ def mb_post(fields: dict) -> dict:
     if key:
         req.add_header("Auth-Key", key)
     req.add_header("User-Agent", "xmask-lab-dashboard/1.0")
-    with urllib.request.urlopen(req, timeout=18) as resp:
+    with urllib.request.urlopen(req, timeout=8) as resp:
         return json.loads(resp.read().decode("utf-8", "replace"))
 
 
@@ -207,9 +207,12 @@ def local_hits(q: str) -> list[dict]:
     return hits[:20]
 
 
-def hunt(q: str) -> dict:
+def hunt(q: str, scope: str = "all") -> dict:
     q = (q or "").strip()
-    out = {"query": q, "local": [], "remote": [], "error": ""}
+    scope = (scope or "all").lower()
+    if scope not in {"all", "local", "remote"}:
+        scope = "all"
+    out = {"query": q, "local": [], "remote": [], "error": "", "pending_remote": False}
     if not q:
         out["error"] = "puste zapytanie"
         return out
@@ -217,8 +220,18 @@ def hunt(q: str) -> dict:
     now = time.time()
     cached = _HUNT_CACHE.get(key)
     if cached and now - cached[0] < _HUNT_TTL:
-        return cached[1]
-    out["local"] = local_hits(q)
+        data = dict(cached[1])
+        data["pending_remote"] = False
+        if scope == "local":
+            data["remote"] = []
+        return data
+    local = local_hits(q)
+    if scope == "local":
+        out["local"] = local
+        out["pending_remote"] = True
+        out["source"] = "lab"
+        return out
+    out["local"] = local
     compact = q.replace(" ", "")
     try:
         if all(c in "0123456789abcdefABCDEF" for c in compact) and len(compact) >= 32:
@@ -545,7 +558,7 @@ class Handler(SimpleHTTPRequestHandler):
             self._json(boot_payload(), cache="public, max-age=8")
             return
         if parsed.path in {"/api/hunt", "/hunt"}:
-            self._json(hunt(qs.get("q", [""])[0]))
+            self._json(hunt(qs.get("q", [""])[0], qs.get("scope", ["all"])[0]))
             return
         if parsed.path == "/api/job":
             digest = (qs.get("hash", [""])[0] or "").lower()
