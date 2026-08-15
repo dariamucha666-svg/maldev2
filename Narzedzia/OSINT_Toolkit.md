@@ -55,6 +55,10 @@ SKIP_AMASS=1 bash ~/android-pipeline/bin/osint_recon.sh   # szybko (tylko subfin
 
 Wyniki: `/root/samples/reports/osint/`.
 
+**Podpięte do nightly** (`nightly_pipeline.sh`, krok 3d — po CTI enrichment i export):
+`osint_recon.sh` (z `SKIP_AMASS=1`) + `recon_osint.sh`. Flaga `SKIP_OSINT=1` w `pipeline.env`
+wyłącza cały krok. Sekcja `## OSINT` ląduje w `daily_summary_YYYYMMDD.md`.
+
 ## Ręcznie (na `.139`)
 
 ```bash

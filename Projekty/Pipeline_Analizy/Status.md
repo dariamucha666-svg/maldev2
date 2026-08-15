@@ -118,3 +118,6 @@ Flaga `SKIP_CTI=1` wyłącza krok. Analiza narzędzia OSINT: [[Narzedzia/Recon_n
 Pełny zestaw: **Recon-ng 5.1.2, amass 5.1.1, subfinder 2.15.0, nuclei 3.11.1, httpx 1.10.0,
 theHarvester (py3.12), SpiderFoot 4.0.0, sherlock 0.16.0** — opis: [[Narzedzia/OSINT_Toolkit]].
 Drugi wrapper `bin/osint_recon.sh` (subfinder + amass + httpx) → `reports/osint/`.
+
+**Podpięte do nightly** (krok 3d, po CTI/export): `osint_recon.sh` (SKIP_AMASS=1) + `recon_osint.sh`,
+flaga `SKIP_OSINT=1` wyłącza. Wynik w `daily_summary_*` (sekcja `## OSINT`).
