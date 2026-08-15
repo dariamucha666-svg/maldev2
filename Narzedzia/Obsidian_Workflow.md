@@ -75,3 +75,15 @@ rsync -av --exclude '.trash' \
 ```
 
 `alwaysUpdateLinks: true` w `.obsidian/app.json`.
+
+## Notatki od razu
+
+Nie czekaj na koniec dnia. Po każdej zmianie w labie (bot, narzędzie, host, werdykt próbki) od razu:
+
+1. Dopisz akapit do `Daily/YYYY-MM-DD.md`.
+2. Jeśli to większa sesja — `Lab/Recap YYYY-MM-DD.md`.
+3. Hosty / ścieżki → [[Lab/Hosts]]. Narzędzia → [[Lab/Narzedzia_RE]].
+4. Bot → [[Telegram_Obsidian_Bot]].
+5. Hasła i tokeny **nigdy** do vaultu.
+
+Ostatni recap: [[Lab/Recap 2026-08-15]].

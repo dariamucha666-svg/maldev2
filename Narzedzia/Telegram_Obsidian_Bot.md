@@ -48,3 +48,22 @@ Od 2026-08-15: IoC czytane z lokalnego `iocs.json` (cache 20 s), indeks vaultu 5
 Karta sesji 15.08 (UI, joby, alerty): [[Dashboard_Bot_Lab]].
 
 Zobacz też [[Obsidian_Workflow]].
+
+
+## Od 15.08 wieczór — zakładka Obsidian
+
+Klawiatura bota (po `/start`):
+
+| Przycisk / komenda | Co robi |
+|--------------------|---------|
+| **📚 OBSIDIAN** `/obsidian` `/vault` | Foldery vaultu, liczby notatek, wejście w plik |
+| **📋 PODSUMOWANIE \| Co już umiem?** `/podsumowanie` `/umiem` | Żywe podsumowanie: rodziny XMask, karty `Analizy/Malware`, backlog, stos RE |
+| 🕒 Ostatnie | Notatki od najnowszych |
+| `/szukaj fraza` | Pełnotekstowo |
+
+Podsumowanie linkuje: [[Dla_Laika_Powtorka]] · [[Droga_przez_cyberbezpieczenstwo]] · [[Lab/Recap 2026-08-15]] · [[Backlog]].
+
+Produkcja: `.133`, unit `obsidian-telegram-bot.service`, vault `/root/obsidian-vault`.
+Username: `@Xmaskapp_bot`.
+
+Recap sesji: [[Lab/Recap 2026-08-15]].

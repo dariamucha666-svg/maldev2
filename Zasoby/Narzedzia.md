@@ -20,3 +20,5 @@ Indeks. Same notatki zostają w `Narzedzia/` (skrypty + wiki-linki).
 | `Narzedzia/export_pipeline_to_obsidian.sh` | Zrzut raportów |
 
 Zewnętrzne URL: [[Linki]].
+| [[Lab/Narzedzia_RE]] | Mini-lab RE (zamiast FlareVM) |
+| [[Lab/Recap 2026-08-15]] | Sesja 15.08: bot + narzędzia |

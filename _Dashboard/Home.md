@@ -16,7 +16,9 @@ Statyczna analiza próbek + osobne notatki infrastruktury. Bez detonacji.
 - [[Dashboard]] — Dataview + zadania
 - [[QuickStart]] — najczęściej używane
 - [[Pipeline_Analizy]] — pipeline APK/PE na `.133`
+- [[Lab/Recap 2026-08-15]] — bot OBSIDIAN + mini-lab RE
 - [[Lab/Recap 2026-08-14]] — recap obu sesji 14.08
+- [[Lab/Narzedzia_RE]] — co jest zainstalowane
 - [[Lab/Hosts]] — hosty i ścieżki
 
 ## Nawigacja
@@ -34,6 +36,7 @@ Statyczna analiza próbek + osobne notatki infrastruktury. Bez detonacji.
 |------|------|
 | Analiza / pipeline | `vserver959630` Ubuntu 24.04 (`5.175.189.133`) |
 | Windows RE | `WIN-T5BVVHUNVJI` Server 2022 (`5.175.189.57`) — WinRM/RDP |
+| REMnux-lite | `vserver580088` Debian 12 (`5.175.189.139`) |
 
 ## Zasady
 
