@@ -64,6 +64,19 @@ tokeny, rejestr, procesy).
 - Hash (sha256): `00d3f42d…` (powyżej).
 - Rodzina: `LummaStealer` (MaaS, logi → C2 atakującego).
 
+### C2 — ODSZYFROWANE dynamicznie (15.08, sandbox `.57`)
+
+Uruchomiono `lumma.exe` w kontrolowanym sandboxie (DNS logging + 12 s + kill).
+Wyczyszczony cache DNS → jedyny niestandardowy wpis:
+
+| | |
+|--|--|
+| **C2 domena** | **`digitden.cyou`** |
+| **C2 IP** | `64.89.161.173` |
+
+- `.cyou` TLD (typowy dla C2). URLhaus: `no_results` (świeże/niezgłoszone).
+- Metoda: `DnsCache.log` + `Get-DnsClientCache` po uruchomieniu (bez detonacji exfilu — kill po 12 s).
+
 ---
 
 ## 3. Autorskie skrypty (Python / C++)
