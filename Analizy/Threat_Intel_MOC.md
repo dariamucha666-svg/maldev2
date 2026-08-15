@@ -17,7 +17,7 @@ Jedno źródło: rodzina → hash → C2 → IOC → detekcja → nota.
 |---------|------|-----|----------|------|
 | **XWorm V7.4** (njRAT-pochodna) | `7ae00fe8…` | `tuffman-50943.portmap.host:50943` (193.161.193.99) | Suricata 9000601-3, Sigma, YARA `XWorm_V74_Key` | [[7ae00fe8 system32 RAT deep dive]] · [[IOC_XWorm_tuffman]] |
 | **Lumma Stealer** | `00d3f42d…` | `digitden.cyou` (64.89.161.173) | Suricata 9000701-2, Sigma, YARA `Lumma_00d3f42d_C2_digitden` | [[Clipper_Stealer_Analiza]] |
-| **Go Backdoor** (easports.gg) | `178cb931…` | `https://suahoje.com:3000` / `off-game.com` / stage-2 `192.162.199.149` | YARA `Backdoor_Easports`, Sigma xmask | [[IOC_Backdoor]] · [[Backdoor_Go]] |
+| **Go Backdoor** (easports.gg, garble) | `178cb931…` | `https://suahoje.com:3000` / `off-game.com` / stage-2 `192.162.199.149` | YARA `Backdoor_Easports`, Sigma xmask | [[IOC_Backdoor]] · [[Backdoor_Go]] · [[Backdoor_Go_Garble_DEobfuscation]] |
 | NanoCore / Lumma / NWH / Vidar (korpus) | różne | — | CTI (MalwareBazaar) | [[Klasyfikacja_Korpus]] · [[DotNet_cluster]] |
 
 ## Narzędzia przeanalizowane (źródła / dynamicznie)
