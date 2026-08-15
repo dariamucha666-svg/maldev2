@@ -53,6 +53,20 @@ SORT file.name DESC
 LIMIT 7
 ```
 
+## 💬 Telegram (dziś)
+
+```dataview
+LIST
+FROM "Dzienniki/Telegram"
+SORT file.name DESC
+LIMIT 5
+```
+
+## 📡 Sliver
+
+- [[sessions]] — auto-eksport sesji / beaconów
+- [[Automatyzacja]] — co jest spięte
+
 ## 📂 Mapa vaultu
 
 - [[Home]] — spis całej bazy

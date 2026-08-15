@@ -32,7 +32,7 @@ Jedna instancja pollingu — nie odpalaj równolegle na Kali.
 | `/xmask` `/post` | Gotowce na kanał XMask |
 | `/nowa` | Nowa notatka (tytuł, folder, treść) |
 | `/dziennik tekst` | Dopisek do [[Daily]] |
-| zwykła wiadomość | Plik w `Inbox/` |
+| zwykła wiadomość | Plik w `Inbox/` **oraz** dopisek w `Dzienniki/Telegram/YYYY-MM-DD.md` |
 | `/notatki` `/szukaj` `/otworz` | Przeglądanie |
 | `/dopisz` | Akapit do istniejącej notatki |
 | `/foldery` | Katalogi |

@@ -44,6 +44,15 @@ UNDER_OBSIDIAN_SCRIPT=1 bash
 
 Unit `sliver.service` **nie jest ruszany** (zostaje `sliver-server daemon`). Journald nie ma wpisów — log jest w `/root/.sliver/logs/sliver.log` (~75 MB).
 
-Cron `obsidian-sliver-log` dopisuje **ostatnie 80 linii** do `Logs/sliver_YYYY-MM-DD.log`. Całego `sliver.log` / `audit.json` nie kopiujemy (dysk 78%).
+| Cron | Co |
+|------|-----|
+| `obsidian-sliver-log` | ostatnie 80 linii `sliver.log` → `Logs/sliver_YYYY-MM-DD.log` |
+| `obsidian-sliver-sessions` | `export_sliver_to_obsidian.sh` → [[sessions]] |
+
+Całego `sliver.log` / `audit.json` / tabeli `credentials` nie kopiujemy.
+
+## Telegram
+
+Bot dopisuje do `Dzienniki/Telegram/YYYY-MM-DD.md` (patrz [[Automatyzacja]]).
 
 Hasła i tokeny nadal **poza** vaultem.

