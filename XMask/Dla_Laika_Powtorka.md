@@ -4,47 +4,54 @@ channel: false
 updated: 2026-08-15
 ---
 
-🧒 Dla laika — powtórka
+Przypominajka (prosto)
 
-Nie musisz znać żargonu. W skrócie: zebraliśmy podejrzane pliki, popisaliśmy je po kolei i zapisaliśmy w notatkach. Nic nie odpalaliśmy „na żywca”.
+To jest notatka dla Ciebie, nie post na kanał. Żeby za tydzień nie myśleć „co my tam właściwie robiliśmy”.
 
-## Co w ogóle robiliśmy?
+## Od czego się zaczęło
 
-Wyobraź sobie stoisko z nieznanymi paczkami. Zamiast otwierać je w domu, oglądamy opakowanie i spis treści.
+Masz lab: VPS, pipeline (skrypt, który rozkłada podejrzane pliki) i sejf Obsidian. Poprosiłeś, żeby iść dalej z analizą — RAT-y, stealery, backdoory, miners.
 
-1. Maszyna (pipeline) rozkłada plik i pisze raport.
-2. My czytamy raport i nadajemy etykietę: RAT, stealer, backdoor, dropper, packer…
-3. Z tego powstaje karta w Obsidianie i czasem post na kanał XMask.
+Zasada od początku: **tylko oglądamy pliki, nie odpalamy ich z internetem.**
 
-## Słowniczek na jedną linijkę
+## Co zrobiliśmy po kolei
 
-• RAT — ktoś może sterować Twoim telefonem/komputerem z daleka.
-• Stealer — kradnie hasła, SMS-y, sesję banku.
-• Backdoor — drzwi od kuchni, żeby wrócić później.
-• Dropper — paczka, która dopiero ściąga właściwy wirus.
-• Packer — folia bąbelkowa: wirus jest zawinięty, skaner często nic nie widzi.
-• Cryptojacker — kopie krypto na Twoim prądzie. W naszym zestawie go nie było.
+1. **Posegregowaliśmy cały stos próbek.**  
+   Nie „wszystko to wirus”, tylko etykiety: RAT, stealer, backdoor, dropper, packer. Minera (cryptojackera) w tym zestawie nie było.
 
-## Co już rozpakowaliśmy (prosto)
+2. **Wpięliśmy etykiety w pipeline.**  
+   Nowy plik po analizie sam dostaje tag (rat / stealer / …). Bot i dashboard też to widzą.
 
-• Kira — to nie cichy wirus z maila. To szkoleniowa apka, która POKAZUJE sztuczki RAT-a (nakładki, czytanie ekranu). Nie instaluj na swoim telefonie.
+3. **Kira (apka na telefon).**  
+   Wyglądała jak klasyczny RAT. Po otwarciu kodu okazało się: to publiczna apka szkoleniowa (malware-apk). Pokazuje sztuczki, ale nie ma ukrytego serwera. Nie instalować na swoim telefonie.
 
-• Receita Federal w Chrome — to już prawdziwy złodziej. Udaje urząd skarbowy i wsiąka w banki. Czyta hasła i potrafi pokazać fałszywe okienko na token.
+4. **Rozszerzenie Chrome „Receita Federal”.**  
+   To już nie szkoła. Udaje urząd skarbowy i kradnie dane z banków (Brazylia). Adresy serwerów są wpisane w plikach. Tego nie ruszaliśmy w sieci.
 
-• NanoCore — trzy pliki „update.exe” z Windows. Stary RAT, nadal w obiegu. Adres serwera schowany w środku.
+5. **Sześć plików Windows (.NET).**  
+   Nie jeden stealer. Trzy to NanoCore (stary RAT). Reszta: duży „Loader”, stub udający aktualizację i mały `system32.exe` z kamerą. Adresów w czystym tekście nie było.
 
-• Zirex / Digikala_Job — apka udająca pracę w Digikali. Najpierw zdejmuje „folię” (packer), dopiero potem wychodzi właściwy program. Adres strony składa sam w środku — nie widać go gołym okiem.
+6. **Spakowane APK-i.**  
+   Nie jeden packer. Zirex (Digikala_Job — fałszywa oferta pracy), dwa z paczką `nvcgehin`, perska strona w apce, plus zaszyfrowany plik w assets.
 
-• Reszta — SMS-stealer, fałszywa karta NFC, instalatory „Runtime Components”, spakowane APK-i.
+7. **Zirex głębiej — nativeComposeUrl.**  
+   Adres, z którym apka ma gadać, składa się w bibliotece native, nie w Javie. Widać przynętę Digikala i listę uprawnień (SMS, telefon, zdjęcia). Samego adresu nie wyciągnęliśmy — trzeba by emulować kod offline. Tego nie zrobiliśmy.
 
-## Czego NIE robiliśmy
+8. **Bot Telegram.**  
+   Umie dopisywać notatki do Obsidiana, czytać dashboard i dawać gotowce na kanał. Ten przycisk czyta właśnie tę notatkę.
 
-Nie odpalaliśmy wirusów z internetem. Nie łączymy się z ich serwerami. Notatki są po to, żeby wiedzieć JAK SIĘ BRONIĆ i co to było.
+## Czego świadomie nie ruszaliśmy
 
-## Jak się bronić (minimum)
+- Odpalania próbek.
+- Łączenia się z ich serwerami.
+- Odszyfrowywania drugiego etapu Zirex / nvcgehin na VPS.
+- Sliver / C2 z tej sesji.
 
-• Nie instaluj APK / EXE / rozszerzeń Chrome spoza oficjalnego sklepu.
-• Nie dawaj „dostępu do całego ekranu” (Accessibility) i nakładek nieznanym apkom.
-• Po podejrzeniu: hasła z INNEGO urządzenia, sprawdź przelewy.
+## Gdzie to leży, jak zapomnisz nazw
 
-Więcej w przyciskach pod spodem — to te same notatki, tylko prościej poukładane.
+- Cała segregacja → notatka Klasyfikacja korpusu
+- Dziennik dnia → Daily 2026-08-15
+- Kira, Chrome, .NET, Zirex → karty w Analizy/Malware
+- Przyciski pod spodem → krótsze kawałki tej samej historii
+
+Jak będziesz robił kolejne RE, dopisz akapit tutaj — bot pokaże nową wersję.

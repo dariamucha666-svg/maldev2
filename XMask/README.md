@@ -23,7 +23,7 @@ Gotowce do wklejenia na Telegram. Bot: `/xmask` albo `/post`. Przycisk **Dla Lai
 | [[Android_webview_react]] | apka-strona | phishing |
 | [[Android_packed]] | spakowane APK | packed |
 | [[Cryptojacking]] | **brak próbki w korpusie** | cryptojacker |
-| [[Dla_Laika_Powtorka]] | prosta powtórka (przycisk w bocie) | laik |
+| [[Dla_Laika_Powtorka]] | Twoja przypominajka (przycisk w bocie) | laik |
 | [[Szablon_alert]] | szablon | — |
 
 Zasady: bez haseł, bez porad „jak odpalić”, tylko **co to jest** i **jak się bronić**. Dashboard: [[Dashboard_IOC]].

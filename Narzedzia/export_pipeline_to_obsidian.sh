@@ -45,3 +45,6 @@ if [[ -n "$RUN_LOG" && -f "$RUN_LOG" ]]; then
 fi
 
 echo "obsidian export: $dest"
+
+# refresh public dashboard history
+[ -x /root/obsidian-vault/Narzedzia/build_dashboard_history.py ] && python3 /root/obsidian-vault/Narzedzia/build_dashboard_history.py || true
