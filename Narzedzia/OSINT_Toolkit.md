@@ -60,8 +60,10 @@ Wyniki: `/root/samples/reports/osint/` (`subs_*`, `httpx_*`, `nuclei_*`).
 `osint_recon.sh` (z `SKIP_AMASS=1`) + `recon_osint.sh`. Flaga `SKIP_OSINT=1` w `pipeline.env`
 wyłącza cały krok. Sekcje `## OSINT` i `## Nuclei` lądują w `daily_summary_YYYYMMDD.md`.
 
-**Nuclei** (delikatnie): `http/technologies/ + http/exposures/ + http/misconfiguration/ + ssl/`,
-na żywych hostach z httpx. Szablony w `~/nuclei-templates` na `.139` (pobrane `-update-templates`).
+**Nuclei** (delikatnie): `http/technologies/ + http/exposures/ + http/misconfiguration/ +
+http/exposed-panels/ + http/takeovers/ + ssl/`, na żywych hostach z httpx.
+Szablony w `~/nuclei-templates` na `.139` (pobrane `-update-templates`).
+`takeovers` łapie przejęte subdomeny C2 (krytyczne dla OSINT).
 
 ## Ręcznie (na `.139`)
 

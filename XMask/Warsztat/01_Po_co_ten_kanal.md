@@ -1,21 +1,21 @@
 ---
-tags: [xmask, warsztat, channel, community]
+tags: [xmask, channel, community]
 channel: true
-series: warsztat
+series: intro
 due: 2026-08-15
 updated: 2026-08-15
 ---
 
-XMask — tu wrzucam filmiki z roboty.
+XMask. Dwa programy.
 
-Strony. Apki. Czasem dziwne pliki, które ktoś nazwie wirusem.
+XMASK - HACKPLUG
+Jak zostać hakerem. Nauka, lab, strony, apki. Legalnie.
 
-Prosto. Żebyś ogarnął i kiedyś mógł na tym zarobić — legalnie, skillami, nie przekrętami.
+xmask_opsec.exe
+Jak się nie dać w sieci.
 
-Będzie też OPSEC: jak nie wyłożyć siebie w necie.
+Filmiki z roboty. Prosto. Żebyś ogarnął i kiedyś zarobił skillami — nie przekrętem.
 
-Nie uczę pisać wirusów. Pokazuję, jak buduję i jak patrzeć.
-
-Zostań. Kolejny klip niedługo.
+Zostań.
 
 #XMask
