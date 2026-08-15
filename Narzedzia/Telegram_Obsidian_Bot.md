@@ -77,3 +77,17 @@ Recap sesji: [[Lab/Recap 2026-08-15]].
 Regularny content marketing dla ludzi. `/kanal`. Kolejka w `state/channel_queue.json`. Cron `xmask-channel` 16:00 UTC.
 Jak bot jest adminem kanału: `TELEGRAM_CHANNEL_ID=-100…` w `.env`.
 Editorial: [[Warsztat/README]].
+
+## Komendy (stan 15.08 wieczór)
+
+| Komenda | Co |
+|---------|-----|
+| `/obsidian` 📚 | zakładki całego vaultu |
+| `/podsumowanie` | Co już umiem |
+| `/ig` | IG @zamaskowanyeu — liczby (czeka na token) |
+| `/kanal` | kolejka HACKPLUG / opsec.exe |
+| `/klip` | filmy + głos → montaż → kanał |
+| `/xmask` `/laik` | gotowce / powtórka |
+| `/graj` | misje obronne |
+
+Hardening: [[Telegram_Security]]. Studio: [[Studio_Klip]]. Serie: [[Serie]].

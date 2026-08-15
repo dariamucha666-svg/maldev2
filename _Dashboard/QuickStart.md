@@ -22,6 +22,9 @@ Najczęściej otwierane notatki. Nowa karta: **Ctrl/Cmd+P → QuickAdd**.
 | Chrome stealer | [[1b3ceba6 Chrome bank stealer]] |
 | Hosty | [[Lab/Hosts]] |
 | Goose + DeepSeek | [[Goose_DeepSeek]] |
+| Serie kanału | [[Serie]] |
+| `/klip` | [[Studio_Klip]] |
+| Bot TG | [[Telegram_Obsidian_Bot]] · [[Telegram_Security]] |
 | Bot + alerty | [[Dashboard_Bot_Lab]] · [[Telegram_Obsidian_Bot]] |
 | Posty XMask | [[XMask/README]] |
 | Backlog | [[Backlog]] |
