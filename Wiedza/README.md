@@ -27,14 +27,14 @@ red teamingu, analizie malware, nowych atakach, narzędziach i obronie.**
 | Narzędzia | [[Narzedzia]] | Katalog narzędzi ofensywnych i defensywnych |
 | Źródła | [[Zrodla]] | Feedy, API, blogi, kanały do śledzenia |
 | Dziennik zmian | [[Aktualizacje]] | Co i kiedy dodano (regularne aktualizacje) |
-| Feed auto | [[Feed_MalwareBazaar]] | Auto-generowany snapshot świeżych próbek |
+| Feed auto | [[Feed_MalwareBazaar]] · [[Feed_CISA_KEV]] · [[Feed_ThreatFox]] | Auto-generowane snapshoty: próbki / eksploatowane CVE / IoC |
 
 ## Jak aktualizujemy (regularnie)
 
-1. **Automat:** `Narzedzia/update_wiedza.sh` — pobiera świeże próbki z MalwareBazaar
-   (recent, domyślnie 10) i nadpisuje [[Feed_MalwareBazaar]] + dopisuje wpis do [[Aktualizacje]].
-   Cron: `/etc/cron.d/obsidian-wiedza` (kilka razy dziennie). Commit robi istniejący
-   `obsidian-git` (co 15 min).
+1. **Automat:** `Narzedzia/update_wiedza.sh` — pobiera świeże dane z 3 źródeł:
+   MalwareBazaar (próbki), CISA KEV (eksploatowane CVE), ThreatFox (IoC), nadpisuje
+   [[Feed_MalwareBazaar]] · [[Feed_CISA_KEV]] · [[Feed_ThreatFox]] i dopisuje wpis do
+   [[Aktualizacje]]. Cron: `/etc/cron.d/obsidian-wiedza` (co 6 h). Commit robi `obsidian-git` (co 15 min).
 2. **Półautomat:** nowa rodzina / nowy atak / nowe narzędzie → nowa notatka z [[_Template]].
 3. **Ręcznie:** po analizie próbki w [[Analizy]] dopisz rodzinę/technikę do odpowiedniego MOC.
 
