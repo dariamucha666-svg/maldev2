@@ -370,7 +370,7 @@ def enqueue(digest: str, action: str) -> dict:
     write_job(digest, state="queued", message="w kolejce", action=action)
     log = JOBS / f"{digest}.log"
     subprocess.Popen(
-        ["/usr/bin/python3", str(Path(__file__).resolve()), "--job", digest, action],
+        [sys.executable, str(Path(__file__).resolve()), "--job", digest, action],
         stdout=open(log, "ab"),
         stderr=subprocess.STDOUT,
         start_new_session=True,

@@ -29,6 +29,9 @@ Jedna instancja pollingu — nie odpalaj równolegle na Kali.
 | Komenda | Co robi |
 |---------|---------|
 | `/dashboard` `/wirus` | Pipeline + opis wirusa |
+| `/status` | Liczby: próbki, role, sesje Sliver |
+| `/pobierz <hash>` | Ściąga próbkę (MalwareBazaar → kwarantanna), śledzi job |
+| `/klasyfikuj <hash>` | Pokazuje rolę albo odpala pipeline |
 | `/xmask` `/post` | Gotowce na kanał XMask |
 | `/nowa` | Nowa notatka (tytuł, folder, treść) |
 | `/dziennik tekst` | Dopisek do [[Daily]] |
