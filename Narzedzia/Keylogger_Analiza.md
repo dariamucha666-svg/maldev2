@@ -188,4 +188,14 @@ też się łączy z `api.telegram.org`) → do korelacji z procesem/behaviorem.
 
 1. ~~Dynamiczna analiza pynput/Telegram keyloggera~~ ✅ (zrobione — patrz wyżej).
 2. ~~Suricata: reguła na exfil Telegram~~ ✅ (`keylogger_exfil.rules`).
-3. Refog/Spyrix: pobrać trial i wyciągnąć IOCs (procesy/pliki/usługi) w sandboxie `.57`.
+3. ~~Refog/Spyrix: trial w sandboxie `.57`~~ ⛔ **zablokowane** (15.08):
+   - **Download wymaga rejestracji**: `refog.com` → `login.refog.com/account/signup/`,
+     `spyrix.com/download.php` → `purchase.php` (brak publicznego triala).
+   - **`.57` dostęp**: tylko RDP (3389) + WinRM (5985), ale mam tylko **NTLM hash**
+     (bez hasła jawnego), a `evil-winrm`/`impacket` nie są zainstalowane (tylko `xfreerdp`).
+
+### Plan odblokowania (gdy będzie dostęp)
+
+1. Dostarczyć instalator Refog/Spyrix (albo konto do pobrania triala).
+2. Dostęp do `.57`: hasło jawne Administratora (albo zainstalować `evil-winrm` do pass-the-hash).
+3. W sandboxie `.57`: zainstalować → zebrać IOCs (procesy, usługi, pliki, rejestr, sieć) → dopisać YARA/Suricata.
