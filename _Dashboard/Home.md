@@ -25,6 +25,7 @@ Statyczna analiza próbek + osobne notatki infrastruktury. Bez detonacji.
 - [[Hunt_Keylogger]] — keylog: DotNetCam capa + NanoCore / kira a11y
 - [[Lab/Hosts]] — hosty i ścieżki
 - [[Goose_DeepSeek]] — Goose + DeepSeek na `.133` (okno z Kali)
+- [[Wiedza/README|Wiedza]] — baza wiedzy: ataki, malware, pentest, red team, obrona (regularnie aktualizowana)
 
 ## Nawigacja
 
