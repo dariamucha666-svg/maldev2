@@ -120,7 +120,16 @@ Wyczyszczony cache DNS → jedyny niestandardowy wpis:
 
 ## Reguły detekcji
 
-YARA → `/root/android-pipeline/tools/yara-rules/custom/clipper_stealer.yar`.
+- YARA → `/root/android-pipeline/tools/yara-rules/custom/clipper_stealer.yar`
+  (`Clipper_Python_Clipboard`, `Clipper_Python_MultiCrypto`, `Clipper_CPP_Xorstr`,
+  `Lumma_Go_Loader`, `Lumma_00d3f42d_C2_digitden` — hash-specific).
+- Suricata → `tools/detection/lumma_digitden.rules` (DNS `digitden.cyou` + IP `64.89.161.173`).
+- Sigma → `tools/sigma-rules/lumma_digitden_dns.yml` (QueryName `digitden.cyou`).
+
+## Zgłoszenie C2
+
+- URLhaus API submission `POST /v1/url/` → `no_results` (nie przyjęło — wymaga ręcznego zgłoszenia
+  przez formularz https://urlhaus.abuse.ch/). C2 domena: `digitden.cyou`.
 
 ## Next
 
