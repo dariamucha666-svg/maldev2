@@ -39,7 +39,7 @@ pipeline.sh (RE)              enrich_cti.py (hash/URL/IP → abuse.ch/VT/OTX)
         ┌────────────┼─────────────────────┐
    recon_osint.sh  osint_recon.sh    (manualnie)
    (Recon-ng)      (subfinder+amass   theHarvester / SpiderFoot / sherlock
-                     +httpx)
+                     +httpx+nuclei)
 ```
 
 ## Wrappery (na `.133`)
@@ -48,16 +48,20 @@ pipeline.sh (RE)              enrich_cti.py (hash/URL/IP → abuse.ch/VT/OTX)
 # Recon-ng (hackertarget) — pivot host→IP
 bash ~/android-pipeline/bin/recon_osint.sh suahoje.com off-game.com
 
-# subfinder + amass + httpx — enumeracja subdomen + probe
+# subfinder + amass + httpx + nuclei — enumeracja subdomen + probe + delikatny skan
 bash ~/android-pipeline/bin/osint_recon.sh off-game.com
 SKIP_AMASS=1 bash ~/android-pipeline/bin/osint_recon.sh   # szybko (tylko subfinder)
+SKIP_NUCLEI=1 bash ~/android-pipeline/bin/osint_recon.sh  # bez nuclei
 ```
 
-Wyniki: `/root/samples/reports/osint/`.
+Wyniki: `/root/samples/reports/osint/` (`subs_*`, `httpx_*`, `nuclei_*`).
 
 **Podpięte do nightly** (`nightly_pipeline.sh`, krok 3d — po CTI enrichment i export):
 `osint_recon.sh` (z `SKIP_AMASS=1`) + `recon_osint.sh`. Flaga `SKIP_OSINT=1` w `pipeline.env`
-wyłącza cały krok. Sekcja `## OSINT` ląduje w `daily_summary_YYYYMMDD.md`.
+wyłącza cały krok. Sekcje `## OSINT` i `## Nuclei` lądują w `daily_summary_YYYYMMDD.md`.
+
+**Nuclei** (delikatnie): `http/technologies/ + http/exposures/ + http/misconfiguration/ + ssl/`,
+na żywych hostach z httpx. Szablony w `~/nuclei-templates` na `.139` (pobrane `-update-templates`).
 
 ## Ręcznie (na `.139`)
 

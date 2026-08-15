@@ -120,4 +120,7 @@ theHarvester (py3.12), SpiderFoot 4.0.0, sherlock 0.16.0** — opis: [[Narzedzia
 Drugi wrapper `bin/osint_recon.sh` (subfinder + amass + httpx) → `reports/osint/`.
 
 **Podpięte do nightly** (krok 3d, po CTI/export): `osint_recon.sh` (SKIP_AMASS=1) + `recon_osint.sh`,
-flaga `SKIP_OSINT=1` wyłącza. Wynik w `daily_summary_*` (sekcja `## OSINT`).
+flaga `SKIP_OSINT=1` wyłącza. Wynik w `daily_summary_*` (sekcje `## OSINT` i `## Nuclei`).
+
+**Nuclei** dodany do sweepu (delikatnie): `http/technologies+exposures+misconfiguration + ssl/`,
+na żywych hostach C2 z httpx. Szablony na `.139` (`~/nuclei-templates`). Flaga `SKIP_NUCLEI=1` wyłącza.
