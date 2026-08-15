@@ -14,6 +14,7 @@ Najczęściej otwierane notatki. Nowa karta: **Ctrl/Cmd+P → QuickAdd**.
 | Co | Link |
 |----|------|
 | Dashboard | [[Dashboard]] |
+| Ścieżka lab | [[Droga_przez_cyberbezpieczenstwo]] |
 | Dziennik dzisiaj | [[Daily/2026-08-15]] |
 | Pipeline | [[Pipeline_Analizy]] · [[Status]] |
 | Backdoor Go | [[Backdoor_Go]] · [[178cb931 Precision Agriculture Go PE]] |

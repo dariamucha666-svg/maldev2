@@ -5,12 +5,13 @@ updated: 2026-08-15
 
 # Malware Lab Vault
 
-**Główny indeks:** [[Dashboard]] · [[QuickStart]]
+**Główny indeks:** [[Dashboard]] · [[QuickStart]] · [[Droga_przez_cyberbezpieczenstwo]]
 
 Statyczna analiza próbek + osobne notatki infrastruktury. Bez detonacji.
 
 ## Start tutaj
 
+- [[Droga_przez_cyberbezpieczenstwo]] — recap całej ścieżki (RE → C2 → narzędzia)
 - [[Dashboard]] — Dataview + zadania
 - [[QuickStart]] — najczęściej używane
 - [[Pipeline_Analizy]] — pipeline APK/PE na `.133`

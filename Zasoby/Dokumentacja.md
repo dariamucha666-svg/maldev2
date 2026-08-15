@@ -11,6 +11,7 @@ tags: [zasoby, obsidian]
 - [[Obsidian_Auto_Log]] — `Logs/` `Analizy/Raporty/`
 - [[Telegram_Obsidian_Bot]] — `Daily/` i `Inbox/` nie ruszać
 - [[Dashboard]] — strona startowa
+- [[Droga_przez_cyberbezpieczenstwo]] — recap całej ścieżki (RE → C2 → narzędzia)
 
 ## Frontmatter (minimum)
 
