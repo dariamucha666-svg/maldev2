@@ -15,6 +15,10 @@ pkg      com.zirex.*
 so       libcrashguard_a3c7.so  libdobby.so  libshadowhook.so  libbytehook.so
 str      com.zirex::epdata::x7f3a::2026
 str      Java_com_zirex_shield_NativeBridge_nativeDecryptPayload
+asset    app_name.txt = Digikala_Job
+asset    port.txt = zt9Te
+magic    7F 45 50 44 41 54 41  (EPDATA)
+unpack   ZXPF (0x5A585046)
 ```
 
 ## hhcbcu (`b2bc6d34…` / `d5b94817…`)

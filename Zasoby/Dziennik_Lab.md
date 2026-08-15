@@ -21,7 +21,7 @@ Powiązane: [[Dashboard]] · [[Daily/2026-08-15]] · [[Daily/2026-08-14]] · [[L
 - [[Klasyfikacja_Korpus]] — tabela „co to oznacza” (RAT 1, backdoor 1, stealer 4+, dropper 5+, packed 3+, cryptojacker 0).
 - Karty: [[410a5cba Android RAT kira]], [[4d0f7a96 Android SMS stealer avanegar]], [[a710209e Android NFC skimmer]], [[1b3ceba6 Chrome bank stealer]].
 - `classify_roles.py` w `pipeline.sh` po auto-YARA — raporty JSON dostają `tags` + `classification.role`.
-- Next: jadx Zirex ComposeUrl albo de4dot NanoCore offline.
+- Next: emulacja JNI ComposeUrl (offline) albo de4dot NanoCore.
 
 ### Static RE — kira
 
@@ -45,6 +45,11 @@ Powiązane: [[Dashboard]] · [[Daily/2026-08-15]] · [[Daily/2026-08-14]] · [[L
 
 - Zirex + Dobby (`b5e8b4ae`), hhcbcu/`nvcgehin` ×2, perski WebView, blob dropper.
 - [[Android_native_packed]] · YARA `zirex_native.yar`
+
+### Static RE — Zirex nativeComposeUrl
+
+- URL składany w `libcrashguard_a3c7.so`; drugi DEX w `analytics.db` (EPDATA).
+- Przynęta `Digikala_Job`. [[Zirex_nativeComposeUrl]]
 
 ## 2026-08-14
 
