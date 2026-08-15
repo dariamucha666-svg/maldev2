@@ -71,3 +71,22 @@ Logowanie z sesji Goose:
 ```bash
 /root/obsidian-vault/Narzedzia/log_to_obsidian.sh "Goose — temat" "co zrobiono"
 ```
+
+## Stabilność TUI (2026-08-15 wieczór)
+
+Goose **nie** odpalamy już gołym SSH+TUI w qterminalu — to zapychało bufor (myślenie DeepSeek `max` + dużo tooli) i każda konsola wyglądała jak martwa.
+
+| Co | Jak |
+|----|-----|
+| Proces | `tmux` na `.133`: `g-deepseek-vps`, `g-deepseek-vps-2`, `g-deepseek-vps-3` |
+| Helper Kali | `goose-vps-133` / `-2` / `-3` tylko **attach** |
+| Wrapper | `/root/.local/bin/goose-tmux` |
+| Myślenie | `GOOSE_THINKING_EFFORT: medium` (było `max`) |
+| Limit tur | `GOOSE_MAX_TURNS: 40` + compact 0.6 |
+
+Zamknięcie okna na Kali **nie** zabija Goose. Ponowne odpalenie helpera = powrót do tego samego tmux.
+
+- Detach: `Ctrl-b d`
+- Lista: `tmux ls` na `.133`
+- Nie wznawiać starej `deepseek-vps` (2000+ wiadomości) — nowa nazwa albo #3.
+
