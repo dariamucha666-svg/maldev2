@@ -21,7 +21,7 @@ Najczęściej otwierane notatki. Nowa karta: **Ctrl/Cmd+P → QuickAdd**.
 | Następny RE | [[410a5cba Android RAT kira]] |
 | Chrome stealer | [[1b3ceba6 Chrome bank stealer]] |
 | Hosty | [[Lab/Hosts]] |
-| Bot Telegram | [[Telegram_Obsidian_Bot]] |
+| Bot + alerty | [[Dashboard_Bot_Lab]] · [[Telegram_Obsidian_Bot]] |
 | Posty XMask | [[XMask/README]] |
 | Backlog | [[Backlog]] |
 

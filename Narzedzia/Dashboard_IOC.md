@@ -68,7 +68,7 @@ Lokalny (niepubliczny) serwer nadal: `127.0.0.1:8766` (`web/serve.py`).
 
 Katalog opisów: `/root/android-pipeline/web/catalog.json` (kopia w `/var/www/ioc-dashboard/catalog.json` i w bocie `virus_catalog.json`). Pipeline nadpisuje `iocs.json`, potem `classify_roles.py` dopisuje `role` + `tags`. [[Role_Tags]]
 
-Bot: `/dashboard`, `/wirus <hash>`, posty: `/xmask` ([[Telegram_Obsidian_Bot]]).
+Bot: `/dashboard`, `/wirus`, `/pobierz`, `/klasyfikuj`, `/alerty` — karta: [[Dashboard_Bot_Lab]] · [[Telegram_Obsidian_Bot]].
 
 ## Stan po runie 22:15 UTC
 

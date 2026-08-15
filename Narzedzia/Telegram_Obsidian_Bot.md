@@ -2,7 +2,7 @@
 date: 2026-08-14
 tags: [telegram, obsidian, workflow]
 source: local
-updated: 2026-08-14
+updated: 2026-08-15
 ---
 
 # Telegram ↔ Obsidian Bot
@@ -44,5 +44,7 @@ Jedna instancja pollingu — nie odpalaj równolegle na Kali.
 Hasła i tokeny **nie** idą do vaultu — token bota siedzi w `.env` poza sejfem.
 
 Od 2026-08-15: IoC czytane z lokalnego `iocs.json` (cache 20 s), indeks vaultu 5 s, `httpx` nie loguje getUpdates (token nie wylewa się do journald).
+
+Karta sesji 15.08 (UI, joby, alerty): [[Dashboard_Bot_Lab]].
 
 Zobacz też [[Obsidian_Workflow]].

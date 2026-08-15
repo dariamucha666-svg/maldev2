@@ -19,7 +19,7 @@ Powiązane: [[Dashboard]] · [[Daily/2026-08-15]] · [[Daily/2026-08-14]] · [[L
 ### Recap ścieżki w vaultcie
 
 - [[Droga_przez_cyberbezpieczenstwo]] — od Exodus/RE przez C2 i pipeline do OCR i własnego RAT-a.
-- Karty projektów: [[Wlasny_RAT]], [[Prototyp_OCR_Android]].
+- Karty projektów: [[Wlasny_RAT]], [[Prototyp_OCR_Android]], [[Dashboard_Bot_Lab]].
 
 ### Klasyfikacja w vaultcie + tagi pipeline
 

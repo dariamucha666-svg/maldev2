@@ -12,6 +12,7 @@ Statyczna analiza próbek + osobne notatki infrastruktury. Bez detonacji.
 ## Start tutaj
 
 - [[Droga_przez_cyberbezpieczenstwo]] — recap całej ścieżki (RE → C2 → narzędzia)
+- [[Dashboard_Bot_Lab]] — dashboard, bot, alerty RAT/stealer
 - [[Dashboard]] — Dataview + zadania
 - [[QuickStart]] — najczęściej używane
 - [[Pipeline_Analizy]] — pipeline APK/PE na `.133`
