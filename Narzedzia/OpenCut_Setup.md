@@ -38,3 +38,5 @@ Nie odpalać OpenCut równolegle z ciężkim Ghidra na Eval z ~6 GB RAM.
 ## Relacja do pipeline
 
 OpenCut **nie** jest częścią [[Pipeline_Analizy]]. To osobny workload na hoście Windows.
+
+Auto-montaż na kanał (nie OpenCut): [[Studio_Klip]].
