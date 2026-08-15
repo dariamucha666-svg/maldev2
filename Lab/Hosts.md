@@ -55,3 +55,9 @@ Zobacz [[Lab/Recap 2026-08-15]] · [[Lab/Narzedzia_RE]] · [[Lab/Recap 2026-08-1
 - kanał: `t.me/XMaskPoland` (id w `.env`, nie tutaj)
 - studio: `/root/xmask-studio/jobs/` + `/root/obsidian-telegram-bot/{studio,render,content}.py`
 - bot unit: `obsidian-telegram-bot.service`
+
+## Domeny web
+
+- [[Lab/Cloudflare_x-masked|x-masked.com]] — landing High Five (Worker `x-masked`)
+- [[Lab/Cloudflare_zamaskowani|zamaskowani.eu]]
+- [[Lab/Cloudflare_casinomask|casinomask.eu]] (wyłączone)
