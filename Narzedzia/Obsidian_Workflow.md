@@ -89,3 +89,21 @@ Nie czekaj na koniec dnia. Po każdej zmianie w labie (bot, narzędzie, host, we
 Ostatni recap: [[Lab/Recap 2026-08-15]].
 
 Sesja Goose na `.133`: [[Goose_DeepSeek]].
+
+## Haczyk Grok / Goose (od 15.08 wieczór)
+
+Jedna komenda, od razu po zmianie — nie czekać na koniec dnia:
+
+```bash
+# na .133
+/root/obsidian-vault/Narzedzia/log_to_obsidian.sh "Tytuł" "2–8 zdań. Bez haseł."
+
+# większa sesja → Daily + Recap
+/root/obsidian-vault/Narzedzia/log_to_obsidian.sh --recap "Tytuł" "co / wynik / next"
+
+# z Kali
+obsidian-log "Tytuł" "2–8 zdań"
+```
+
+Goose dostaje to samo przez `GOOSE_MOIM_MESSAGE_FILE` (`/root/.config/goose/top_of_mind.md`) + skill `obsidian-log`.
+Grok: `~/.grok/rules/obsidian-notes.md`. Git i tak zcommituje w ciągu 15 min.

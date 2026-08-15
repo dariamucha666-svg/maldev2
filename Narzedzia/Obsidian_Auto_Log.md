@@ -56,3 +56,11 @@ Całego `sliver.log` / `audit.json` / tabeli `credentials` nie kopiujemy.
 Bot dopisuje do `Dzienniki/Telegram/YYYY-MM-DD.md` (patrz [[Automatyzacja]]).
 
 Hasła i tokeny nadal **poza** vaultem.
+
+## Haczyk sesji (Grok / Goose)
+
+Ręczne / agentowe dopiski do Daily (to, czego cron nie widzi: czat, werdykt, nowa sesja):
+
+`Narzedzia/log_to_obsidian.sh` → `Daily/YYYY-MM-DD.md` (`--recap` też `Lab/Recap YYYY-MM-DD.md`).
+
+Goose: env `GOOSE_MOIM_MESSAGE_FILE=/root/.config/goose/top_of_mind.md` (w `deepseek.env`). Nowe sesje to łapią; stara sesja Goose wymaga restartu okna, żeby wczytać tom.

@@ -55,3 +55,19 @@ goose session -n deepseek-vps --provider custom_deepseek --model deepseek-v4-pro
 
 - [ ] Jak Goose skończy zadanie — dopisać werdykt tutaj i do dziennika.
 - [ ] Nie trzymać sekretów w `config.yaml` (zostają w `deepseek.env` / `secrets.yaml`).
+
+## Druga sesja (15.08 wieczór)
+
+| Pole | Wartość |
+|------|---------|
+| Sesja | `deepseek-vps-2` |
+| Okno Kali | 🪿 / `Goose DeepSeek — .133 #2` |
+| Stara `deepseek-vps` | **zostaje** (osobna historia) |
+
+Nowe okna Goose wczytują haczyk Obsidian (`top_of_mind.md`). Żeby stara sesja też go miała — zamknij i odpal ponownie helper (historia `deepseek-vps` wraca po `-n`).
+
+Logowanie z sesji Goose:
+
+```bash
+/root/obsidian-vault/Narzedzia/log_to_obsidian.sh "Goose — temat" "co zrobiono"
+```
