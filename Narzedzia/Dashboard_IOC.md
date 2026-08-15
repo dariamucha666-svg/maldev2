@@ -20,6 +20,7 @@ Centralny widok IoC z raportów pipeline. **Sigma** — jeszcze nie ma (do dodan
 | UI | `/root/android-pipeline/web/dashboard.html` |
 | Serwer | `/root/android-pipeline/web/serve.py` |
 | API | `GET /api/iocs` i `GET /iocs.json` |
+| Sliver | `GET /api/sliver/sessions` — żywe sesje / beacon'y / joby (gRPC sliver-py, tylko odczyt) |
 | Dane | `/root/samples/reports/iocs.json` (kopia w `web/`) |
 
 ## Publiczny widok (ścieżka C)
@@ -59,7 +60,9 @@ Lokalny (niepubliczny) serwer nadal: `127.0.0.1:8766` (`web/serve.py`).
 - hash SHA256
 - stringi IoC (zielone)
 - YARA, data, nazwa pliku
-- filtr po nazwie rodziny / haśle / stringu / `pe` / `apk`
+- filtr: rola, APK/PE, YARA+/−, dzień z osi czasu, szukaj
+- wykresy: donut ról, bary typ/YARA, historia 11–14.08 (`history.json`)
+- zakładka **Sliver**: aktywne sesje z operator API (`sliver-py` → `GetSessions` / `GetBeacons` / `GetJobs`)
 
 Katalog opisów: `/root/android-pipeline/web/catalog.json` (kopia w `/var/www/ioc-dashboard/catalog.json` i w bocie `virus_catalog.json`). Pipeline nadpisuje `iocs.json`, potem `classify_roles.py` dopisuje `role` + `tags`. [[Role_Tags]]
 

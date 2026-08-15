@@ -64,6 +64,7 @@ LIMIT 5
 
 ## 📡 Sliver
 
+- [Żywe sesje na dashboardzie](https://dash.maskencrypt.eu/?tab=c2) — `GET /api/sliver/sessions`
 - [[sessions]] — auto-eksport sesji / beaconów
 - [[Automatyzacja]] — co jest spięte
 

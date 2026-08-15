@@ -55,6 +55,10 @@ sessions
 beacons
 jobs
 
+# To samo przez API (dashboard)
+curl -s http://127.0.0.1:8080/api/sliver/sessions
+# UI: https://dash.maskencrypt.eu/?tab=c2
+
 # Zapis do Obsidian — NIE MA `sessions --save`
 # ( --save jest tylko przy generate )
 /root/obsidian-vault/Narzedzia/export_sliver_to_obsidian.sh

@@ -19,7 +19,7 @@ Co już jest spięte, a czego Sliver **nie** umie.
 | Logi Sliver | cron ogona `sliver.log` + **eksport sesji** | działa |
 | Telegram → vault | bot: Inbox + Daily + `Dzienniki/Telegram/YYYY-MM-DD.md` | działa |
 | Screenshoty Windows | zadanie „Obsidian Screenshot” co 30 min (gdy sesja interaktywna) | `.57` |
-| Git backup | `git_autocommit.sh` co godzinę | `/root/obsidian-vault` |
+| Git backup + sync | `git_autocommit.sh` co 15 min → bare `obsidian-vault.git`; Kali pull/push przez Obsidian Git | [[Git_Sync]] |
 | Podgląd HTML | `export_vault_html.py` + Caddy `127.0.0.1:8081` | tunel SSH, nie :8080 |
 | Transcript Windows | `Start-Transcript` w profilu PowerShell na `.57` | ręcznie na `.57` |
 
@@ -32,6 +32,8 @@ W konsoli **nie ma** `sessions --save` (flaga `--save` jest przy `generate`). Za
 ```
 
 Wynik: [[sessions]] (`Projekty/Infrastruktura_C2/sessions.md`). Cron: `/etc/cron.d/obsidian-sliver-sessions` co godzinę.
+
+Żywy widok na dashboardzie: `GET /api/sliver/sessions` (sliver-py, gRPC, tylko odczyt). Zakładka **Sliver** na https://dash.maskencrypt.eu/?tab=c2. Kod: `Narzedzia/sliver_sessions.py`.
 
 Skrypt tylko **listuje** sesje / beacon'y / joby. Nie generuje implantów i nie dump'uje `credentials`.
 

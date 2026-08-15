@@ -17,6 +17,11 @@ from datetime import datetime, timezone
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
+try:
+    from sliver_sessions import get_snapshot as sliver_snapshot
+except ImportError:  # pragma: no cover - dashboard still serves IoC without Sliver
+    sliver_snapshot = None
+
 ROOT = Path(os.environ.get("DASH_ROOT", "/var/www/ioc-dashboard"))
 JOBS = ROOT / "jobs"
 SAMPLES = Path(os.environ.get("SAMPLES_ROOT", "/root/samples"))
@@ -431,6 +436,28 @@ class Handler(SimpleHTTPRequestHandler):
             raw = qs.get("hashes", [""])[0]
             hashes = [h.lower() for h in raw.split(",") if HASH_RE.match(h.strip())]
             self._json({h: read_job(h) for h in hashes})
+            return
+        if parsed.path in {"/api/sliver/sessions", "/api/sliver", "/api/sessions"}:
+            if sliver_snapshot is None:
+                self._json(
+                    {
+                        "ok": False,
+                        "error": "brak sliver_sessions.py / sliver-py",
+                        "sessions": [],
+                        "beacons": [],
+                        "jobs": [],
+                        "counts": {
+                            "sessions": 0,
+                            "sessions_live": 0,
+                            "beacons": 0,
+                            "beacons_live": 0,
+                            "jobs": 0,
+                        },
+                    },
+                    503,
+                )
+                return
+            self._json(sliver_snapshot())
             return
         if parsed.path == "/api/iocs":
             self.path = "/iocs.json"
