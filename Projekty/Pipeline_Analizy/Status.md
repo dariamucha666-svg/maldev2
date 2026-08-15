@@ -125,3 +125,10 @@ flaga `SKIP_OSINT=1` wyłącza. Wynik w `daily_summary_*` (sekcje `## OSINT` i `
 **Nuclei** dodany do sweepu (delikatnie): `http/technologies+exposures+misconfiguration+exposed-panels+takeovers + ssl/`,
 na żywych hostach C2 z httpx. Szablony na `.139` (`~/nuclei-templates`). Flaga `SKIP_NUCLEI=1` wyłącza.
 `takeovers` wykrywa przejęte subdomeny C2.
+
+## Optymalizacje (15.08)
+
+- `osint_recon.sh`: subfinder **równolegle** (`SUB_PARALLEL=4`), timeouty na subfinder(90s)/httpx(300s)/nuclei(300s),
+  fail-fast SSH, zawsze zapisuje pliki `subs/httpx/nuclei` (koniec ze starymi wpisami w summary).
+- `recon_osint.sh`: fail-fast SSH.
+- `enrich_cti.py`: **równoległe zapytania** (ThreadPoolExecutor + per-provider rate-limit) + retry przy błędach sieciowych.
