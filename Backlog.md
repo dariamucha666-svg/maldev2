@@ -26,7 +26,7 @@ priority: high
 
 ## Pipeline
 
-- [ ] Sigma — jeszcze nie ma (patrz [[Dashboard_IOC]])
+- [x] Sigma — generator + `reports/sigma/` + [[detections/generated]] ✅ 2026-08-15
 - [x] Po `pipeline.sh` sprawdzić `Analizy/Raporty/analiza_*.md` ✅ 2026-08-15 — eksport skrócony (role + daily, nie 233 KB dump)
 
 ## Lab

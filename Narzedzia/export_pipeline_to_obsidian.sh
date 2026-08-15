@@ -107,6 +107,13 @@ PY
     [[ "$n" -ge 30 ]] && { echo "- …"; break; }
   done
   echo
+  if [[ -f "$REPORTS_DIR/sigma_index.json" ]]; then
+    echo
+    echo "## Sigma"
+    echo
+    echo "Reguły: \`$REPORTS_DIR/sigma/\` · indeks vault: [[detections/generated]]"
+    echo
+  fi
   echo "Pełne JSON-y zostają w \`$REPORTS_DIR\` — nie kopiujemy ich w całości do vaultu."
 } >"$dest"
 

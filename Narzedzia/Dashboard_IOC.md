@@ -11,7 +11,7 @@ updated: 2026-08-15
 
 Powiązane: [[Pipeline_Analizy]] · [[IOC_Backdoor]] · [[Dashboard]]
 
-Centralny widok IoC z raportów pipeline. **Sigma** — jeszcze nie ma (do dodania).
+Centralny widok IoC z raportów pipeline. **Sigma** — jest: generator `lib/sigma_generator.py`, output `reports/sigma/` i `detections/generated/`.
 
 ## Pliki
 
@@ -83,5 +83,5 @@ PE `178cb931` ma 5 stringów: `LogonUserW`, `NetUserAdd`, `NetUserDel`, `NetShar
 
 ## Do zrobienia
 
-- Generator **Sigma** (SIEM) — brak
+- [x] Generator **Sigma** (SIEM) ✅ 2026-08-15 — `sigma_generator.py` po auto-YARA
 - Tune filtrów APK (URL-e tylko z dekompilacji nie matchują `raw/*.apk`)

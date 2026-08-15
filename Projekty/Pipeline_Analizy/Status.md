@@ -84,3 +84,8 @@ Werdykt: [[Klasyfikacja_Korpus]] · hook: [[Role_Tags]]
 - Przykład: [[analiza_2026-08-15_08-59]] — 33 próbki: dropper 12, packed 11, rat 5, phishing 2, stealer 2, backdoor 1.
 
 Recap: [[Lab/Recap 2026-08-15]]
+
+
+## Sigma (15.08)
+
+`lib/sigma_generator.py` po `generate_auto_yara`. 5 reguł z 15 IOC w dashboardzie: PE hashes (process/file), role backdoor, hunting API, hosty sieciowe. Vault: [[detections/generated]] · [[Dashboard_IOC]].
