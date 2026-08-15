@@ -20,9 +20,10 @@ CONFIG = Path(
         "/root/.sliver-client/configs/local_127.0.0.1.cfg",
     )
 )
-CACHE_TTL = float(os.environ.get("SLIVER_CACHE_TTL", "8"))
+CACHE_TTL = float(os.environ.get("SLIVER_CACHE_TTL", "10"))
 _LOCK = threading.Lock()
 _CACHE: dict = {"ts": 0.0, "data": None}
+_BG_STARTED = False
 
 
 def _unix(value) -> float:
@@ -137,14 +138,17 @@ def _job_row(obj) -> dict:
     }
 
 
-async def _pull() -> dict:
+async def _connect():
     from sliver import SliverClient, SliverClientConfig
 
     if not CONFIG.is_file():
         raise FileNotFoundError(f"brak operator cfg: {CONFIG}")
-    cfg = SliverClientConfig.parse_config_file(str(CONFIG))
-    client = SliverClient(cfg)
+    client = SliverClient(SliverClientConfig.parse_config_file(str(CONFIG)))
     await client.connect()
+    return client
+
+
+async def _pull_with(client) -> dict:
     version = await client.version()
     sessions = [_session_row(s, "session") for s in (await client.sessions() or [])]
     beacons = [_session_row(b, "beacon") for b in (await client.beacons() or [])]
@@ -197,6 +201,49 @@ def _empty(error: str) -> dict:
     }
 
 
+async def _pull() -> dict:
+    client = await _connect()
+    return await _pull_with(client)
+
+
+def _store(payload: dict) -> dict:
+    with _LOCK:
+        _CACHE["ts"] = time.time()
+        _CACHE["data"] = payload
+    return payload
+
+
+async def _bg_loop() -> None:
+    client = None
+    while True:
+        try:
+            if client is None:
+                client = await _connect()
+            _store(await _pull_with(client))
+        except Exception as exc:  # noqa: BLE001
+            client = None
+            with _LOCK:
+                if _CACHE["data"] is None:
+                    _CACHE["data"] = _empty(f"{type(exc).__name__}: {exc}")
+                    _CACHE["ts"] = time.time()
+        await __import__("asyncio").sleep(CACHE_TTL)
+
+
+def _start_bg() -> None:
+    global _BG_STARTED
+    with _LOCK:
+        if _BG_STARTED:
+            return
+        _BG_STARTED = True
+
+    def runner() -> None:
+        import asyncio
+
+        asyncio.run(_bg_loop())
+
+    threading.Thread(target=runner, name="sliver-cache", daemon=True).start()
+
+
 def fetch_snapshot() -> dict:
     import asyncio
 
@@ -207,16 +254,12 @@ def fetch_snapshot() -> dict:
 
 
 def get_snapshot() -> dict:
-    now = time.time()
+    _start_bg()
     with _LOCK:
         data = _CACHE["data"]
-        if data is not None and (now - _CACHE["ts"]) < CACHE_TTL:
-            return data
-    fresh = fetch_snapshot()
-    with _LOCK:
-        _CACHE["ts"] = time.time()
-        _CACHE["data"] = fresh
-    return fresh
+    if data is not None:
+        return data
+    return _store(fetch_snapshot())
 
 
 def main() -> int:

@@ -39,4 +39,6 @@ Jedna instancja pollingu — nie odpalaj równolegle na Kali.
 
 Hasła i tokeny **nie** idą do vaultu — token bota siedzi w `.env` poza sejfem.
 
+Od 2026-08-15: IoC czytane z lokalnego `iocs.json` (cache 20 s), indeks vaultu 5 s, `httpx` nie loguje getUpdates (token nie wylewa się do journald).
+
 Zobacz też [[Obsidian_Workflow]].

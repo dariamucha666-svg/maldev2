@@ -21,6 +21,7 @@ Centralny widok IoC z raportów pipeline. **Sigma** — jeszcze nie ma (do dodan
 | Serwer | `/root/android-pipeline/web/serve.py` |
 | API | `GET /api/iocs` i `GET /iocs.json` |
 | Sliver | `GET /api/sliver/sessions` — żywe sesje / beacon'y / joby (gRPC sliver-py, tylko odczyt) |
+| Boot | `GET /api/boot` — iocs + catalog + history + liczniki Sliver (1 request, gzip) |
 | Dane | `/root/samples/reports/iocs.json` (kopia w `web/`) |
 
 ## Publiczny widok (ścieżka C)

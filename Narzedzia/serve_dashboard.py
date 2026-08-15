@@ -2,6 +2,7 @@
 """Static dashboard + live hash hunt (MalwareBazaar metadata only — no samples)."""
 from __future__ import annotations
 
+import gzip
 import json
 import os
 import re
@@ -9,6 +10,8 @@ import sys
 import shutil
 import subprocess
 import tempfile
+import threading
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -30,6 +33,11 @@ QUAR = SAMPLES / "quarantine"
 REPORTS = SAMPLES / "reports"
 PIPELINE = Path("/root/android-pipeline/bin/pipeline.sh")
 HASH_RE = re.compile(r"^[a-fA-F0-9]{64}$")
+_JSON_CACHE: dict[str, tuple[float, int, object]] = {}
+_HUNT_CACHE: dict[str, tuple[float, dict]] = {}
+_HUNT_TTL = 60.0
+_SAMPLE_IDX: dict = {"ts": 0.0, "map": {}}
+_FILE_LOCK = threading.Lock()
 MB_URL = "https://mb-api.abuse.ch/api/v1/"
 MB_KEY_FILES = (
     Path("/root/.mb_api_key"),
@@ -60,6 +68,52 @@ TAG_MAP = {
     "chrome": "Chrome",
     "receita": "Chrome",
 }
+
+
+def read_json_cached(path: Path):
+    try:
+        st = path.stat()
+    except OSError:
+        return None
+    key = str(path)
+    with _FILE_LOCK:
+        hit = _JSON_CACHE.get(key)
+        if hit and hit[0] == st.st_mtime and hit[1] == st.st_size:
+            return hit[2]
+    try:
+        data = json.loads(path.read_text(encoding="utf-8", errors="replace"))
+    except Exception:
+        return None
+    with _FILE_LOCK:
+        _JSON_CACHE[key] = (st.st_mtime, st.st_size, data)
+    return data
+
+
+def sample_index() -> dict[str, Path]:
+    now = time.time()
+    if _SAMPLE_IDX["map"] and now - _SAMPLE_IDX["ts"] < 30:
+        return _SAMPLE_IDX["map"]
+    mapping: dict[str, Path] = {}
+    skip = {".zip", ".json", ".log", ".md", ".txt"}
+    for folder in (RAW, QUAR):
+        if not folder.is_dir():
+            continue
+        try:
+            names = list(folder.iterdir())
+        except OSError:
+            continue
+        for path in names:
+            if not path.is_file() or path.suffix.lower() in skip:
+                continue
+            low = path.name.lower()
+            for token in HASH_RE.findall(low):
+                mapping.setdefault(token, path)
+            stem = path.stem.lower()
+            if len(stem) >= 12:
+                mapping.setdefault(stem, path)
+    _SAMPLE_IDX["ts"] = now
+    _SAMPLE_IDX["map"] = mapping
+    return mapping
 
 
 def mb_key() -> str:
@@ -110,11 +164,9 @@ def local_hits(q: str) -> list[dict]:
     catalog = ROOT / "catalog.json"
     iocs = ROOT / "iocs.json"
     samples = {}
-    if catalog.is_file():
-        try:
-            samples = json.loads(catalog.read_text()).get("samples") or {}
-        except Exception:
-            samples = {}
+    cat = read_json_cached(catalog) if catalog.is_file() else None
+    if isinstance(cat, dict):
+        samples = cat.get("samples") or {}
     for digest, meta in samples.items():
         blob = " ".join(
             [digest, meta.get("title") or "", meta.get("family") or "", meta.get("role") or "", " ".join(meta.get("aka") or [])]
@@ -135,7 +187,7 @@ def local_hits(q: str) -> list[dict]:
             )
     if iocs.is_file() and q.isalnum() and len(q) >= 8:
         try:
-            payload = json.loads(iocs.read_text())
+            payload = read_json_cached(iocs) or {}
             for ioc in payload.get("iocs") or []:
                 h = (ioc.get("hash") or "").lower()
                 if h.startswith(q) and not any(x["sha256"] == h for x in hits):
@@ -161,6 +213,11 @@ def hunt(q: str) -> dict:
     if not q:
         out["error"] = "puste zapytanie"
         return out
+    key = q.lower()
+    now = time.time()
+    cached = _HUNT_CACHE.get(key)
+    if cached and now - cached[0] < _HUNT_TTL:
+        return cached[1]
     out["local"] = local_hits(q)
     compact = q.replace(" ", "")
     try:
@@ -182,6 +239,11 @@ def hunt(q: str) -> dict:
             out["tag"] = tag
     except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
         out["error"] = f"MalwareBazaar: {exc}"
+    _HUNT_CACHE[key] = (now, out)
+    if len(_HUNT_CACHE) > 64:
+        oldest = sorted(_HUNT_CACHE, key=lambda k: _HUNT_CACHE[k][0])[:16]
+        for stale in oldest:
+            _HUNT_CACHE.pop(stale, None)
     return out
 
 
@@ -199,15 +261,14 @@ def report_exists(digest: str) -> bool:
 
 
 def sample_on_disk(digest: str) -> Path | None:
-    skip = {".zip", ".json", ".log", ".md", ".txt"}
-    for folder in (RAW, QUAR):
-        if not folder.is_dir():
-            continue
-        for path in folder.iterdir():
-            if not path.is_file() or path.suffix.lower() in skip:
-                continue
-            if digest.lower() in path.name.lower():
-                return path
+    digest = digest.lower()
+    idx = sample_index()
+    hit = idx.get(digest)
+    if hit:
+        return hit
+    for key, path in idx.items():
+        if digest in key or key.startswith(digest[:12]):
+            return path
     return None
 
 
@@ -349,6 +410,7 @@ def download_sample(digest: str) -> Path:
         shutil.copy2(picked, extracted)
         if ext == ".apk":
             shutil.copy2(picked, RAW / f"{digest}.apk")
+    _SAMPLE_IDX["ts"] = 0
     return extracted
 
 
@@ -406,22 +468,82 @@ def run_job(digest: str, action: str) -> None:
         write_job(digest, state="error", message=str(exc)[:500])
 
 
+def boot_payload() -> dict:
+    iocs_raw = read_json_cached(ROOT / "iocs.json") or {}
+    if isinstance(iocs_raw, list):
+        items = iocs_raw
+        generated = ""
+    else:
+        items = iocs_raw.get("iocs") or []
+        generated = iocs_raw.get("generated") or ""
+    catalog = read_json_cached(ROOT / "catalog.json") or {"samples": {}}
+    history = read_json_cached(ROOT / "history.json") or {"timeline": [], "samples": []}
+    sliver = {
+        "ok": False,
+        "counts": {
+            "sessions": 0,
+            "sessions_live": 0,
+            "beacons": 0,
+            "beacons_live": 0,
+            "jobs": 0,
+        },
+    }
+    if sliver_snapshot is not None:
+        snap = sliver_snapshot()
+        sliver = {
+            "ok": bool(snap.get("ok")),
+            "generated": snap.get("generated") or "",
+            "server": snap.get("server") or {},
+            "counts": snap.get("counts") or sliver["counts"],
+            "error": snap.get("error") or "",
+        }
+    return {
+        "generated": generated or utc_now(),
+        "count": len(items),
+        "iocs": items,
+        "catalog": catalog,
+        "history": history,
+        "sliver": sliver,
+    }
+
+
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(ROOT), **kwargs)
 
-    def _json(self, payload: dict, code: int = 200) -> None:
-        body = json.dumps(payload, ensure_ascii=False).encode()
+    def _send(self, body: bytes, content_type: str, code: int = 200, cache: str = "no-store") -> None:
+        accept = self.headers.get("Accept-Encoding", "")
+        headers = {
+            "Content-Type": content_type,
+            "Cache-Control": cache,
+        }
+        payload = body
+        if "gzip" in accept and len(body) > 256:
+            payload = gzip.compress(body, compresslevel=5)
+            headers["Content-Encoding"] = "gzip"
+            headers["Vary"] = "Accept-Encoding"
+        headers["Content-Length"] = str(len(payload))
         self.send_response(code)
-        self.send_header("Content-Type", "application/json; charset=utf-8")
-        self.send_header("Cache-Control", "no-store")
-        self.send_header("Content-Length", str(len(body)))
+        for key, value in headers.items():
+            self.send_header(key, value)
         self.end_headers()
-        self.wfile.write(body)
+        self.wfile.write(payload)
+
+    def _json(self, payload: dict, code: int = 200, cache: str = "no-store") -> None:
+        self._send(json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode(), "application/json; charset=utf-8", code, cache)
+
+    def _safe_file(self, rel: str) -> Path | None:
+        candidate = (ROOT / rel.lstrip("/")).resolve()
+        if candidate == ROOT or ROOT in candidate.parents:
+            return candidate if candidate.is_file() else None
+        return None
 
     def do_GET(self) -> None:
         parsed = urllib.parse.urlparse(self.path)
         qs = urllib.parse.parse_qs(parsed.query)
+        if parsed.path in {"/api/boot", "/boot.json"}:
+            self._json(boot_payload(), cache="public, max-age=8")
+            return
         if parsed.path in {"/api/hunt", "/hunt"}:
             self._json(hunt(qs.get("q", [""])[0]))
             return
@@ -457,10 +579,20 @@ class Handler(SimpleHTTPRequestHandler):
                     503,
                 )
                 return
-            self._json(sliver_snapshot())
+            self._json(sliver_snapshot(), cache="public, max-age=5")
             return
         if parsed.path == "/api/iocs":
-            self.path = "/iocs.json"
+            parsed = parsed._replace(path="/iocs.json")
+        if parsed.path in {"/", "/index.html"}:
+            path = ROOT / "index.html"
+            if path.is_file():
+                self._send(path.read_bytes(), "text/html; charset=utf-8", cache="public, max-age=30")
+                return
+        if parsed.path.endswith(".json"):
+            path = self._safe_file(parsed.path)
+            if path:
+                self._send(path.read_bytes(), "application/json; charset=utf-8", cache="public, max-age=15")
+                return
         return super().do_GET()
 
     def do_POST(self) -> None:
@@ -487,6 +619,11 @@ def main() -> None:
     host = os.environ.get("DASH_BIND", "0.0.0.0")
     port = int(os.environ.get("DASH_PORT", "8080"))
     httpd = ThreadingHTTPServer((host, port), Handler)
+    if sliver_snapshot is not None:
+        try:
+            sliver_snapshot()
+        except Exception:
+            pass
     print(f"dashboard+hunt on {host}:{port} root={ROOT}", flush=True)
     httpd.serve_forever()
 
