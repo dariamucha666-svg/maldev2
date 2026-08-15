@@ -80,9 +80,32 @@ Notices: `SET_Harvester` · `GoPhish_Tracking` · `SocialFish_Tunnel` · `Evilgi
 | SocialFish | DNS `*.ngrok-free.app` / webdriver stealth | `Phish_SocialFish_JSInjection` |
 | Evilginx2 | lookalike domena + LE cert + reverse proxy | `Phish_Evilginx2_Phishlet` |
 
+## Suricata IDS — uruchomione na `.139` (15.08)
+
+Zainstalowany **Suricata 7.0.10** (backports). Konfiguracja:
+- `HOME_NET="[127.0.0.0/8,5.175.189.139/32]"`, `EXTERNAL_NET="any"` (suricata.yaml).
+- Reguły: `/etc/suricata/rules/phishing_tools.rules`.
+
+```bash
+suricata -i lo -S /etc/suricata/rules/phishing_tools.rules \
+  -l /var/log/suricata/phish-ids --runmode=workers
+```
+
+**Wynik na żywo (fast.log):**
+```
+[1:9000102] PHISHING SET - plaintext credentials POST    127.0.0.1 -> 127.0.0.1:8081
+[1:9000201] PHISHING GoPhish - tracking link (?rid=)     127.0.0.1 -> 127.0.0.1:8080
+[1:9000101] PHISHING SET - Python BaseHTTP banner        127.0.0.1:9999 -> ...
+```
+
+3 alerty potwierdzone na żywym ruchu laba.
+
+⚠️ **Fałszywy pozytyw:** `Server: BaseHTTP/0.6 Python` łapie też **webhook_telegram.py**
+(też Python http.server na 9999) — reguła 9000101 jest generyczna. Refinement: doprecyzować
+o ścieżkę `index.html` + POST `username=`/`password=`, żeby odróżnić SET od zwykłego py-http.
+
 ## Uwagi
 
-- Suricata/Zeek w labie: reguły gotowe, ale **suricata/zeek nie są zainstalowane** na `.133`
-  (są w `/root/android-pipeline/tools/detection/` do użycia na sensorze).
-- YARA jest **zweryfikowana na żywych plikach** (wszystkie trafienia potwierdzone na `.139`).
-- Reguła Evilginx2 w Suricata jest heurystyką (reverse proxy) — najlepiej korelować z CT/cert.
+- Suricata **zainstalowana i działa na `.139`** (IDS na `lo`). Zeek — reguły gotowe, brak binarnego.
+- YARA **zweryfikowana na żywych plikach** (wszystkie trafienia potwierdzone).
+- Reguła Evilginx2 (9000401) to heurystyka reverse-proxy — korelować z CT/cert.
