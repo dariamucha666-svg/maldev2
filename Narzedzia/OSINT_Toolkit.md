@@ -65,6 +65,12 @@ http/exposed-panels/ + http/takeovers/ + ssl/`, na żywych hostach z httpx.
 Szablony w `~/nuclei-templates` na `.139` (pobrane `-update-templates`).
 `takeovers` łapie przejęte subdomeny C2 (krytyczne dla OSINT).
 
+**Cache subdomen** (`CACHE_TTL_DAYS=7`): `/root/osint/cache/<domena>` na `.139` — subfinder/amass
+nie skanuje ponownie tej samej domeny w oknie TTL.
+
+**Alert takeover** (`lib/alert_takeovers.py`): nuclei `takeover` → nota `Analizy/Alerty/` + Telegram
+(dedup po celu w `takeover_state.json`).
+
 ## Ręcznie (na `.139`)
 
 ```bash

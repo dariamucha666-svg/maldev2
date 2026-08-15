@@ -1,37 +1,25 @@
 ---
 tags: [xmask, video, studio, telegram]
 date: 2026-08-15
+updated: 2026-08-15
 status: active
 ---
 
-# Studio — klip → montaż → kanał
+# Studio — /klip
 
-OpenCut na `.57` to GUI. Auto-montaż jest na `.133`: **ffmpeg + auto-editor** (GitHub WyattBlue).
+OpenCut (GitHub, CapCut-like) to **edytor z myszką**. Nie ma jeszcze headless „prompt → render” jak płatny CapCut w chmurze. Auto-montaż jest lokalny na `.133`: ffmpeg + auto-editor. **Zero znaku wodnego. Zero końcówki CapCut.**
 
-## Jak wrzucać
+## Flow
 
-W bocie (tylko Ty):
+1. `/klip` → seria
+2. *Ile wrzucasz video?* 0–5
+3. *Ile wrzucasz plików audio?* 0–5
+4. Prompt: jak ma wyglądać montaż
+5. Wrzucasz dokładnie tyle plików
+6. Bot montuje i puszcza na kanał
 
-1. `/klip` → HACKPLUG albo opsec.exe
-2. Filmiki z roboty (można kilka)
-3. Głos lektora (nagranie / plik audio)
-4. *Montuj i wyślij*
+Prompt rozumie m.in.: pion/poziom, szybko/spokojnie, ciemno, zoom, przejścia, napisy, bez ciszy, lektor głośniej.
 
-Albo: `/klip hackplug podpis pod film`
+## Czego nie robimy
 
-Bot montuje i puszcza na [XMaskPoland](https://t.me/XMaskPoland).
-
-Limit Telegram: **~19 MB na plik**. Krótkie urywki.
-
-## Co robi montaż
-
-- skleja klipy (pion 1080×1920 albo poziom 1920×1080)
-- kładzie lektora, oryginał ścisza
-- kartę z nazwą serii
-- wycina ciszę (auto-editor)
-- normalizuje głos
-
-Pliki robocze: `/root/xmask-studio/jobs/` (po wysłaniu kasowane).
-Kod: `/root/obsidian-telegram-bot/studio.py` `render.py`
-
-Cloudflare R2 — jeszcze nie. Najpierw VPS (jest ~15 GB wolnego).
+Nie odpalamy pirackiego CapCut i nie zdejmujemy cudzych watermarków. Nasz eksport nigdy nie dostaje brandingu CapCut.

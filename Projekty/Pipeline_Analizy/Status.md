@@ -132,3 +132,12 @@ na żywych hostach C2 z httpx. Szablony na `.139` (`~/nuclei-templates`). Flaga 
   fail-fast SSH, zawsze zapisuje pliki `subs/httpx/nuclei` (koniec ze starymi wpisami w summary).
 - `recon_osint.sh`: fail-fast SSH.
 - `enrich_cti.py`: **równoległe zapytania** (ThreadPoolExecutor + per-provider rate-limit) + retry przy błędach sieciowych.
+
+## Trzy kolejne ulepszenia (15.08)
+
+1. **Cache subdomen** (`CACHE_TTL_DAYS=7`): wyniki subfinder/amass per domena w `/root/osint/cache/`
+   na `.139` — ta sama domena nie jest ponownie skanowana codziennie (log `fresh=N`).
+2. **Wspólny moduł ekstrakcji domen** — `lib/extract_domains.py` (jedno źródło; oba wrappery go używają,
+   zero heredoców z `urlparse` w bash).
+3. **Alert takeover** — `lib/alert_takeovers.py` (w nightly po osint_recon): wykrywa nuclei `takeover`,
+   deduplikuje (state), pisze notę `Analizy/Alerty/Takeover_<date>.md` + wysyła Telegram.
