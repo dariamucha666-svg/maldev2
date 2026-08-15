@@ -23,15 +23,42 @@ Powiązane: [[Keylogger_Analiza]] · [[Hunt_Stealer_Phishing]] · [[Klasyfikacja
 
 ---
 
-## 1. Laplas Clipper (rodzina, .NET)
+## 1. Laplas Clipper (rodzina, .NET / Go ClipBanker)
 
-**Z publicznej wiedzy** (MalwareBazaar: 0 próbek, binarka nie w korpusie).
+**Źródło: Hybrid-Analysis** (15.08) — próbka `63ec10e2…` (binarka „Sample not shared",
+nie do pobrania z MB/HA).
 
-- Clipboard hijacker .NET — monitoruje schowek, **podmienia adresy krypto** na adres atakującego.
-- Wykrywanie adresów: regex (`bc1...`, `0x...`, `T...` itd.) per kryptowaluta.
-- Dystrybucja: cracked software, tutoriale „jak zarabiać na crypto", fałszywe minery.
-- **Detekcja**: proces monitorujący schowek (Clipboard Viewer / timer), regex krypto, zapis do schowka
-  (`SetClipboardData`), częste `OpenClipboard`/`GetClipboardData`.
+### IOC (z Hybrid-Analysis)
+
+| Typ | Wartość |
+|-----|---------|
+| **sha256** | `63ec10e267a71885089fe6de698d2730c5c7bc6541f40370680b86ab4581a47d` |
+| Nazwy | `Laplas Clipper`, `FW-CPGK2XFPX4HOAUJJMBVDNXPOHZ.PDF.exe`, `TCOBAisZyL.exe` |
+| **Drop** | `%APPDATA%\OQaXPFVvfW\TCOBAisZyL.exe` (właściwy clipper) |
+| **Dystrybucja** | `hxxp://193.169.255.78/fw-cpgk2xfpx4hoaujjmbvdnxpohz.pdf.zip` (fake PDF) |
+| Parent (ZIP) | `3234f21e5dd6fe1b3f5222213921b952c3e29b35daeccab38188e2ade17cb6e6` |
+| Typ | PE32 GUI Intel 80386 (3.8 MiB, stripped PDB) |
+
+### Detekcja AV (potwierdza ClipBanker)
+
+```
+ClamAV:     Win.Infostealer.Laplas-9985973-1
+ESET:       WinGo/ClipBanker.AG trojan
+Kaspersky:  HEUR:Trojan-PSW.Win32.Coins.pef
+NANOAV:     Trojan.Win32.ClipBanker.jtxlvm
+Sophos:     TrojanBanker.ClipBanker
+Huorong:    TrojanSpy/ClipBanker.t
+```
+
+### Zachowanie (sandbox Hybrid-Analysis)
+
+- **Multi-Process**, **Network Traffic**, **TOR**, **Decrypted SSL**.
+- Drop Go ClipBanker (`TCOBAisZyL.exe`) → podmiana adresów krypto w schowku.
+- Kontakt: VNM (Vietnam).
+- Werdykt: malicious (threat score 100, AV 74).
+
+**Wniosek:** Laplas = ClipBanker (nie prosty clipper) — kradnie portfele krypto przez
+podmianę adresów w schowku + exfil do C2. Binarka „not shared" → statyczny RE niemożliwy bez pliku.
 
 ---
 
