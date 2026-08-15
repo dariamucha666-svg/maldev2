@@ -19,6 +19,10 @@ Statyczna analiza próbek + osobne notatki infrastruktury. Bez detonacji.
 - [[Lab/Recap 2026-08-15]] — bot OBSIDIAN + mini-lab RE
 - [[Lab/Recap 2026-08-14]] — recap obu sesji 14.08
 - [[Lab/Narzedzia_RE]] — co jest zainstalowane
+- [[Hunt_Phishing_Stealer]] — hunt phishing / stealer
+- [[OSINT_Phishing_Stealer]] — OSINT na te IOC (MB / rodziny)
+- [[Hunt_Clipper]] — clipper (brak potwierdzonego w korpusie)
+- [[Hunt_Keylogger]] — keylog: DotNetCam capa + NanoCore / kira a11y
 - [[Lab/Hosts]] — hosty i ścieżki
 
 ## Nawigacja

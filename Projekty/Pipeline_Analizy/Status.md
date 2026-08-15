@@ -89,3 +89,8 @@ Recap: [[Lab/Recap 2026-08-15]]
 ## Sigma (15.08)
 
 `lib/sigma_generator.py` po `generate_auto_yara`. 5 reguł z 15 IOC w dashboardzie: PE hashes (process/file), role backdoor, hunting API, hosty sieciowe. Vault: [[detections/generated]] · [[Dashboard_IOC]].
+
+
+## Hunt phishing/stealer (15.08)
+
+`lib/hunt_phishing_stealer.py` + szersze heurystyki. Raport: [[Hunt_Phishing_Stealer]]. YARA: `custom/hunt_stealer_phishing.yar`.
