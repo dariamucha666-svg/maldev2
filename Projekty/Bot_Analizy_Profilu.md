@@ -24,17 +24,22 @@ Analizator publicznego profilu w serwisie społecznościowym — pobiera stronę
 
 ## Co robi `/profil`
 
-- pobiera stronę nagłówkami Googlebota (User-Agent + Accept + Accept-Language + Accept-Encoding)
+- pobiera stronę nagłówkami Googlebota (User-Agent + Accept + Accept-Language)
 - wyciąga:
   - tytuł: `og:title` → `twitter:title` → fallback `<title>`
   - opis/bio: `og:description` → `twitter:description` → `description`
   - zdjęcie: `og:image` → `twitter:image` → `twitter:image:src` (względne adresy przez `urljoin`)
   - domena: `urlparse(final_url).netloc` (po redirectach)
   - status HTTP
+  - liczniki publiczne (jeśli są w meta/JSON-LD): obserwujący / obserwowani / posty
 - wysyła zdjęcie jako obrazek z podpisem (weryfikacja `Content-Type: image/*`, limit 10 MB)
 - bez zdjęcia odpowiada samym tekstem
 
 Komenda: `/profil <link>`.
+
+## Czego nie ma
+
+- lista konkretnych kont obserwujących / obserwowanych — wymaga logowania, nie ma jej w publicznym HTML; patrz [[Instagram_Graph_Bot]]
 
 ## Status
 

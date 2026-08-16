@@ -1,0 +1,6 @@
+<h1>Ping result</h1><pre>PING vserver959630 (127.0.1.1) 56(84) bytes of data.
+64 bytes from vserver959630 (127.0.1.1): icmp_seq=1 ttl=64 time=0.026 ms
+
+--- vserver959630 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.026/0.026/0.026/0.000 ms</pre>

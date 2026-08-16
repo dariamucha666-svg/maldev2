@@ -1,0 +1,8 @@
+<h1>Ping result</h1><pre>PING x.io (104.20.35.173) 56(84) bytes of data.
+64 bytes from 104.20.35.173: icmp_seq=1 ttl=57 time=0.909 ms
+
+--- x.io ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.909/0.909/0.909/0.000 ms
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin

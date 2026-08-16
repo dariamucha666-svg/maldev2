@@ -1,0 +1,1 @@
+[[92mtech-detect[0m:[1;92mpython[0m] [[94mhttp[0m] [[34minfo[0m] http://127.0.0.1:9001

