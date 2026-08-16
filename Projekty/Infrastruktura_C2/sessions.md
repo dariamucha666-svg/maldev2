@@ -1,7 +1,7 @@
 ---
 title: "Sliver sessions"
 date: 2026-08-16
-updated: 2026-08-16T01:12:01Z
+updated: 2026-08-16T02:12:01Z
 tags: [sliver, c2, sessions, auto]
 status: active
 category: infra
@@ -9,7 +9,7 @@ category: infra
 
 # Sliver — sesje i beacon'y
 
-Wygenerowane: `2026-08-16T01:12:01Z` (auto, nie ręcznie z konsoli).
+Wygenerowane: `2026-08-16T02:12:01Z` (auto, nie ręcznie z konsoli).
 
 Sliver **nie ma** `sessions --save`. Eksport: `Narzedzia/export_sliver_to_obsidian.sh`.
 
@@ -20,7 +20,7 @@ Connecting to 127.0.0.1:31337 ...
 [*] No sessions 🙁
  ID         Name                      Tasks   Transport   Remote Address                        Hostname   Username        Process (PID)                                              Integrity   Operating System   Locale   Last Check-In                                  Next Check-In                                
 ========== ========================= ======= =========== ===================================== ========== =============== ========================================================== =========== ================== ======== ============================================== ==============================================
- fc609c70   MATHEMATICAL_MAYONNAISE   0/0     http(s)     tcp(127.0.0.1:47848)->5.175.189.139   WINLAB     Administrator   C:\Windows\system32\UsersPublicbeacon_windows.exe (2196)   -           windows/amd64      en-US    Wed Aug 12 21:17:36 UTC 2026 (75h54m25s ago)   Wed Aug 12 21:18:46 UTC 2026 (75h53m15s ago) 
+ fc609c70   MATHEMATICAL_MAYONNAISE   0/0     http(s)     tcp(127.0.0.1:47848)->5.175.189.139   WINLAB     Administrator   C:\Windows\system32\UsersPublicbeacon_windows.exe (2196)   -           windows/amd64      en-US    Wed Aug 12 21:17:36 UTC 2026 (76h54m26s ago)   Wed Aug 12 21:18:46 UTC 2026 (76h53m16s ago) 
  ID   Name    Protocol   Port   Domains 
 ==== ======= ========== ====== =========
  1    https   tcp        443            

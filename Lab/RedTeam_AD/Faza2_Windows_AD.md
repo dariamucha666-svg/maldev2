@@ -103,11 +103,29 @@ docker compose logs bloodhound | grep -i password   # haslo startowe
 Haslo startowe: `/opt/tools/bloodhound/INITIAL_PASSWORD.txt` (poza vaultem).
 Ingest: wgrywasz ZIP z bloodhound-python (Administration -> File Ingest).
 
+## WYKONANA (2026-08-16) — wynik
+
+DC: **WIN-T5BVVHUNVJI.xmask.lab** (5.175.189.57), domena xmask.lab, tryb Windows2016Domain, DomainRole=5 (PDC).
+Usługi NTDS/KDC/Netlogon/DNS = Running (bez restartu).
+
+| Technika | Wynik |
+|----------|-------|
+| DCSync (secretsdump -just-dc) | ✅ pełny zrzut domeny (11 kont, hashe + klucze Kerberos) |
+| Kerberoasting (GetUserSPNs + john) | ✅ svc_sql i svc_backup zcrackowane (hasła z wordlisty lab) |
+| AS-REP roasting (GetNPUsers + john) | ✅ asrep_user zcrackowane |
+| Password spray (kerbrute) | ✅ bob / carol trafione |
+| BloodHound (bloodhound-python) | ✅ kolekcja -> zip |
+
+**Ważne operacyjnie:**
+- Po promocji WinRM NTLM jest zablokowane (reklamuje tylko Negotiate/Kerberos). Dostęp przez Kerberos: helper `/root/winrm57.py` (kinit + kerberos_hostname_override=WIN-T5BVVHUNVJI.xmask.lab).
+- SPN WinRM na DC: `HTTP/WIN-T5BVVHUNVJI.xmask.lab` (nie WSMAN).
+- Hasła labu i DSRM poza vaultem: `/root/redteam-lab-secrets/`.
+
 ## Checklist wykonania fazy 2
 
-- [ ] Wybrany VPS na DC (decyzja)
-- [ ] DC spromowany (xmask.lab), konta + SPN + no-preauth
-- [ ] Klient dołączony
-- [ ] DCSync / Kerberoast / AS-REP / BloodHound działają z Kali
-- [ ] Sysmon + audit + Sigma + Suricata detekcja
-- [ ] BloodHound CE ingest danych
+- [x] Wybrany VPS na DC (.57 — jedyny osiągalny Windows)
+- [x] DC spromowany (xmask.lab), konta + SPN + no-preauth
+- [ ] Klient dołączony (opcjonalnie — nie wymagane do łańcucha)
+- [x] DCSync / Kerberoast / AS-REP / BloodHound działają z Kali
+- [ ] Sysmon + audit + Sigma + Suricata detekcja (następny krok — do decyzji)
+- [ ] BloodHound CE ingest danych (kolekcja gotowa, wgrywanie opcjonalne)

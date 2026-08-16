@@ -44,9 +44,20 @@ Te cztery techniki wymagaja **Windows AD** - to jest cel **fazy 2** (promocja .5
 Suricata na bridge'u labnet wykrywa: password spray, SMB enum, LDAP enum (230 alertów w demo).
 Reguly Sigma dla logow Windows w `detection/sigma/`. Szczegoly: [[Detekcja]]
 
-## Faza 2 (nastepny krok)
+## Faza 2 (Windows AD) — WYKONANA ✅
 
-Runbook: [[Faza2_Windows_AD]]
+DC: WIN-T5BVVHUNVJI.xmask.lab (5.175.189.57), Windows Server 2022 Eval.
+Natywny lancuch dziala (to, co na Sambie 4.19 mialo niuanse):
+
+| Technika | Samba 4.19 | Windows AD |
+|----------|-----------|------------|
+| DCSync | ⚠️ blad | ✅ pelny zrzut (11 kont) |
+| Kerberoasting | ⚠️ checksum | ✅ zcrackowane |
+| AS-REP | ⚠️ pre-auth | ✅ zcrackowane |
+| BloodHound | ⚠️ NTLM bind | ✅ kolekcja OK |
+| Password spray | ✅ | ✅ |
+
+Szczegoly: [[Faza2_Windows_AD]]
 
 1. Promocja Windows Server 2022 (.57) do roli DC (na wlasnym VPS).
 2. Dolozenie klienta domeny.
