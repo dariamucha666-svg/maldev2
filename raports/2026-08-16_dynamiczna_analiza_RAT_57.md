@@ -72,6 +72,32 @@ Własny agent z projektu [[Wlasny_RAT]]:
 - Usunięcie wdrożonych skryptów (.ps1) i agent_out/err.txt.
 - Zatrzymanie serwera C2 (port 9999 zwolniony).
 
+## Domknięcie (2026-08-16, drugie przejście)
+
+Po przebudowaniu agenta i odpaleniu w sesji interaktywnej domknięto screenshot + keylog (wcześniej sesja 0 bez pulpitu).
+
+### 1. Przebudowa agent.exe
+- PyInstaller: pyinstaller --onefile --clean --name agent agent.py (Python 3.12).
+- Nowy: 8 441 645 B, SHA256 6a97d2a006be99ba4ca9d899fd5c274e23081f926a50cb4d893302c913013f60 (stary: 8 273 172 B).
+- Backup starego: dist/agent.exe.old.20260816.
+
+### 2. Agent w sesji interaktywnej (session 2)
+- Uruchomiony jako zadanie planowane z principal Administrator + LogonType Interactive → proces w session 2 (nie session 0).
+- whoami = win-t5bvvhunvji\administrator (nie SYSTEM).
+- Sesja 2 była Disconnected (RDP) → CopyFromScreen nadal "handle is invalid". Fix: tscon 2 /dest:console → sesja Active.
+
+### 3. Screenshot — działa
+- Po aktywacji sesji: screenshot_57.png = 49 257 B, PNG 1280x800 RGBA (prawdziwy pulpit, nie czarny).
+
+### 4. Keylogger — działa
+- Keylogger GetAsyncKeyState z detekcją "pressed since last call" (bit 0) + mapa znaków.
+- Wstrzyknięcie klawiszy przez SendKeys (WScript.Shell) w sesji 2.
+- keylog_57.txt przechwycił sekwencję "sekretHaslo2026" (S,E,K,R,T,H,A,L,O,0,2,6 + SHIFT) + ENTER. 953 B.
+- Uwaga: keylogger pollingowy łapie klawisz raz na interwał (nie rozróżnia powtórzeń w 60 ms); pełną sekwencję da hook WH_KEYBOARD_LL.
+
+### 5. Sprzątnięcie
+- Agent zatrzymany, zadania RATInteractive + SendKeysDemo usunięte, skrypty .ps1 usunięte, C2 zatrzymany. Artefakty (screenshot_57.png, keylog_57.txt) zostawione jako dowód.
+
 ## Linki
 
 - [[Wlasny_RAT]] · [[Analiza_artefaktów_agenta_57]] · [[Laboratorium_Windows]] · [[Infrastruktura_C2]] · [[Lab/Hosts]]

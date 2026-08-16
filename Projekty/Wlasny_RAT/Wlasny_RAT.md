@@ -36,5 +36,5 @@ Uruchomiono i przeanalizowano dynamicznie na .57. Raport: [[2026-08-16_dynamiczn
 
 - Kod: **C:/Users/Administrator/Desktop/agent.py** na .57 (C2_HOST=5.175.189.133, C2_PORT=9999 — uwaga: w karcie wyżej jest 4444, realny port to 9999).
 - Protokół: surowy reverse shell (nie JSON jak rat-c2/server.py).
-- **agent.exe jest nieaktualny** (źródło nowsze niż build) — przebudować PyInstallerem z agent.spec.
+- **agent.exe przebudowany** (2026-08-16) — nowy SHA256 6a97d2a0…, 8 441 645 B. Screenshot + keylog domknięte w sesji interaktywnej (session 2).
 - Helpery WinRM do .57: /root/run57.py, /root/ps57.py, /root/deploy57.py.
