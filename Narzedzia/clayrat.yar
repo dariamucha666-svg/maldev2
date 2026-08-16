@@ -10,18 +10,16 @@ rule ClayRat_Android_RAT
         date = "2026-08-16"
 
     strings:
-        $pkg = "io.system.system903"
+        // package name UTF-16LE (resources.arsc is Stored)
+        $pkg16 = { 69 00 6F 00 2E 00 73 00 79 00 73 00 74 00 65 00 6D 00 2E 00 73 00 79 00 73 00 74 00 65 00 6D 00 39 00 30 00 33 }
+        // ASCII markers (widzoczne gdy classes.dex jest Stored / po rozpakowaniu)
         $amuv = "com.amuvvoafs"
-        $grok1 = "openSuperGrok"
+        $grok = "openSuperGrok"
         $grok2 = "setImagineAutoGenerateVideo"
-        $grok3 = "setImagineFeedAutoPlay"
-        $grok4 = "video_generation_"
-        $ws = "WebSocketForegroundService"
         $acc = "AppHighlightAccessibilityService"
-        $proj = "MediaProjectionForegroundService"
-        $notif = "PushNotificationListenerService"
+        $ws = "WebSocketForegroundService"
         $lock = "FakeLockActivity"
 
     condition:
-        $pkg and (($amuv and $grok1) or 4 of ($grok2,$grok3,$grok4,$ws,$acc,$proj,$notif,$lock))
+        $pkg16 or ($amuv and $grok) or 3 of ($grok2, $acc, $ws, $lock)
 }
