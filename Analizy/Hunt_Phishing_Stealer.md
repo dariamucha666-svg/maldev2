@@ -6,7 +6,7 @@ tags: [hunt, phishing, stealer, pipeline]
 
 # Hunt — phishing i stealery (static)
 
-Wygenerowano `2026-08-16 02:06 UTC` skryptem `hunt_phishing_stealer.py`. Tylko odczyt raportów / endpointów / katalogu. **Bez detonacji, bez budowy narzędzi.**
+Wygenerowano `2026-08-16 04:37 UTC` skryptem `hunt_phishing_stealer.py`. Tylko odczyt raportów / endpointów / katalogu. **Bez detonacji, bez budowy narzędzi.**
 
 Trafienia: **16** próbek · hunt stealer **6** · hunt phishing **14**.
 
