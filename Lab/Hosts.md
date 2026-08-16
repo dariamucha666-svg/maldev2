@@ -11,7 +11,7 @@ Hasła **nie** trzymamy w vaultcie.
 |----|-------------------|-----|--------|------|
 | `5.175.189.133` | `vserver959630` | Ubuntu 24.04.4 | SSH `root`, xrdp (tunel SSH) | pipeline, vault, bot XMask |
 | `5.175.189.139` | `vserver580088` | Debian 12 | SSH `root` | REMnux-lite (yara, r2, vol, inetsim) |
-| `5.175.189.57` | `WIN-T5BVVHUNVJI` | Windows Server 2022 Eval | WinRM 5985, RDP 3389 | Windows RE (Ghidra / PEStudio / DIE / FLOSS) |
+| `5.175.189.57` | `WIN-T5BVVHUNVJI` | Windows Server 2022 Eval (DC xmask.lab) | WinRM 5985 (Kerberos, `winrm57.py`), RDP 3389 | DC (XMASK) + Windows RE |
 | ? | `vserver781193` | ? | niełączony | trzeci host z panelu AceRDP |
 
 Panel: AceRDP konto `kalasnikov433`, produkt Bronze, NL, status Online.  
@@ -33,12 +33,14 @@ Zrzut panelu na pulpicie `.133`: `acerdp-my-servers.png` (bez kolumny IP, bez da
 - bot: `/root/obsidian-telegram-bot`
 - unit: `obsidian-telegram-bot.service`
 - goose: `/root/.local/bin/goose` (sesja `deepseek-vps`, DeepSeek) — [[Goose_DeepSeek]]
+- rat-c2: `/root/rat-c2/` (agent_win.py, c2_server.py, raw_c2.py) + helpery WinRM `.57`: `run57.py`, `ps57.py`, `deploy57.py`, `deploy57_chunked.py`
 
 **.139**
 
 - narzędzia: systemowe (`yara`, `binwalk`, `tshark`, `inetsim`, `r2`, `vol`)
 - OSINT toolkit: [[Narzedzia/OSINT_Toolkit]] — Recon-ng, amass, subfinder, nuclei, httpx, theHarvester, SpiderFoot, sherlock
 - Phishing lab: [[Lab/Phishing_Sim_Lab]] — GoPhish (service `gophish`), SET (`/opt/set`)
+- Evilginx2: [[Evilginx2_Lab]] — Go 1.22.10 (`/usr/local/go`), binary `/opt/evilginx2/build/evilginx` (v3.3.0 CE), 127.0.0.1:8443/5053
 - .NET RE: `monodis` (mono-utils)
 - SSH: klucz z `.133` (id_ed25519, bez hasła)
 
@@ -47,6 +49,7 @@ Zrzut panelu na pulpicie `.133`: `acerdp-my-servers.png` (bez kolumny IP, bez da
 - narzędzia: `C:\Tools\` (Ghidra, PEStudio, DIE, FLOSS, Procmon, ProcExp, Sysmon, x64dbg, dnSpy, capa)
 - próbka: `C:\Tools\samples\backdoor.exe`
 - Ghidra project: BackdoorLab
+- RAT własny ([[Wlasny_RAT]]): `C:\Users\Administrator\Desktop\agent.py` + `dist\agent.exe` (zoptymalizowany, SHA256 e7cb9e26…)
 
 Zobacz [[Lab/Recap 2026-08-15]] · [[Lab/Narzedzia_RE]] · [[Lab/Recap 2026-08-14]] · [[Dashboard]]
 
