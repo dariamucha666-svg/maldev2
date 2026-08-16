@@ -1,22 +1,22 @@
 ---
 title: "Feed — ThreatFox IoC"
-date: 2026-08-15
+date: 2026-08-16
 tags: [wiedza, feed, threatfox, ioc]
 ---
 
 # Feed — ThreatFox (świeże IoC, 24h, 10)
 
-Wygenerowano: 2026-08-15 18:00:03 UTC · źródło: `threatfox-api.abuse.ch` · skrypt `Narzedzia/update_wiedza.sh`
+Wygenerowano: 2026-08-16 00:00:03 UTC · źródło: `threatfox-api.abuse.ch` · skrypt `Narzedzia/update_wiedza.sh`
 
 | IoC | Typ zagrożenia | Typ IoC | Malware | Conf. | Pierwsze |
 |-----|----------------|---------|---------|-------|----------|
-| `girroflobsny.ydns.eu` | botnet_cc | domain | Quasar RAT | 50 | 2026-08-15 17:47:06 |
-| `vinmporflowgroun.ydns.eu` | botnet_cc | domain | Quasar RAT | 50 | 2026-08-15 17:47:05 |
-| `lpsbdveg.eng-usa--goldalign.com` | payload_delivery | domain | ClearFake | 100 | 2026-08-15 17:46:39 |
-| `quantix-finance.pro` | payload_delivery | domain | ClearFake | 90 | 2026-08-15 17:44:58 |
-| `40ee71fb1e584d320db1dcbc71e8b00a2b1b0cac` | payload | sha1_hash | stealler | 95 | 2026-08-15 17:17:42 |
-| `84412c10b460870f3f9a5db8df5c4fb1` | payload | md5_hash | stealler | 95 | 2026-08-15 17:17:42 |
-| `4f70d46d66a362d4c0ddc1242443223f20b9ca9c` | payload | sha1_hash | KongTuke | 95 | 2026-08-15 17:17:41 |
-| `082587256ff1ecbed29ca78dbfee706d` | payload | md5_hash | KongTuke | 95 | 2026-08-15 17:17:41 |
-| `d4aaf92e411b242f454647d7a6d1b3657a4699e419b2` | payload | sha256_hash | stealler | 95 | 2026-08-15 17:17:41 |
-| `f9c60eb51354ab07885428d7b868ade6` | payload | md5_hash | Vidar | 95 | 2026-08-15 17:17:40 |
+| `kv73gaf5.get-goldalign.com` | payload_delivery | domain | ClearFake | 100 | 2026-08-15 23:52:21 |
+| `149.88.66.234:2020` | botnet_cc | ip:port | Cobalt Strike | 75 | 2026-08-15 23:46:23 |
+| `http://vexdico.shop:8539/users` | botnet_cc | url | Remus | 75 | 2026-08-15 23:44:23 |
+| `http://kupzovo.shop:7567/subscriptions` | botnet_cc | url | Remus | 75 | 2026-08-15 23:44:23 |
+| `2zslmvx8.theslimsplitsmethod.us` | payload_delivery | domain | ClearFake | 100 | 2026-08-15 23:39:26 |
+| `157.230.84.95:8443` | botnet_cc | ip:port | Aisuru | 100 | 2026-08-15 23:31:29 |
+| `176.98.182.216:9034` | botnet_cc | ip:port | Aisuru | 100 | 2026-08-15 23:17:04 |
+| `45.227.254.77:9000` | botnet_cc | ip:port | SectopRAT | 75 | 2026-08-15 23:10:21 |
+| `https://soft-update.dev` | botnet_cc | url | Unknown Loader | 100 | 2026-08-15 23:00:52 |
+| `https://attr-sdk.tech` | botnet_cc | url | Unknown Loader | 100 | 2026-08-15 23:00:52 |

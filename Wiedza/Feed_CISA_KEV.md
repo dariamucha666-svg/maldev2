@@ -1,12 +1,12 @@
 ---
 title: "Feed — CISA KEV"
-date: 2026-08-15
+date: 2026-08-16
 tags: [wiedza, feed, cisa, kev, cve]
 ---
 
 # Feed — CISA KEV (Known Exploited Vulnerabilities, 10 najnowszych)
 
-Wygenerowano: 2026-08-15 18:00:03 UTC · źródło: `cisa.gov/known-exploited-vulnerabilities-catalog.json` · skrypt `Narzedzia/update_wiedza.sh`
+Wygenerowano: 2026-08-16 00:00:03 UTC · źródło: `cisa.gov/known-exploited-vulnerabilities-catalog.json` · skrypt `Narzedzia/update_wiedza.sh`
 
 Luki **aktywnie eksploatowane** — patch najpierw te (patrz [[Obrona/Obrona_MOC]]).
 
