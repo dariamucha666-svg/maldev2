@@ -1,0 +1,83 @@
+# Red Team AD Lab — XMASK.LAB (legalny, izolowany lab)
+# Sekrety POZA vaultem: /root/redteam-lab-secrets/env
+# Uruchom:  docker compose --env-file /root/redteam-lab-secrets/env up -d --build
+
+name: redteam-ad
+
+networks:
+  labnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.0.0/24
+          gateway: 10.10.0.1
+
+services:
+  dc01:
+    build:
+      context: ./dc01
+    hostname: dc01
+    container_name: dc01
+    environment:
+      REALM: XMASK.LAB
+      DOMAIN: XMASK
+      DNS_FORWARDER: 1.1.1.1
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Ustaw ADMIN_PASSWORD w /root/redteam-lab-secrets/env}
+    networks:
+      labnet:
+        ipv4_address: 10.10.0.2
+    cap_add:
+      - SYS_ADMIN
+      - NET_ADMIN
+      - DAC_READ_SEARCH
+    volumes:
+      - dc01-samba:/var/lib/samba
+      - dc01-etc:/etc/samba
+      - dc01-logs:/var/log/samba
+    restart: unless-stopped
+
+  kali:
+    build:
+      context: ./kali
+    hostname: kali
+    container_name: kali
+    tty: true
+    stdin_open: true
+    networks:
+      labnet:
+        ipv4_address: 10.10.0.10
+    dns:
+      - 10.10.0.2
+      - 1.1.1.1
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - kali-home:/root
+      - /root/redteam-lab-secrets/lab-passwords.txt:/opt/wordlists/lab-passwords.txt:ro
+    restart: unless-stopped
+    command: ["/bin/bash"]
+
+  dvwa:
+    image: vulnerables/web-dvwa:latest
+    hostname: dvwa
+    container_name: dvwa
+    networks:
+      labnet:
+        ipv4_address: 10.10.0.20
+    restart: unless-stopped
+
+  juice-shop:
+    image: bkimminich/juice-shop:latest
+    hostname: juice
+    container_name: juice-shop
+    networks:
+      labnet:
+        ipv4_address: 10.10.0.21
+    restart: unless-stopped
+
+volumes:
+  dc01-samba:
+  dc01-etc:
+  dc01-logs:
+  kali-home:

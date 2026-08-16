@@ -14,3 +14,7 @@ Samples/
 
 __pycache__/
 *.pyc
+
+# Lab red-team — sekrety NIE w vaultcie
+.env
+*.env
