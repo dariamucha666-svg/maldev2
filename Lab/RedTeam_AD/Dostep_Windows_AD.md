@@ -17,6 +17,12 @@ Dostęp przez Kerberos:
 2. `kinit administrator@XMASK.LAB` (hasło w `/root/run57.py`, poza vaultem).
 3. Helper: `python3 /root/winrm57.py <script.ps1>` (template: [[winrm57.py.example]]).
 
+## Firewall (zawężony 2026-08-16)
+
+52 reguły wejściowe (AD/LDAP/Kerberos/SMB/RPC/DNS/RDP/WinRM/WMI/Replication)
+mają `RemoteAddress = 5.175.189.133 | 5.175.189.139 | 5.175.189.57 | 127.0.0.1`.
+Brak reguł `Any`. Zawężenie zrobione skryptem `/tmp/fw_restrict.ps1` przez `winrm57.py`.
+
 ## Pułapki (zapisane, żeby nie szukać drugi raz)
 
 - SPN WinRM na DC to `HTTP/WIN-T5BVVHUNVJI.xmask.lab` (nie `WSMAN/...`) → wymagany `kerberos_hostname_override`.
