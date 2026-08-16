@@ -8,7 +8,7 @@ updated: 2026-08-15
 
 Nie instalujemy pełnego **FlareVM** ani **REMnux ISO** na tych VPS (dysk ~40 GB, Flare chce 60–80 GB).
 
-Pełna mapa sesji: [[Lab/Recap 2026-08-15]] · hosty: [[Lab/Hosts]]
+Pełna mapa sesji: [[Lab/Recap 2026-08-15]] · hosty: [[Lab/Hosts]] · Android: [[Android_RE_i_Dynamiczna_Analiza]]
 
 ## Windows `.57` (`C:\Tools`)
 

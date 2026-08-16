@@ -46,7 +46,7 @@ Reguly Sigma dla logow Windows w `detection/sigma/`. Szczegoly: [[Detekcja]]
 
 ## Faza 2 (nastepny krok)
 
-Plan: [[Faza2_Windows_AD]]
+Runbook: [[Faza2_Windows_AD]]
 
 1. Promocja Windows Server 2022 (.57) do roli DC (na wlasnym VPS).
 2. Dolozenie klienta domeny.

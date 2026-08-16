@@ -10,6 +10,13 @@ tags: [wiedza, changelog]
 Najnowsze na górze. Format: data + co dodano + źródło.
 Wpisy automatyczne dopisuje `Narzedzia/update_wiedza.sh` (sekcja `### Auto`).
 
+## 2026-08-16
+
+- Analiza baz malware mobilnego (Android/iOS): aktywne vs historyczne → [[Zrodla_Mobile_Malware]].
+- Krajobraz aktywnych rodzin 2024–2025 (RatOn, Albiriox, DroidBot, Frogblight, LightSpy) → [[Mobile_Malware_2024_2025]].
+- Plan RE + analizy dynamicznej Android (Frida/MobSF/emulator) → [[Android_RE_i_Dynamiczna_Analiza]].
+- Źródła: Kaspersky (+56% trojan-banker), Zscaler (+67% Android), Cleafy, ThreatFabric, Barracuda, PolySwarm.
+
 ## 2026-08-15
 
 - Utworzono strukturę `Wiedza/` (Ataki, Malware, Pentest, RedTeam, Obrona, Narzędzia, Źródła).

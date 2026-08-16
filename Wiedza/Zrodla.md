@@ -6,7 +6,7 @@ tags: [wiedza, intel, feeds, sources]
 
 # Źródła — skąd brać świeżą wiedzę
 
-Powiązane: [[Zasoby/Linki_Zewnętrzne]] · [[Narzedzia]]
+Powiązane: [[Zasoby/Linki_Zewnętrzne]] · [[Narzedzia]] · [[Zrodla_Mobile_Malware]] (malware mobilny)
 
 ## Feedy / API (da się automatyzować)
 
