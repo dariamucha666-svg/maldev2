@@ -30,6 +30,7 @@ Głębiej: [[Podstawy_OPSEC]] (czym jest OPSEC, model zagrożeń, 5 kroków).
 ## Szablon
 
 - [[_Template]] — szablon nowej notatki OPSEC.
+- [[Prompt_startowy]] — gotowy prompt do odpalania przy starcie (rutynowy OPSEC check).
 
 ## Powiązane
 

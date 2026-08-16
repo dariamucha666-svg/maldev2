@@ -16,6 +16,7 @@ Wpisy automatyczne dopisuje `Narzedzia/update_wiedza.sh` (sekcja `### Auto`).
 - Krajobraz aktywnych rodzin 2024–2025 (RatOn, Albiriox, DroidBot, Frogblight, LightSpy) → [[Mobile_Malware_2024_2025]].
 - Plan RE + analizy dynamicznej Android (Frida/MobSF/emulator) → [[Android_RE_i_Dynamiczna_Analiza]].
 - Źródła: Kaspersky (+56% trojan-banker), Zscaler (+67% Android), Cleafy, ThreatFabric, Barracuda, PolySwarm.
+- Karty próbek w [[Analizy/Malware]]: Albiriox, ClayRat, RatOn, DroidBot, Frogblight (hashe SHA256/MD5 + IoC z raportów i MalwareBazaar).
 
 ## 2026-08-15
 

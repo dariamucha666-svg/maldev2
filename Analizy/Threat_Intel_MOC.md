@@ -20,6 +20,16 @@ Jedno źródło: rodzina → hash → C2 → IOC → detekcja → nota.
 | **Go Backdoor** (easports.gg, garble) | `178cb931…` | `https://suahoje.com:3000` / `off-game.com` / stage-2 `192.162.199.149` | YARA `Backdoor_Easports`, Sigma xmask | [[IOC_Backdoor]] · [[Backdoor_Go]] · [[Backdoor_Go_Garble_DEobfuscation]] |
 | NanoCore / Lumma / NWH / Vidar (korpus) | różne | — | CTI (MalwareBazaar) | [[Klasyfikacja_Korpus]] · [[DotNet_cluster]] |
 
+## Mobile (Android) — 2024–2025 (IoC zebrane, RE przed nami)
+
+| Rodzina | Hash (przykład) | C2 | Status | Nota |
+|---------|-----------------|-----|--------|------|
+| **Albiriox** (RAT/MaaS, ODF) | `8703ee86…` (apk, MB 2026-07) | `194.32.79.94` | IoC zebrane | [[Albiriox_Android_RAT]] |
+| **ClayRat** (RAT, masquerade) | `78878d33…` (apk, MB 2026-03) | — | IoC zebrane | [[ClayRat_Android_RAT]] |
+| **RatOn** (banker, NFC+ATS) | `bf82609c…` (PolySwarm) | — | IoC zebrane | [[RatOn_Android_banker]] |
+| **DroidBot** (RAT/MaaS, VNC) | MD5 `0137a72f…` (Cleafy) | — | IoC zebrane | [[DroidBot_Android_RAT]] |
+| **Frogblight** (banker, WebView inj) | MD5 `9dac2320…` (Securelist) | REST (Retrofit) | IoC zebrane | [[Frogblight_Android_banker]] |
+
 ## Narzędzia przeanalizowane (źródła / dynamicznie)
 
 | Kategoria | Narzędzia | Detekcja |

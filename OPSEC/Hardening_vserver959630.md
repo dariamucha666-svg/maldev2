@@ -31,21 +31,23 @@ Zapis zmian OPSEC wykonanych na VPS `vserver959630` (Ubuntu 24.04, główny lab 
 - `fail2ban` (jail `sshd`) — aktywny, ~97 banów.
 - `unattended-upgrades` — włączone, 0 zaległych aktualizacji.
 
-## Do decyzji — porty wystawione „na świat" (Anywhere)
+## Porty — zamknięte / ograniczone (2026-08-16)
 
-| Port | Rola | Nasłuch teraz? |
-|------|------|----------------|
-| 8080 | ioc-dashboard | TAK (0.0.0.0) — wyciek intela |
-| 31337 | sliver multiplayer | TAK (0.0.0.0) |
-| 22 | SSH | TAK — ale już tylko klucz + fail2ban |
-| 443 | https/tunnel | nie (sliver na 127.0.0.1) |
-| 8443 | sliver tcp stage AES | nie |
-| 4444 | własny RAT C2 | nie |
-| 9999 | ? | nie |
-| 8765 | ? | nie |
+| Port | Rola | Co zrobiono |
+|------|------|-------------|
+| 8080 | ioc-dashboard | przepięty na 127.0.0.1 (był 0.0.0.0); reguła usunięta. Dostęp tylko przez `dash.maskencrypt.eu` (Cloudflare tunel) |
+| 31337 | sliver multiplayer | ograniczony do IP operatora (83.21.x.x); Anywhere usunięte |
+| 443 | https/tunnel | reguła usunięta (tunel i tak celuje w 127.0.0.1:443) |
+| 8443 | sliver tcp stage AES | reguła usunięta (bez nasłuchu) |
+| 4444 | własny RAT C2 | reguła usunięta (bez nasłuchu) |
+| 9999 | ? | reguła usunięta (bez nasłuchu) |
+| 8765 | ? | reguła usunięta (bez nasłuchu) |
+| 22 | SSH | zostaje: tylko klucz + fail2ban |
 
-Rekomendacja: dashboard za Cloudflare Access/tunel, 31337 tylko IP operatora, resztę usunąć
-albo włączać na żądanie. IP operatora jest dynamiczne — patrz [[Home]].
+Tunele Cloudflare (dash / c2 / dsh → 127.0.0.1) dalej działają — nic nie zostało zerwane.
+
+Uwaga: IP operatora jest dynamiczne. Po zmianie IP dopisz je do 31337:
+`ufw allow from <IP> to any port 31337 proto tcp`.
 
 ## Powiązane
 
