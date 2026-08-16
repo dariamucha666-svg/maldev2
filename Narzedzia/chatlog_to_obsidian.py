@@ -26,6 +26,7 @@ import json
 import glob
 import sqlite3
 import subprocess
+import hashlib
 import unicodedata
 from collections import Counter
 from datetime import datetime, timezone
@@ -102,6 +103,10 @@ def to_iso(ts):
 
 def today_utc():
     return datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+
+def uniq(source, sid):
+    return hashlib.sha1((source + ":" + sid).encode("utf-8")).hexdigest()[:8]
 
 
 def load_state():
@@ -517,7 +522,7 @@ def main():
             continue
         source = "DSH"
         title = title or sid
-        out = os.path.join(CHAT_DIR, source, day + "_" + slugify(title) + ".md")
+        out = os.path.join(CHAT_DIR, source, day + "_" + slugify(title) + "-" + uniq(source, sid) + ".md")
         content = render_session(source, sid, title, cwd, day, events)
         if write_if_changed(out, content):
             changed.append((source, out, title, day))
@@ -536,7 +541,7 @@ def main():
             continue
         source = "Goose"
         title = (row["name"] or sid).strip()
-        out = os.path.join(CHAT_DIR, source, day + "_" + slugify(title) + ".md")
+        out = os.path.join(CHAT_DIR, source, day + "_" + slugify(title) + "-" + uniq(source, sid) + ".md")
         content = render_session(source, sid, title, row["working_dir"], day, events)
         if write_if_changed(out, content):
             changed.append((source, out, title, day))
@@ -555,7 +560,7 @@ def main():
         sid = os.path.basename(os.path.dirname(path))
         source = "Grok"
         title = title or sid
-        out = os.path.join(CHAT_DIR, source, day + "_" + slugify(title) + ".md")
+        out = os.path.join(CHAT_DIR, source, day + "_" + slugify(title) + "-" + uniq(source, sid) + ".md")
         content = render_session(source, sid, title, None, day, events)
         if write_if_changed(out, content):
             changed.append((source, out, title, day))
