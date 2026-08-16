@@ -12,6 +12,7 @@ priority: high
 
 ## Teraz
 
+- [ ] Bot analizy profilu publicznego: wkleić `TELEGRAM_BOT_TOKEN` + test na żywo — [[Bot_Analizy_Profilu]] 🔼
 - [ ] Static RE `kira` (Accessibility / WebSocket) 🔼
 - [ ] Static RE Chrome MV3 bank stealer 🔼
 - [x] Sprawdzić że nightly woła `classify_roles.py` ✅ 2026-08-15 (przez pipeline.sh; nightly woła classify też gdy full skip / tylko PE)

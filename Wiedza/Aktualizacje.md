@@ -19,6 +19,7 @@ Wpisy automatyczne dopisuje `Narzedzia/update_wiedza.sh` (sekcja `### Auto`).
 - Karty próbek w [[Analizy/Malware]]: Albiriox, ClayRat, RatOn, DroidBot, Frogblight (hashe SHA256/MD5 + IoC z raportów i MalwareBazaar).
 - Static RE (MalwareBazaar, host vserver959630): Albiriox = pełny ZipCrypto packer; ClayRat = `io.system.system903`, Accessibility+overlay+Socket, manifest szyfrowany. Szczegóły w kartach [[Albiriox_Android_RAT]] · [[ClayRat_Android_RAT]].
 - jadx na ClayRat (4977 plików Java): trojanizowany klient Grok/xAI + primit'y RAT; C2 szyfrowane → do wydobycia dynamicznie (Frida).
+- **Dynamiczna ClayRat**: emulator + tcpdump → C2 WebSocket `193.111.117.72:8080` (PL) + 3 backup (193.111.117.70, 185.100.157.51, 193.221.200.242). Hosting DEDIK/ALINDA. Szczegóły: [[ClayRat_Android_RAT]].
 
 ## 2026-08-15
 

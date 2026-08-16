@@ -25,7 +25,7 @@ Jedno źródło: rodzina → hash → C2 → IOC → detekcja → nota.
 | Rodzina | Hash (przykład) | C2 | Status | Nota |
 |---------|-----------------|-----|--------|------|
 | **Albiriox** (RAT/MaaS, ODF) | `8703ee86…` (apk, MB 2026-07) | `194.32.79.94` | IoC zebrane | [[Albiriox_Android_RAT]] |
-| **ClayRat** (RAT, masquerade) | `78878d33…` (apk, MB 2026-03) | — | IoC zebrane | [[ClayRat_Android_RAT]] |
+| **ClayRat** (RAT, masquerade) | `78878d33…` (apk, MB 2026-03) | `193.111.117.72:8080` (WS) + 3 backup | IoC + dynamic | [[ClayRat_Android_RAT]] |
 | **RatOn** (banker, NFC+ATS) | `bf82609c…` (PolySwarm) | — | IoC zebrane | [[RatOn_Android_banker]] |
 | **DroidBot** (RAT/MaaS, VNC) | MD5 `0137a72f…` (Cleafy) | — | IoC zebrane | [[DroidBot_Android_RAT]] |
 | **Frogblight** (banker, WebView inj) | MD5 `9dac2320…` (Securelist) | REST (Retrofit) | IoC zebrane | [[Frogblight_Android_banker]] |

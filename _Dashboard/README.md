@@ -36,6 +36,7 @@ Starsze notatki sesji: [[Home]] · [[Lab/Recap 2026-08-14]] · [[Status]]
 - [[Obsidian/Plugins]] – wtyczki
 - [[Obsidian_Auto_Log]] – auto terminal / pipeline / sliver → `Logs/` `Analizy/Raporty/`
 - [[Telegram_Obsidian_Bot]] – bot Telegram → ten vault
+- [[Bot_Analizy_Profilu]] – bot analizy profilu publicznego (jak Googlebot)
 - [[XMask/README]] – posty na kanał (RAT / stealer / backdoor / dropper)
 - [[Klasyfikacja_Korpus]] – co wynika z klasyfikacji (RAT/stealer/backdoor)
 - [[Role_Tags]] – auto-tagi w raportach pipeline
