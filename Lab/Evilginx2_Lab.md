@@ -87,3 +87,26 @@ Dla laba wystarczy example + ewentualnie własny phishlet pod lokalną stronę t
 2. Nie odpalać na realne cele ani nie klonować realnych serwisów bez pisemnej zgody.
 3. AiTM obchodzi 2FA — najwyższa ostrożność; użytek wyłącznie symulacyjny/awareness.
 4. Przechwycone sesje (sessions) = dane wrażliwe — czyścić po demie.
+
+## Demo AiTM (dynamiczna, 2026-08-16)
+
+Symulacja AiTM: mock origin (HTTPS login) + własny phishlet + victim-script.
+
+- **Mock origin:** /opt/evilginx2/mock_origin.py — HTTPS na 127.0.0.2:443 (mock.local), login ustawia Set-Cookie session=...
+- **Phishlet:** /opt/evilginx2/phishlets/mocklogin.yaml — proxy_hosts mock.local, auth_tokens keys ['session'] (domain .mock.local), credentials email/password (post), login /login.
+- **Phish domena:** evil.local (127.0.0.1, /etc/hosts), evilginx na 127.0.0.1:8443.
+
+### Co potwierdzone (działa)
+
+- Lure → 302 → /login; login POST → 302 + cookie session=MOCKSESSION_victim@corp.local.
+- **Cookie rewrite:** origin (mock.local) → phish (evil.local) — victim dostaje sesję pod domeną lookalike. To jest sedno AiTM.
+
+### Ustalenie (nie domknięte)
+
+- Tabela **sessions** została pusta — evilginx nie zarejestrował przechwyconego tokena.
+- Mechanizm (z kodu http_proxy.go): przechwycenie auth_tokens wymaga ps.SessionId != "" (sesja śledzona), a ta powstaje przy wizycie na lure + ciasteczku śledzącym. Tutaj lure zwracał 302 bez Set-Cookie śledzącego → sesja nie była śledzona.
+- Next: dochodzić czemu lure nie ustawia ciasteczka sesji (hostname lure / IsLureHostnameValid), albo pełny flow przeglądarką (Playwright) zamiast curl.
+
+### Sprzątnięcie
+
+- evilginx + mock zatrzymane. Wpisy /etc/hosts (mock.local, evil.local) zostawione jako lab artifact.
