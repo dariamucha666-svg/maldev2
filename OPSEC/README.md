@@ -25,6 +25,7 @@ Głębiej: [[Podstawy_OPSEC]] (czym jest OPSEC, model zagrożeń, 5 kroków).
 | Ślady i prywatność | [[Slady_i_prywatnosc]] | Cyfrowy ślad, OSINT na sobie, minimalizacja danych |
 | Komunikacja | [[Komunikacja]] | Szyfrowane komunikatory, e-mail, telefon |
 | Urządzenia i sieć | [[Urzadzenia_i_siec]] | Aktualizacje, hardening, sieć, router, VPN |
+| WiFi hardening | [[Siec_WiFi_Hardening]] | Router, WPA3/WPS, segmentacja, detekcja ataków |
 | Checklist | [[Checklist_OPSEC]] | Cotygodniowa i kryzysowa lista kontrolna |
 
 ## Szablon

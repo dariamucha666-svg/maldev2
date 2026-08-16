@@ -22,6 +22,8 @@ Aktualny, zamknięty system to podstawa. Większość ataków wchodzi przez niez
 
 ## Sieć
 
+> Pełny hardening WiFi (krok po kroku + atak→obrona): [[Siec_WiFi_Hardening]]
+
 - **Router:** zmień domyślne hasło admina, aktualizuj firmware, wyłącz WPS, włącz WPA3 (albo WPA2).
 - **Gościnna sieć** dla urządzeń IoT / gości.
 - **Publiczne Wi-Fi:** unikaj do banku/maila; jeśli musisz — zaufany VPN albo własny hotspot.
