@@ -23,12 +23,46 @@ _/    _/  _/_/_/_/    _/_/_/    _/_/_/    _/      _/            _/      _/    _/
 
 [32m[*][m No modules enabled/installed.
 
+[recon-ng][default] > marketplace install recon/domains-hosts/hackertarget
+[34m[*][m Module installed: recon/domains-hosts/hackertarget
+[34m[*][m Reloading modules...
 [recon-ng][default] > modules load recon/domains-hosts/hackertarget
-[31m[!] Invalid module name.[m
-[recon-ng][default] > options set SOURCE example.com
-[31m[!] Invalid option name.[m
-[recon-ng][default] > run
-[31m[!] Invalid command: run.[m
-[recon-ng][default] > show hosts
-[34m[*][m No data returned.
-[recon-ng][default] > exit
+[recon-ng][default][hackertarget] > options set SOURCE example.com
+SOURCE => example.com
+[recon-ng][default][hackertarget] > run
+
+-----------
+EXAMPLE.COM
+-----------
+[32m[*][m Country: None
+[32m[*][m Host: example.com
+[32m[*][m Ip_Address: 104.20.23.154
+[32m[*][m Latitude: None
+[32m[*][m Longitude: None
+[32m[*][m Notes: None
+[32m[*][m Region: None
+[32m[*][m --------------------------------------------------
+[32m[*][m Country: None
+[32m[*][m Host: www.example.com
+[32m[*][m Ip_Address: 172.66.147.243
+[32m[*][m Latitude: None
+[32m[*][m Longitude: None
+[32m[*][m Notes: None
+[32m[*][m Region: None
+[32m[*][m --------------------------------------------------
+
+-------
+SUMMARY
+-------
+[32m[*][m 2 total (2 new) hosts found.
+[recon-ng][default][hackertarget] > show hosts
+
+  +-----------------------------------------------------------------------------------------------------------+
+  | rowid |       host      |   ip_address   | region | country | latitude | longitude | notes |    module    |
+  +-----------------------------------------------------------------------------------------------------------+
+  | 1     | example.com     | 104.20.23.154  |        |         |          |           |       | hackertarget |
+  | 2     | www.example.com | 172.66.147.243 |        |         |          |           |       | hackertarget |
+  +-----------------------------------------------------------------------------------------------------------+
+
+[34m[*][m 2 rows returned
+[recon-ng][default][hackertarget] > exit

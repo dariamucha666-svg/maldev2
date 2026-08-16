@@ -9,7 +9,7 @@ cssclasses: [dashboard]
 
 # 🧠 Centrum Operacyjne
 
-Szybki start: [[QuickStart]] · indeks: [[Home]] · ścieżka: [[Droga_przez_cyberbezpieczenstwo]] · zadania: [[Backlog]] · kanban: [[Kanban]]
+Szybki start: [[QuickStart]] · indeks: [[Home]] · ścieżka: [[Droga_przez_cyberbezpieczenstwo]] · zadania: [[Backlog]] · kanban: [[Kanban]] · model I-V-E: [[Model_IVE/IVE_MOC]]
 
 ## 📋 Aktywne projekty
 
