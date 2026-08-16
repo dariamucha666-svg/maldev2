@@ -6,7 +6,7 @@ tags: [sesja, log]
 
 # Sesja {{date}} (log operacyjny)
 
-Pelny slad operacyjny — kazda komenda/proces. Podsumowanie dnia: [[{{date}}|Daily]].
+Pełny ślad operacyjny — każda komenda/proces. Podsumowanie dnia: [[{{date}}|Daily]].
 
 ## Hosty
 
@@ -15,9 +15,9 @@ Pelny slad operacyjny — kazda komenda/proces. Podsumowanie dnia: [[{{date}}|Da
 ## [HH:MM] Temat / zadanie
 
 - **cel:** ...
-- **komenda:** ... (jako tekst)
+- **komenda:** ...
 - **wynik:** ...
 
 ## Zapis
 
-- Noty/raporty powiazane: ...
+- Noty/raporty powiązane: ...
