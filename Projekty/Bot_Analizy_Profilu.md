@@ -2,7 +2,7 @@
 tags: [projekt, osint, telegram, googlebot]
 date: 2026-08-16
 updated: 2026-08-16
-status: waiting-token
+status: active
 priority: medium
 category: osint
 ---
@@ -11,53 +11,38 @@ category: osint
 
 Powiązane: [[Dashboard]] · [[Backlog]] · [[Telegram_Obsidian_Bot]] · [[Instagram_Graph_Bot]]
 
-Bot Telegram, który przyjmuje link do profilu publicznego w serwisie społecznościowym i analizuje stronę tak, jak robi to Googlebot. Zwraca tytuł, opis/bio, zdjęcie profilowe, domenę i status HTTP — wyłącznie na danych publicznych, bez logowania.
+Analizator publicznego profilu w serwisie społecznościowym — pobiera stronę jak Googlebot i zwraca tytuł, opis/bio, zdjęcie profilowe, domenę i status HTTP. Wyłącznie publiczne dane, bez logowania.
 
-**Status:** kod gotowy, składnia zweryfikowana (`python -m py_compile` OK). Czeka na `TELEGRAM_BOT_TOKEN` z @BotFather.
+**Status:** ✅ wdrożony jako komenda `/profil` w głównym bocie XMask (`@Xmaskapp_bot`). Serwis `obsidian-telegram-bot.service` działa, logi czyste, przetestowany na żywym publicznym profilu (status 200, zdjęcie pobrane).
 
-> W vault jest już wcześniejszy, prostszy wariant: `Narzedzia/profile_analyzer_bot.py` (token `PROFILE_ANALYZER_BOT_TOKEN`). Ten projekt to samodzielna, pełniejsza wersja: nagłówki Googlebota, pobieranie zdjęcia jako obrazka, status HTTP, obsługa redirectów.
+## Gdzie to jest
 
-## Co robi
+- moduł: `/root/obsidian-telegram-bot/profile_analyzer.py`
+- handler `/profil` (+ alias `/profile`) w `/root/obsidian-telegram-bot/bot.py`
+- zależności `requests` + `beautifulsoup4` doinstalowane do venv bota
+- token: ten sam co główny bot, już w `/root/obsidian-telegram-bot/.env` (poza vaultem)
 
-- Pobiera stronę z nagłówkami Googlebota (User-Agent + Accept + Accept-Language + Accept-Encoding)
-- Wyciąga:
+## Co robi `/profil`
+
+- pobiera stronę nagłówkami Googlebota (User-Agent + Accept + Accept-Language + Accept-Encoding)
+- wyciąga:
   - tytuł: `og:title` → `twitter:title` → fallback `<title>`
   - opis/bio: `og:description` → `twitter:description` → `description`
-  - zdjęcie: `og:image` → `twitter:image` → `twitter:image:src` (rozwiązuje względne adresy przez `urljoin`)
+  - zdjęcie: `og:image` → `twitter:image` → `twitter:image:src` (względne adresy przez `urljoin`)
   - domena: `urlparse(final_url).netloc` (po redirectach)
-  - status HTTP z odpowiedzi `requests`
-- Wysyła zdjęcie profilowe jako obrazek z podpisem (jeśli jest; weryfikacja `Content-Type: image/*`, limit 10 MB)
-- Gdy brak zdjęcia — odpowiada samym tekstem
+  - status HTTP
+- wysyła zdjęcie jako obrazek z podpisem (weryfikacja `Content-Type: image/*`, limit 10 MB)
+- bez zdjęcia odpowiada samym tekstem
 
-Komendy: `/start`, `/help`, plus dowolny link lub sama domena.
-
-## Kod
-
-- `telegram-profil-bot/bot.py` — główny bot
-- `telegram-profil-bot/requirements.txt` — `requests`, `beautifulsoup4`, `python-telegram-bot`
-- `telegram-profil-bot/README.md` — instrukcja
-- `telegram-profil-bot/.env.example` — szablon tokena
-
-Token **poza** vaultem (repo może być publiczne):
-
-```bash
-export TELEGRAM_BOT_TOKEN="..."
-```
-
-## Uruchomienie
-
-```bash
-cd telegram-profil-bot
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-python bot.py
-```
+Komenda: `/profil <link>`.
 
 ## Status
 
-- [x] Kod bota
-- [x] Składnia (`py_compile`)
-- [ ] Token + pierwszy test na żywo
+- [x] Kod (moduł + handler)
+- [x] Zależności w venv bota
+- [x] Restart serwisu + logi czyste
+- [x] Test na żywym publicznym profilu
+- [x] `/profil` w menu komend bota
 
 ## Powiązane
 

@@ -1,0 +1,36 @@
+
+       Name: SSH Version Scanner
+     Module: auxiliary/scanner/ssh/ssh_version
+    License: Metasploit Framework License (BSD)
+       Rank: Normal
+
+Provided by:
+  Daniel van Eeden <metasploit@myname.nl>
+  h00die
+
+Check supported:
+  No
+
+Basic options:
+  Name             Current Setting  Required  Description
+  ----             ---------------  --------  -----------
+  EXTENDED_CHECKS  true             yes       Check for cryptographic issues
+  RHOSTS                            yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basics/using-metasploit.html
+  RPORT            22               yes       The target port
+  THREADS          1                yes       The number of concurrent threads (max one per host)
+  TIMEOUT          30               yes       Timeout for the SSH probe
+
+Description:
+  Detect SSH Version, and the server encryption
+
+References:
+  https://en.wikipedia.org/wiki/SecureShell
+  https://datatracker.ietf.org/doc/html/rfc8732#name-deprecated-algorithms
+  https://datatracker.ietf.org/doc/html/draft-ietf-curdle-ssh-kex-sha2-20#page-16
+  https://datatracker.ietf.org/doc/html/rfc8758#name-iana-considerations
+  https://github.com/net-ssh/net-ssh?tab=readme-ov-file#supported-algorithms
+  https://nvd.nist.gov/vuln/detail/CVE-2008-5161
+
+
+View the full module info with the info -d command.
+

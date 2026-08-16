@@ -1,0 +1,3 @@
+Source                        	Type                                         	Data
+SpiderFoot UI                 	Internet Name                                	example.com
+SpiderFoot UI                 	Domain Name                                  	example.com

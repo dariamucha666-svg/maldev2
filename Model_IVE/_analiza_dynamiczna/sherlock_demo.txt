@@ -1,0 +1,9 @@
+Update available! 0.16.1 --> 0.16.0
+https://github.com/sherlock-project/sherlock/releases/tag/v0.16.0
+[*] Checking username /root/obsidian-vault/Model_IVE/_analiza_dynamiczna/sherlock_demo.csv on:
+
+
+[*] Checking username nonexistent_test_user_9f8e7d on:
+
+
+[*] Search completed with 0 results
