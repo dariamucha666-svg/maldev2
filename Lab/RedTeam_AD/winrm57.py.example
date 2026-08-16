@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+# WZOR — helper WinRM przez Kerberos do DC .57 (bez hasła).
+# Prawdziwy skrypt: /root/winrm57.py (zawiera hasło — poza vaultem).
+# Uzycie: python3 winrm57.py <script.ps1>
+import sys, winrm
+HOST = "5.175.189.57"
+USER = "administrator@XMASK.LAB"
+PW = "CHANGE_ME"                       # hasło Administratora (nie w vaultcie)
+OVR = "WIN-T5BVVHUNVJI.xmask.lab"      # SPN HTTP/<FQDN> (nie WSMAN)
+def session():
+    return winrm.Session("http://%s:5985/wsman" % HOST, auth=(USER, PW), transport="kerberos",
+                         server_cert_validation="ignore", kerberos_hostname_override=OVR,
+                         read_timeout_sec=300, operation_timeout_sec=280)
+if __name__ == "__main__":
+    script = open(sys.argv[1]).read() if len(sys.argv) > 1 else sys.stdin.read()
+    r = session().run_ps(script)
+    sys.stdout.write(r.std_out.decode(errors="replace"))
+    e = r.std_err.decode(errors="replace")
+    if e.strip(): sys.stderr.write(e[:1200])
+    sys.exit(r.status_code)

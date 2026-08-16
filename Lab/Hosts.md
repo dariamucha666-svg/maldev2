@@ -33,7 +33,7 @@ Zrzut panelu na pulpicie `.133`: `acerdp-my-servers.png` (bez kolumny IP, bez da
 - bot: `/root/obsidian-telegram-bot`
 - unit: `obsidian-telegram-bot.service`
 - goose: `/root/.local/bin/goose` (sesja `deepseek-vps`, DeepSeek) — [[Goose_DeepSeek]]
-- rat-c2: `/root/rat-c2/` (agent_win.py, c2_server.py, raw_c2.py) + helpery WinRM `.57`: `run57.py`, `ps57.py`, `deploy57.py`, `deploy57_chunked.py`
+- rat-c2: `/root/rat-c2/` (agent_win.py, c2_server.py, raw_c2.py) + helpery WinRM `.57`: `run57.py`, `ps57.py`, `deploy57.py`, `deploy57_chunked.py` (NTLM, sprzed promocji) + `winrm57.py` (Kerberos, po promocji DC)
 
 **.139**
 
