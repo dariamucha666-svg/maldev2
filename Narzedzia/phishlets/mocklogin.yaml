@@ -1,0 +1,18 @@
+min_ver: '3.0.0'
+proxy_hosts:
+  - {phish_sub: '', orig_sub: '', domain: 'mock.local', session: true, is_landing: true}
+auth_tokens:
+  - domain: 'mock.local'
+    keys: ['session']
+credentials:
+  username:
+    key: 'email'
+    search: '(.*)'
+    type: 'post'
+  password:
+    key: 'password'
+    search: '(.*)'
+    type: 'post'
+login:
+  domain: 'mock.local'
+  path: '/login'

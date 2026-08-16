@@ -1,0 +1,29 @@
+title: AiTM phishing - lookalike domain serving login with session cookie
+id: a1a1a1a1-0000-0000-0000-000000000001
+status: experimental
+description: Wykrywa reverse-proxy phishing (Evilginx2): logowanie z domeny lookalike i przekazanie ciasteczka sesji przez naglowki reverse-proxy.
+author: xmask-lab
+date: 2026/08/16
+logsource:
+  category: proxy
+detection:
+  selection_domain:
+    http_host|contains:
+      - 'login-'
+      - 'secure-'
+      - 'account-'
+      - 'verify-'
+  selection_cookie:
+    http_cookie|contains: 'session'
+  selection_forwarded:
+    http_header_x_forwarded_for|exists: true
+  condition: selection_domain and selection_cookie and selection_forwarded
+fields:
+  - http_host
+  - http_cookie
+  - src_ip
+  - dst_ip
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1557

