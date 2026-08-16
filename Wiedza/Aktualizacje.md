@@ -17,6 +17,7 @@ Wpisy automatyczne dopisuje `Narzedzia/update_wiedza.sh` (sekcja `### Auto`).
 - Plan RE + analizy dynamicznej Android (Frida/MobSF/emulator) → [[Android_RE_i_Dynamiczna_Analiza]].
 - Źródła: Kaspersky (+56% trojan-banker), Zscaler (+67% Android), Cleafy, ThreatFabric, Barracuda, PolySwarm.
 - Karty próbek w [[Analizy/Malware]]: Albiriox, ClayRat, RatOn, DroidBot, Frogblight (hashe SHA256/MD5 + IoC z raportów i MalwareBazaar).
+- Static RE (MalwareBazaar, host vserver959630): Albiriox = pełny ZipCrypto packer; ClayRat = `io.system.system903`, Accessibility+overlay+Socket, manifest szyfrowany. Szczegóły w kartach [[Albiriox_Android_RAT]] · [[ClayRat_Android_RAT]].
 
 ## 2026-08-15
 

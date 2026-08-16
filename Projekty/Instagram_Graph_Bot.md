@@ -1,7 +1,7 @@
 ---
 tags: [projekt, instagram, osint, telegram]
 date: 2026-08-15
-updated: 2026-08-15
+updated: 2026-08-16
 status: waiting-token
 priority: medium
 category: social-graph
@@ -14,6 +14,8 @@ Powiązane: [[Telegram_Obsidian_Bot]] · [[Daily/2026-08-15]] · [[Historia]] ·
 **Status:** konto **@zamaskowanyeu** (`zamaskowany`). Wpięte w `/ig`. Czeka na `IG_ACCESS_TOKEN`. Bez scrapera, bez listy nicków.
 
 Publiczny profil istnieje (nazwa wyświetlana: zamaskowany). Token Graph nadal pusty — liczb z API nie ma.
+
+> **Zweryfikowano 2026-08-16:** kod `instagram.py` (Graph API) i handlery `/ig` w `bot.py` są gotowe i działają offline (test: import OK, obcy nick odmówiony, formatowanie OK). `IG_ACCESS_TOKEN` pusty (długość 0) — brakuje tylko tokenu z Meta Developers. Po wklejeniu tokenu: restart bota + pierwszy snapshot do [[Historia]].
 
 ## Co robi `/ig`
 
