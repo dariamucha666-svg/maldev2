@@ -1,0 +1,18 @@
+# ===== ClayRat (io.system.system903) — detekcja C2 =====
+# Beacon HTTP: POST /huy?id=<UUID> z UA "ClayApp/1.0" na packwatheboss.lol
+alert http $HOME_NET any -> $EXTERNAL_NET any (msg:"MALWARE ClayRat beacon /huy UA ClayApp/1.0"; flow:established,to_server; http.method; content:"POST"; http.uri; content:"/huy?id="; nocase; http.user_agent; content:"ClayApp/1.0"; classtype:trojan-activity; sid:9000801; rev:1;)
+
+# Beacon HTTP do domeny C2 (Host header)
+alert http $HOME_NET any -> $EXTERNAL_NET any (msg:"MALWARE ClayRat C2 domena packwatheboss.lol"; flow:established,to_server; http.host; content:"packwatheboss.lol"; nocase; classtype:trojan-activity; sid:9000802; rev:1;)
+
+# WebSocket C2 (komendy) — aktywne IP
+alert tcp $HOME_NET any -> 193.111.117.72 8080 (msg:"MALWARE ClayRat C2 WS 193.111.117.72:8080"; flow:established,to_server; sid:9000803; rev:1;)
+alert tcp $HOME_NET any -> 193.111.117.70 8080 (msg:"MALWARE ClayRat C2 WS 193.111.117.70:8080"; flow:established,to_server; sid:9000804; rev:1;)
+alert tcp $HOME_NET any -> 185.100.157.51 8080 (msg:"MALWARE ClayRat C2 WS 185.100.157.51:8080"; flow:established,to_server; sid:9000805; rev:1;)
+alert tcp $HOME_NET any -> 193.221.200.242 8080 (msg:"MALWARE ClayRat C2 WS 193.221.200.242:8080"; flow:established,to_server; sid:9000806; rev:1;)
+
+# Beacon IP (RU/Timeweb)
+alert tcp $HOME_NET any -> 91.210.168.138 80 (msg:"MALWARE ClayRat C2 beacon 91.210.168.138:80"; flow:established,to_server; sid:9000807; rev:1;)
+
+# DNS query na domenę C2
+alert dns $HOME_NET any -> any any (msg:"MALWARE ClayRat C2 DNS packwatheboss.lol"; dns.query; content:"packwatheboss.lol"; nocase; classtype:trojan-activity; sid:9000808; rev:1;)
