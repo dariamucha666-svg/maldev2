@@ -57,9 +57,21 @@ _REDACT = [
 ]
 
 
+_CONTROL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+
+
+def sanitize(text):
+    if not text:
+        return ""
+    text = str(text)
+    text = _CONTROL.sub(" ", text)
+    return text.encode("utf-8", "replace").decode("utf-8", "replace")
+
+
 def redact(text):
     if not text:
         return ""
+    text = sanitize(text)
     if _PRIVATE_KEY.search(text):
         text = _PRIVATE_KEY.sub("[REDACTED PRIVATE KEY]", text)
     for rx, repl in _REDACT:
@@ -134,6 +146,30 @@ def block_text(blocks):
     return "\n".join(x for x in out if x)
 
 
+def _flatten(x):
+    if isinstance(x, str):
+        return x
+    if isinstance(x, list):
+        return "\n".join(_flatten(i) for i in x if _flatten(i))
+    if isinstance(x, dict):
+        return _flatten(x.get("text") or x.get("content") or "")
+    return ""
+
+
+def tool_result_text(blocks):
+    parts = []
+    if isinstance(blocks, list):
+        for b in blocks:
+            if isinstance(b, dict):
+                inner = b.get("content")
+                if inner is None:
+                    inner = b.get("text")
+                t = _flatten(inner)
+                if t:
+                    parts.append(t)
+    return "\n".join(parts)
+
+
 def dsh_sessions():
     res = []
     for f in sorted(glob.glob(os.path.join(DSH_ROOT, "*", "session-*", "session.jsonl.zstd"))):
@@ -170,13 +206,13 @@ def dsh_events(path):
             title = (data.get("title") or "").strip() or title
             continue
         if t == "user/message":
-            msg = data.get("message") or {}
+            msg = data.get("message") or data
             txt = block_text(msg.get("content"))
             if txt:
                 events.append({"role": "user", "ts": to_iso(o.get("time")), "text": txt})
             continue
         if t == "assistant/message":
-            msg = data.get("message") or {}
+            msg = data.get("message") or data
             txt = block_text(msg.get("content"))
             if txt:
                 events.append({"role": "assistant", "ts": to_iso(o.get("time")), "text": txt})
@@ -196,7 +232,7 @@ def dsh_events(path):
             continue
         if t == "tool/result":
             msg = data.get("message") or {}
-            txt = block_text(msg.get("content"))
+            txt = tool_result_text(msg.get("content"))
             events.append({"role": "tool", "ts": to_iso(o.get("time")), "text": trunc(txt, TRUNC_TOOL), "tool": "result"})
             continue
     return events, max_seq, title, cwd, None
@@ -357,7 +393,7 @@ def analyze(events):
     goal = ""
     for e in events:
         if e["role"] == "user":
-            goal = e["text"].strip().splitlines()[0][:200]
+            goal = sanitize(e["text"].strip().splitlines()[0][:200])
             break
     counters = Counter(e["role"] for e in events)
     tools = Counter()
@@ -397,7 +433,7 @@ def analyze(events):
 def _last_assistant_text(events):
     for e in reversed(events):
         if e["role"] == "assistant":
-            return e["text"].strip()
+            return sanitize(e["text"].strip())
     return ""
 
 
@@ -407,7 +443,7 @@ ROLE_NAME = {"user": "Użytkownik", "assistant": "Asystent", "tool": "Akcja/narz
 
 def render_session(source, sid, title, cwd, day, events):
     a = analyze(events)
-    heading = title or sid
+    heading = sanitize(title or sid)
     last = trunc(_last_assistant_text(events), TRUNC_TEXT)
     lines = []
     lines.append("---")
@@ -480,6 +516,22 @@ def write_if_changed(path, content):
     return True
 
 
+def _file_title(path):
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            lines = f.read().splitlines()
+        if lines and lines[0].strip() == "---":
+            for ln in lines[1:]:
+                if ln.strip() == "---":
+                    break
+                if ln.startswith("title:"):
+                    t = ln[len("title:"):].strip()
+                    return t.strip('"').strip("'")
+    except Exception:
+        pass
+    return os.path.basename(path)
+
+
 def render_index(source_files):
     by_day = {}
     for source, path, title, day in source_files:
@@ -499,7 +551,8 @@ def render_index(source_files):
         lines.append("| Źródło | Sesja |")
         lines.append("|--------|-------|")
         for source, title, rel in items:
-            lines.append("| " + source + " | [[" + rel.replace(".md", "") + "|" + title + "]] |")
+            safe = title.replace("|", " ").replace("[", "").replace("]", "").replace("#", "")
+            lines.append("| " + source + " | [[" + rel.replace(".md", "") + "|" + safe + "]] |")
         lines.append("")
         write_if_changed(os.path.join(CHAT_DIR, day + ".md"), "\n".join(lines))
 
@@ -573,11 +626,11 @@ def main():
     for f in sorted(glob.glob(os.path.join(CHAT_DIR, "*", "*.md"))):
         source = os.path.basename(os.path.dirname(f))
         base = os.path.basename(f)
-        m = re.match(r"(\d{4}-\d{2}-\d{2})_(.*)\.md$", base)
+        m = re.match(r"(\d{4}-\d{2}-\d{2})_", base)
         if not m:
             continue
-        fday, title = m.group(1), m.group(2)
-        all_files.append((source, f, title, fday))
+        fday = m.group(1)
+        all_files.append((source, f, _file_title(f), fday))
     render_index(all_files)
 
     appended = state.setdefault("daily_appended", {})

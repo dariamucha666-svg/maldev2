@@ -64,3 +64,11 @@ Ręczne / agentowe dopiski do Daily (to, czego cron nie widzi: czat, werdykt, no
 `Narzedzia/log_to_obsidian.sh` → `Daily/YYYY-MM-DD.md` (`--recap` też `Lab/Recap YYYY-MM-DD.md`).
 
 Goose: env `GOOSE_MOIM_MESSAGE_FILE=/root/.config/goose/top_of_mind.md` (w `deepseek.env`). Nowe sesje to łapią; stara sesja Goose wymaga restartu okna, żeby wczytać tom.
+
+## Chaty → Obsidian (auto, od 16.08)
+
+Nowy automat: 'Narzedzia/chatlog_to_obsidian.py' zbiera transkrypty TRZECH czatów
+(DSH / Goose / Grok) i zapisuje je do 'Dzienniki/Chaty/' z analizą 'co zrobiono'.
+Cron '/etc/cron.d/obsidian-chatlog' co 10 minut. Folder 'Dzienniki/Chaty/' jest w
+'.gitignore' (surowe outputy narzędzi nie idą na publiczny GitHub). Sekrety redagowane.
+Szczegóły: [[Chaty/README]].
