@@ -26,6 +26,7 @@ Statyczna analiza próbek + osobne notatki infrastruktury. Bez detonacji.
 - [[Lab/Hosts]] — hosty i ścieżki
 - [[Goose_DeepSeek]] — Goose + DeepSeek na `.133` (okno z Kali)
 - [[Wiedza/README|Wiedza]] — baza wiedzy: ataki, malware, pentest, red team, obrona (regularnie aktualizowana)
+- [[OPSEC/README|OPSEC]] — zabezpieczenia po prostu: konta, ślady, komunikacja, urządzenia, checklist
 
 ## Nawigacja
 

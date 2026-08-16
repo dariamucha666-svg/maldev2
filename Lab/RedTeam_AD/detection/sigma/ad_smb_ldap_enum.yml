@@ -1,0 +1,21 @@
+title: SMB/LDAP Enumeration
+id: ad-smb-ldap-enum-001
+status: experimental
+description: Wykrywa masowa enumeracje SMB/LDAP - wiele zapytan z jednego zrodla.
+author: redteam-ad-lab
+date: 2026-08-16
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID:
+            - 5145
+            - 4662
+    timeframe: 5m
+    condition: selection | count() by Source_Network_Address > 20
+level: medium
+tags:
+    - attack.discovery
+    - attack.t1087
+    - attack.t1018

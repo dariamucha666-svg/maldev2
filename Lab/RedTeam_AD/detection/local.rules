@@ -1,0 +1,28 @@
+# ===== Red Team AD Lab — detekcja atakow na XMASK.LAB (siec labnet 10.10.0.0/24) =====
+# Suricata 7. Uruchomienie: suricata -i br-<labnet> -S local.rules
+
+# --- baseline: ruch AD (kontener kali -> dc01) ---
+alert tcp any any -> any 88  (msg:"[AD] Kerberos TCP (port 88)"; flow:to_server,established; sid:1100001; rev:1; classtype:policy-violation;)
+alert udp any any -> any 88  (msg:"[AD] Kerberos UDP (port 88)"; sid:1100002; rev:1; classtype:policy-violation;)
+alert tcp any any -> any 389 (msg:"[AD] LDAP (port 389)"; flow:to_server,established; sid:1100003; rev:1; classtype:policy-violation;)
+alert tcp any any -> any 445 (msg:"[AD] SMB (port 445)"; flow:to_server,established; sid:1100004; rev:1; classtype:policy-violation;)
+alert udp any any -> any 53  (msg:"[AD] DNS (port 53)"; sid:1100005; rev:1; classtype:policy-violation;)
+
+# --- ataki: wzorce ---
+# Password spray / brute-force Kerberos: >=6 AS-REQ (UDP 88) z jednego zrodla w 20 s
+alert udp any any -> any 88 (msg:"[ATTACK] Kerberos password spray (burst AS-REQ)"; threshold: type both, track by_src, count 6, seconds 20; sid:1100010; rev:1; classtype:attempted-recon;)
+
+# Kerberoasting: TGS-REQ (APPLICATION 13 = 0x6d) po Kerberos TCP (4B length prefix)
+alert tcp any any -> any 88 (msg:"[ATTACK] Kerberoasting (TGS-REQ)"; flow:to_server,established; content:"|6d|"; offset:4; depth:1; sid:1100011; rev:1; classtype:attempted-recon;)
+
+# AS-REP roasting: wiele AS-REQ (APPLICATION 11 = 0x6b) z jednego zrodla
+alert tcp any any -> any 88 (msg:"[ATTACK] AS-REP roasting (AS-REQ burst)"; flow:to_server,established; content:"|6b|"; offset:4; depth:1; threshold: type both, track by_src, count 5, seconds 20; sid:1100012; rev:1; classtype:attempted-recon;)
+
+# SMB enum (netexec/crackmapexec): >=5 polaczen SMB z jednego zrodla w 20 s
+alert tcp any any -> any 445 (msg:"[ATTACK] SMB enum (session burst)"; flow:to_server,established; threshold: type both, track by_src, count 5, seconds 20; sid:1100013; rev:1; classtype:attempted-recon;)
+
+# LDAP enum (bloodhound/ldapsearch): >=8 zapytan LDAP z jednego zrodla w 20 s
+alert tcp any any -> any 389 (msg:"[ATTACK] LDAP enum (search burst)"; flow:to_server,established; threshold: type both, track by_src, count 8, seconds 20; sid:1100014; rev:1; classtype:attempted-recon;)
+
+# DCSync: DRSUAPI RPC (DCE/RPC na SMB, bind do drsuapi)
+alert tcp any any -> any 445 (msg:"[ATTACK] DCSync attempt (DRSUAPI)"; flow:to_server,established; content:"|6a 73 d9 4e 26 15 39 b1|"; sid:1100015; rev:1; classtype:attempted-admin;)

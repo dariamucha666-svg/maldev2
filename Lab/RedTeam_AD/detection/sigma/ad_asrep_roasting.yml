@@ -1,0 +1,18 @@
+title: AS-REP Roasting
+id: ad-asrep-roasting-001
+status: experimental
+description: Wykrywa AS-REP roasting - bilet TGT wydany bez pre-authentication (4768, TicketOptions 0x40810000).
+author: redteam-ad-lab
+date: 2026-08-16
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4768
+        TicketOptions: '0x40810000'
+    condition: selection
+level: high
+tags:
+    - attack.credential_access
+    - attack.t1558.004

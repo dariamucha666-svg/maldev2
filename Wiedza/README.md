@@ -45,6 +45,7 @@ red teamingu, analizie malware, nowych atakach, narzędziach i obronie.**
 ## Powiązane
 
 - [[Analizy/Threat_Intel_MOC]] — znaleziska z labu (hash → C2 → detekcja)
+- [[OPSEC/README|OPSEC]] — zabezpieczenia po prostu (obrona siebie: konta, ślady, komunikacja, urządzenia)
 - [[Zasoby/Droga_przez_cyberbezpieczenstwo]] — ścieżka nauki
 - [[Zasoby/Linki_Zewnętrzne]] — pełna lista URL
 - [[Home]] — start vaultu

@@ -36,5 +36,6 @@ Uruchomiono i przeanalizowano dynamicznie na .57. Raport: [[2026-08-16_dynamiczn
 
 - Kod: **C:/Users/Administrator/Desktop/agent.py** na .57 (C2_HOST=5.175.189.133, C2_PORT=9999 — uwaga: w karcie wyżej jest 4444, realny port to 9999).
 - Protokół: surowy reverse shell (nie JSON jak rat-c2/server.py).
-- **agent.exe przebudowany** (2026-08-16) — nowy SHA256 6a97d2a0…, 8 441 645 B. Screenshot + keylog domknięte w sesji interaktywnej (session 2).
+- **agent.exe przebudowany** (2026-08-16) — optymalizowany build: SHA256 e7cb9e26…, 8 473 799 B. Wbudowane komendy + keylogger WH_KEYBOARD_LL + JSON framing.
+- Optymalizacja: [[2026-08-16_optymalizacja_RAT_57]]. Kod agenta: /root/rat-c2/agent_win.py, C2: /root/rat-c2/c2_server.py.
 - Helpery WinRM do .57: /root/run57.py, /root/ps57.py, /root/deploy57.py.

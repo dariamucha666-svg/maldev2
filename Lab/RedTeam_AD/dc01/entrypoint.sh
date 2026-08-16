@@ -15,7 +15,7 @@ grep -q "$FQDN" /etc/hosts || echo "127.0.0.1 $FQDN $SHORT_HOST" >> /etc/hosts
 if [ ! -f /var/lib/samba/private/sam.ldb ]; then
   echo "[*] Provisioning domain $DOMAIN ($REALM) ..."
   rm -f /etc/samba/smb.conf
-  samba-tool domain provision --realm="$REALM" --domain="$DOMAIN" --adminpass="$ADMIN_PASSWORD" --server-role=dc --dns-backend=SAMBA_INTERNAL --use-rfc2307 --option="dns forwarder = $DNS_FORWARDER"
+  samba-tool domain provision --realm="$REALM" --domain="$DOMAIN" --adminpass="$ADMIN_PASSWORD" --server-role=dc --dns-backend=SAMBA_INTERNAL --use-rfc2307 --option="dns forwarder = $DNS_FORWARDER" --option="ldap server require strong auth = no"
   echo "[*] Provisioning done."
 fi
 

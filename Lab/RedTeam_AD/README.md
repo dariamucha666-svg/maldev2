@@ -65,4 +65,4 @@ docker exec -it kali bash
 - `kali/` — Dockerfile (narzędzia), krb5.conf
 - `.env.example` — wzór (bez haseł)
 
-Zobacz: [[Topologia]] · [[Playbook_AD]]
+Zobacz: [[Topologia]] · [[Playbook_AD]] · [[Status_Lab]] · [[Detekcja]]
