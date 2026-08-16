@@ -101,11 +101,13 @@ Symulacja AiTM: mock origin (HTTPS login) + własny phishlet + victim-script.
 - Lure → 302 → /login; login POST → 302 + cookie session=MOCKSESSION_victim@corp.local.
 - **Cookie rewrite:** origin (mock.local) → phish (evil.local) — victim dostaje sesję pod domeną lookalike. To jest sedno AiTM.
 
-### Ustalenie (nie domknięte)
+### Ustalenie + FIX (domknięte 2026-08-16)
 
-- Tabela **sessions** została pusta — evilginx nie zarejestrował przechwyconego tokena.
-- Mechanizm (z kodu http_proxy.go): przechwycenie auth_tokens wymaga ps.SessionId != "" (sesja śledzona), a ta powstaje przy wizycie na lure + ciasteczku śledzącym. Tutaj lure zwracał 302 bez Set-Cookie śledzącego → sesja nie była śledzona.
-- Next: dochodzić czemu lure nie ustawia ciasteczka sesji (hostname lure / IsLureHostnameValid), albo pełny flow przeglądarką (Playwright) zamiast curl.
+- **Root cause:** nagłówek **Host** ofiary zawierał port (evil.local:8443), a evilginx dopasowuje hostname lure/sesji **bez portu**. Dlatego lure nie triggerował sesji → ps.SessionId pusty → brak zapisu.
+- **Fix:** Host bez portu. W curl: -H "Host: evil.local" (albo port 443). W realnym ataku ofiara łączy się na 443, więc Host i tak jest bez portu — to był artefakt laba (8443, bo 443 = sliver).
+- **Wynik po fixie:** pełne przechwycenie — Username [victim@corp.local], Password [hunter2], token [session = MOCKSESSION_victim@corp.local], tabela sessions: id 1, tokens captured.
+
+Mechanizm (z kodu http_proxy.go): sesja = ciasteczko śledzące (losowa nazwa 8 znaków) ustawione w OnResponse gdy ps.Created, Domain = GetBaseDomain(); auth_tokens łapane gdy ps.SessionId != "".
 
 ### Sprzątnięcie
 
