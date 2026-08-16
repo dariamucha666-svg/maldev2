@@ -115,4 +115,4 @@ Skrypt: `/usr/local/bin/phish-lab-hardening.sh` (idempotentny).
 - Dozwolone z zewnątrz tylko: `22` (SSH, fail2ban), `443`, `31337` (Sliver).
 - **Zweryfikowane:** z `.133` porty laba **BLOKOWANE** (timeout), z localhost na `.139` działają.
 
-Powiązane: [[Narzedzia/Phishing_Toolkit]] · [[Lab/Hosts]] · [[Narzedzia/OSINT_Toolkit]]
+Powiązane: [[Narzedzia/Phishing_Toolkit]] · [[Lab/Hosts]] · [[Narzedzia/OSINT_Toolkit]] · [[Evilginx2_Lab]]
