@@ -7,7 +7,7 @@ mkuser() {
   if samba-tool user show "$u" >/dev/null 2>&1; then
     echo "[i] $u juz istnieje - pomijam"
   else
-    samba-tool user create "$u" "$p" --given-name="$u" --surname="Lab"
+    samba-tool user create "$u" "$p"
     samba-tool user setexpiry "$u" --noexpiry
     echo "[+] $u utworzony"
   fi
@@ -37,7 +37,7 @@ ldbmodify -H /var/lib/samba/private/sam.ldb <<EOF
 dn: CN=asrep_user,CN=Users,DC=xmask,DC=lab
 changetype: modify
 replace: userAccountControl
-userAccountControl: 4194816
+userAccountControl: 4259840
 EOF
 echo "[+] asrep_user: no-preauth (AS-REP roastable)"
 

@@ -1,7 +1,8 @@
 FROM ubuntu:24.04
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        samba smbclient winbind dnsutils ldb-tools acl attr ca-certificates tini \
+        samba samba-ad-provision samba-dsdb-modules samba-ad-dc \
+        smbclient winbind dnsutils ldb-tools acl attr ca-certificates tini \
     && rm -rf /var/lib/apt/lists/*
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
