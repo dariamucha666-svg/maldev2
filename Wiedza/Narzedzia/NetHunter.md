@@ -55,6 +55,15 @@ Twój plan: Samsung = ofiara, drugi telefon = NetHunter (atakujący), oba na tym
 Masz **Kali fizycznie (laptop)** — ono już robi ARP spoof/Bettercap bez żadnego NetHuntera.
 NetHunter to wygoda mobilności (telefon zamiast laptopa), nie konieczność.
 
+## Xiaomi — czy się nada?
+
+- **NetHunter Rootless**: działa na KAŻDYM Xiaomi (przez Termux), ale bezużyteczne do ARP spoof (brak raw packets).
+- **Pełny NetHunter**: Xiaomi **NIE jest oficjalnie wspierane**. Tylko niektóre modele mają community kernele:
+  - Mi 10T Pro (apollo), Poco F3 (alioth) — kernel: dtrail/nethunter_kernel_xiaomi_sm8250.
+- **Bootloader unlock Xiaomi** to dodatkowa przeszkoda (Mi Unlock + okres oczekiwania, ostatnio zaostrzony).
+
+Wniosek: do ARP spoof użyj Kali na laptopie (już masz). Xiaomi = rootless (ograniczone) albo konkretny model z community kernelem.
+
 ## Powiązane
 
 - [[Lab_MitM_Android_Ofiara]] · [[MitM_NTLM_Relay]] · [[Techniki_i_Narzedzia]]
