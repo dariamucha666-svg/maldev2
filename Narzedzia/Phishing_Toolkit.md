@@ -127,6 +127,6 @@ Go, open source. **Framework kampanii** (nie pojedynczy klon):
 - Do **symulacji wewnętrznych** najsensowniejszy jest **GoPhish** (kampanie awareness)
   i **SET Credential Harvester** (pokaz przechwytywania haseł na lokalnym demo).
 - **Evilginx2** tylko w izolowanej sieci — to narzędzie AiTM (obchodzi 2FA), najwyższa ostrożność.
-- SocialFish/ZPhisher — wyłącznie jako **próbki do detekcji** (nie odpalać na realne cele).
+- SocialFish/ZPhisher — wyłącznie jako **próbki do detekcji**; uruchamiać tylko na własnych/autoryzowanych środowiskach (mocki), nigdy na realnych celach.
 
 Powiązane: [[Recon_ng_Analiza]] · [[OSINT_Toolkit]] · [[Lab/Hosts]]

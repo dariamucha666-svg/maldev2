@@ -78,3 +78,4 @@ tam są zapisane *wszystkie* linie wyjścia każdego narzędzia.
 ## Powiązane
 
 - [[Pentest_MOC]] · [[Wiedza/Narzedzia]] · [[OSINT_Toolkit]] · [[Recon_ng_Analiza]] · [[Pipeline_Analizy]]
+- Automatyzacja flow: [[Narzedzia/IVE_Automatyzacja]] (`target_profile.py` · `cve_correlator.py` · `password_spray.py`)

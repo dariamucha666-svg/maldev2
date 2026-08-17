@@ -4,6 +4,7 @@
 .obsidian/workspace-mobile.json
 .obsidian/cache
 Logs/terminal_*.log
+Logs/commands_*.log
 Logs/sliver_*.log
 Logs/pipeline_*.log
 *.exe

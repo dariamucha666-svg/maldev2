@@ -3,7 +3,10 @@
 alert http $HOME_NET any -> $EXTERNAL_NET any (msg:"MALWARE ClayRat beacon /huy UA ClayApp/1.0"; flow:established,to_server; http.method; content:"POST"; http.uri; content:"/huy?id="; nocase; http.user_agent; content:"ClayApp/1.0"; classtype:trojan-activity; sid:9000801; rev:1;)
 
 # Beacon HTTP do domeny C2 (Host header)
-alert http $HOME_NET any -> $EXTERNAL_NET any (msg:"MALWARE ClayRat C2 domena packwatheboss.lol"; flow:established,to_server; http.host; content:"packwatheboss.lol"; nocase; classtype:trojan-activity; sid:9000802; rev:1;)
+# Uwaga (weryfikacja 2026-08-16, detection_validator.py): Suricata 7.0.10 —
+# http.host jest normalizowany do małych liter; kombinacja z "nocase" łamie
+# dopasowanie (reguła nigdy nie triggeruje). nocase usunięte.
+alert http $HOME_NET any -> $EXTERNAL_NET any (msg:"MALWARE ClayRat C2 domena packwatheboss.lol"; flow:established,to_server; http.host; content:"packwatheboss.lol"; classtype:trojan-activity; sid:9000802; rev:2;)
 
 # WebSocket C2 (komendy) — aktywne IP
 alert tcp $HOME_NET any -> 193.111.117.72 8080 (msg:"MALWARE ClayRat C2 WS 193.111.117.72:8080"; flow:established,to_server; sid:9000803; rev:1;)

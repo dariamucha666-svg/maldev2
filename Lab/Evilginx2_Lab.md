@@ -11,7 +11,7 @@ category: lab
 Evilginx2 (Community Edition) zbudowany i skonfigurowany na 5.175.189.139 (host RE/phishing).
 AiTM reverse-proxy — **do symulacji i detekcji, nie do ataków na realne cele**.
 
-Powiązane: [[Phishing_Sim_Lab]] · [[Narzedzia/Phishing_Toolkit]] · [[Narzedzia/Phishing_Deep_Dive]] · [[Lab/Hosts]]
+Powiązane: [[Phishing_Sim_Lab]] · [[Narzedzia/Phishing_Toolkit]] · [[Narzedzia/Phishing_Deep_Dive]] · [[Lab/Hosts]] · [[Evilginx2_Phishlet_mockbank]] · [[Evilginx2_Phishlet_mocksso]] · [[Evilginx2_2FA_TwoStep]] · [[Evilginx2_Telegram_Bot]] · [[Evilginx2_Phishlet_mockinsta]]
 
 ## Stan (zbudowane 2026-08-16)
 
@@ -61,6 +61,52 @@ Struktura jest **zagnieżdżona** (viper, klucz "general") — pola na top-level
 - lures create example → lure z path (np. /FJuNLjdF).
 - Nasłuch: **tcp 127.0.0.1:8443** (proxy) + **udp 127.0.0.1:5053** (nameserver).
 
+## Automatyzacja: pakiet narzędzi laba (16.08)
+
+Pakiet skryptów w `/opt/evilginx2/` — wszystkie loopback, stdlib Python (bez zależności):
+
+| Skrypt | Funkcja | Wyjście |
+|---|---|---|
+| `generate_lures.py` | lure dla włączonych phishletów | `lures_active.txt` + tabela |
+| `export_sessions.py` | eksport sesji z **data.db** (buntdb) | `sessions_export.json` + `.csv` |
+| `obsidian_session_notes.py` | auto-notatki z nowych sesji | `Lab/Sessions/Evilginx2_Session_<id>.md` |
+| `dashboard.py` | webowy podgląd (127.0.0.1:5000) | HTML + `/api/data` |
+| `telegram_bot.py` | zarządzanie przez Telegram (@Maldevmass_bot) | [[Evilginx2_Telegram_Bot]] |
+
+**export_sessions.py — kluczowe ustalenie:**
+- Sesje CE są w `/opt/evilginx2/config/data.db` (buntdb, klucze `sessions:<id>`) — pełne JSON-y (username, password, custom/2FA, tokens). Czystsze źródło niż konsola.
+- Format buntdb to RESP; klucze danych `sessions:N`, indeksy `sessions:N:id` — regex musi kotwiczyć koniec linii (`sessions:(\d+)\r?\n`), inaczej duplikaty.
+- **Dedup:** plik stanu `.sessions_state.json` (ostatni wyeksportowany id); domyślnie tylko nowe, `--all` pełny.
+- CSV z BOM (utf-8-sig) — otwiera się w Excelu.
+
+**Pipeline (demo → dokumentacja):**
+```
+python3 export_sessions.py            # nowe sesje -> JSON+CSV (dedup)
+python3 obsidian_session_notes.py     # notatki dla sesji z danymi
+python3 dashboard.py --port 5000      # dashboard w tle
+```
+
+**Pipeline (phishlety):**
+```
+python3 generate_lures.py             # nowe lure + lures_active.txt
+```
+
+**Uwagi:**
+- `obsidian_session_notes.py` pomija sesje bez danych (puste loginy); `--all` nadpisuje.
+- Dashboard bez Flask — stdlib `http.server`; odświeżanie przez `fetch('/api/data')`.
+- Notatki sesji: `XMask/maldev2/Lab/Sessions/Evilginx2_Session_<id>.md` (auto, nie edytować ręcznie).
+
+## Automatyzacja: generate_lures.py (16.08)
+
+Skrypt `/opt/evilginx2/generate_lures.py` — generuje lure dla każdego **włączonego** phishleta i zapisuje aktywne lure.
+
+- CE nie ma API — interakcja przez `tmux send-keys` (sesja `evilginx`), dane czytane z `config/config.json` (AddLure zapisuje config po każdym `lures create`).
+- **id lure = indeks w tablicy lures** (config.json nie trzyma id — tak samo liczy konsola).
+- URL: `https://<hostname><path>` — bez portu (format `GetLureUrl`).
+- Wyjście: `/opt/evilginx2/lures_active.txt` w formacie `[id] → URL: https://<domena>/<ścieżka>` + tabela na stdout.
+- Użycie: `python3 /opt/evilginx2/generate_lures.py` (generuje) · `--list` (tylko tabela) · `--phishlet <nazwa>` (jeden).
+- "Aktywne" = lure phishletów `enabled` + `hostname` (lure example/disabled pomijane).
+
 ## Konsola (komendy)
 
     phishlets                          # tabela phishletów
@@ -84,7 +130,7 @@ Dla laba wystarczy example + ewentualnie własny phishlet pod lokalną stronę t
 ## Bezpieczeństwo / reguły
 
 1. **Tylko 127.0.0.1**, flaga -developer, bez realnej domeny i bez LE.
-2. Nie odpalać na realne cele ani nie klonować realnych serwisów bez pisemnej zgody.
+2. Odpalać wyłącznie na własnych/autoryzowanych środowiskach (mocki, loopback) — nigdy na realne cele ani realne serwisy.
 3. AiTM obchodzi 2FA — najwyższa ostrożność; użytek wyłącznie symulacyjny/awareness.
 4. Przechwycone sesje (sessions) = dane wrażliwe — czyścić po demie.
 
@@ -112,3 +158,28 @@ Mechanizm (z kodu http_proxy.go): sesja = ciasteczko śledzące (losowa nazwa 8 
 ### Sprzątnięcie
 
 - evilginx + mock zatrzymane. Wpisy /etc/hosts (mock.local, evil.local) zostawione jako lab artifact.
+
+## Re-start 2026-08-16 (14:17) — włączone ponownie
+
+Włączone ponownie do laba (bind 127.0.0.1, -developer). Konfiguracja bez zmian; lure `/AcjdXWys` (mocklogin) aktywny.
+
+- **Procesy:** evilginx w tmux `evilginx` (`/opt/evilginx2/run.sh`), mock origin na 127.0.0.2:443 (log /tmp/mock_origin.log).
+- **Nasłuch:** tcp 127.0.0.1:8443 (proxy), udp 127.0.0.1:5053 (DNS), tcp 127.0.0.2:443 (mock origin).
+- **Weryfikacja (full AiTM):** lure → 302 /login → POST login → 302 /dashboard z Set-Cookie `session=MOCKSESSION_victim@corp.local; Domain=evil.local` → dashboard 200 (authenticated).
+- **Sesja przechwycona:** id 6, username victim@corp.local, password hunter2, tokens captured (log: `[+++] all authorization tokens intercepted!`).
+
+### Ustalenie: SNI wymagany (nowe, 14:19)
+
+- **Objaw:** curl/wget/python na `https://127.0.0.1:8443` z `-H "Host: evil.local"` → wiszą na TLS handshake (timeout). openssl s_client bez `-servername` też nie łączy.
+- **Root cause:** evilginx wybiera phishlet/certyfikat po **SNI**. Klient łączący się na IP (SNI=IP lub brak SNI) dostaje zawieszony handshake; SNI musi być `evil.local`.
+- **Fix:** `curl -sk --resolve evil.local:8443:127.0.0.1 https://evil.local:8443/AcjdXWys` (albo python z HTTPSConnection("evil.local", 8443)). To artefakt laba na 8443 — w realnym ataku na 443 SNI jest normalnie wysyłany przez przeglądarkę.
+- **Dodatkowo:** POST body musi mieć `Content-Type: application/x-www-form-urlencoded`, inaczej evilginx nie wyciągnie username/password (tokens łapie i tak).
+
+### Ustalenie: domena bazowa `local` (14:34)
+
+- Dla phishleta `mockbank` (bank.local) trzeba było zmienić domenę bazową: `config domain local` (walidacja: hostname musi kończyć się na `.<domain>`).
+- Uwaga: zmiana domeny bazowej **czyści hostname wszystkich phishletów** — po niej ponownie: `phishlets hostname mocklogin evil.local` + enable. Patrz [[Evilginx2_Phishlet_mockbank]].
+
+### Notatka z dema
+
+- Skrypt klienta dema: /tmp/aitm_demo.py (lure → login → dashboard, z tracking cookie + content-type).

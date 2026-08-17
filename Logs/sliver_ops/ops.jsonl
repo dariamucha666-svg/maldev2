@@ -1,0 +1,7 @@
+{"ts": "2026-08-16T07:25:37Z", "op": "generate-dry-run", "target": "labtest01", "ok": true, "detail": {"os": "windows", "arch": "amd64"}, "note": ""}
+{"ts": "2026-08-16T07:25:47Z", "op": "manual-log", "target": "", "ok": true, "detail": {}, "note": "Test sliver-ops CLI"}
+{"ts": "2026-08-16T07:36:30Z", "op": "profile-save", "target": "web_beacon", "ok": true, "detail": {"os": "windows", "arch": "amd64", "beacon": true, "c2": ["https://c2.maskencrypt.eu"]}, "note": ""}
+{"ts": "2026-08-16T07:36:37Z", "op": "profile-delete", "target": "probe1", "ok": true, "detail": {}, "note": ""}
+{"ts": "2026-08-16T07:36:37Z", "op": "profile-delete", "target": "probe2", "ok": true, "detail": {}, "note": ""}
+{"ts": "2026-08-16T07:36:43Z", "op": "generate", "target": "opstest01", "ok": true, "detail": {"os": "windows", "arch": "amd64", "format": "exe", "beacon": true, "size": 19269120, "sha256": "4711b11c1e55774332a98eb49e679d930d0c97b64f751fefa7863fb8c5f5e2b2", "path": "/root/Obsidian/XMask/maldev2/Logs/sliver_ops/artifacts/opstest01.exe"}, "note": ""}
+{"ts": "2026-08-16T07:38:35Z", "op": "generate-dry-run", "target": "x", "ok": true, "detail": {"os": "windows", "arch": "amd64"}, "note": ""}

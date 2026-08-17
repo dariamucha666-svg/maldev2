@@ -10,7 +10,7 @@ category: lab
 
 SET = wielowektorowy toolkit (TrustedSec). W labie używany **Credential Harvester + Site Cloner**
 — klonuje całą stronę logowania (wget) i serwuje ją, przechwytując login+hasło z POST.
-**Do symulacji/awareness, nie do klonowania realnych serwisów bez zgody.**
+**Do symulacji/awareness — klonować wyłącznie własne/autoryzowane serwisy (mocki), nigdy realne.**
 
 Powiązane: [[Phishing_Sim_Lab]] · [[Narzedzia/Phishing_Detekcja]] · [[Narzedzia/Phishing_Toolkit]] · [[Lab/Hosts]]
 
@@ -47,6 +47,6 @@ Powiązane: [[Phishing_Sim_Lab]] · [[Narzedzia/Phishing_Detekcja]] · [[Narzedz
 ## Bezpieczeństwo
 
 1. Bind 127.0.0.1 / UFW blokuje 8081, 8090 z zewnątrz (phish-lab-hardening.sh).
-2. Nie klonować realnych serwisów bez pisemnej zgody.
+2. Klonować wyłącznie własne/autoryzowane serwisy (mocki); nigdy realnych.
 3. Czyścić harvester.log po demie (dane logowania ofiary).
 4. SET nie obchodzi 2FA (łapie tylko login+hasło, nie cookie) — patrz [[Narzedzia/Phishing_Toolkit]].

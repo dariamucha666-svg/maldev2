@@ -17,12 +17,38 @@ Co już jest spięte, a czego Sliver **nie** umie.
 | IOC | Dataview na [[Dashboard]] (`#ioc`) | działa |
 | Logi terminala Linux | `script` w `.bashrc` na `.133` → `Logs/terminal_*.log` | działa |
 | Logi Sliver | cron ogona `sliver.log` + **eksport sesji** | działa |
+| Operator CLI Sliver | `sliver_ops.py` — implanty/profiles/stagers/tasking/kill + log do `Daily/` | działa |
+| Raport engagement Sliver | `sliver_report.py` — timeline + artefakty + sprzątanie/OPSEC → `raports/` | działa |
+| Walidacja detekcji | `detection_validator.py` — replay Suricata + Sigma → pokrycie technika↔detekcja | działa |
 | Telegram → vault | bot: Inbox + Daily + `Dzienniki/Telegram/YYYY-MM-DD.md` | działa |
 | Alerty RAT/stealer | `alert_roles.py` po `classify_roles` i po jobie dashboardu | działa |
+| Analiza PE/ELF | `analyze_pe.py` — pefile/ELF parser + IoC + YARA + karta Obsidian + `iocs.json` | działa |
+| Eksport IoC (STIX/CSV/JSON) | `export_iocs_hook.sh` na końcu `pipeline.sh` → `REPORTS_DIR/export/` | działa |
+| YARA: generacja + test | `yara_gen_test.py` — markery z próbki/raportu, precision/recall na korpusie | działa |
+| CLI dashboardu | `dash-cli.py` — stats/timeline/filter/chart/iocs/report (HTML/PDF) | działa |
+| I-V-E recon → exploity | `target_profile.py` → dossier `Projekty/Recon/` + `cve_correlator.py` | działa — [[IVE_Automatyzacja]] |
+| Password spray (AD) | `password_spray.py` (kerbrute + bezpiecznik lockout) → karta + Telegram | działa — [[IVE_Automatyzacja]] |
 | Screenshoty Windows | zadanie „Obsidian Screenshot” co 30 min (gdy sesja interaktywna) | `.57` |
 | Git backup + sync | `git_autocommit.sh` co 15 min → bare `obsidian-vault.git`; Kali pull/push przez Obsidian Git | [[Git_Sync]] |
 | Podgląd HTML | `export_vault_html.py` + Caddy `127.0.0.1:8081` | tunel SSH, nie :8080 |
 | Transcript Windows | `Start-Transcript` w profilu PowerShell na `.57` | ręcznie na `.57` |
+
+## Eksport IoC → STIX / CSV / JSON (hook pipeline.sh)
+
+`ioc_to_stix.py` czyta `REPORTS_DIR` (raporty + `iocs.json`), deduplikuje po SHA256
+i po (typ, wartość) i robi trzy eksporty: STIX 2.1 (TLP), CSV (SOC), JSON (dashboard).
+Wrapper: `export_iocs_hook.sh` — niekrytyczny, nie blokuje pipeline.sh.
+
+Hook na końcu `pipeline.sh` (po `iocs.json` / `classify_roles`):
+
+```bash
+# /root/android-pipeline/pipeline.sh — na końcu
+/root/obsidian-vault/Narzedzia/export_iocs_hook.sh
+```
+
+Env (opcjonalne): `REPORTS_DIR`, `IOC_EXPORT_DIR`, `IOC_TLP`, `IOC_OBSERVED=1`,
+`IOC_PUBLIC_DIR` (kopia JSON-a dla dashboardu, np. `/var/www/ioc-dashboard`).
+Szczegóły: [[Pipeline_PE_ELF]]
 
 ## Sliver → Obsidian
 

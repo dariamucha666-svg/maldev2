@@ -1,0 +1,10 @@
+technique,mitre,suricata_expected,suricata_fired,sigma_rules,sigma_fired,status
+clayrat-beacon,T1071.001,"9000801,9000802,9000807","9000801,9000802,9000807",—,—,PASS
+clayrat-ws,T1071.001,9000803,9000803,—,—,PASS
+clayrat-dns,T1568.002,9000808,9000808,—,—,PASS
+kerberoasting,T1558.003,1100011,1100011,ad-kerberoasting-001,ad-kerberoasting-001,PASS
+asrep-roast,T1558.004,1100012,1100012,ad-asrep-roasting-001,ad-asrep-roasting-001,PASS
+password-spray,T1110.003,1100010,1100010,ad-password-spray-001,ad-password-spray-001,PASS
+smb-enum,T1087/T1018,1100013,1100013,ad-smb-ldap-enum-001,ad-smb-ldap-enum-001,PASS
+ldap-enum,T1087/T1018,1100014,1100014,—,—,PASS
+dcsync,T1003.006,1100015,1100015,ad-dcsync-001,ad-dcsync-001,PASS

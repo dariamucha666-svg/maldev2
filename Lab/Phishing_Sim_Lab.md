@@ -86,7 +86,7 @@ ssh -L 8080:127.0.0.1:8080 root@5.175.189.139
 4. **Group** → adresy **tylko wewnętrzne/testowe**.
 5. **Campaign** → start; potem raport opened/clicked/submitted.
 
-**Nigdy nie wysyłamy na realne adresy ani nie klonujemy realnych serwisów bez zgody.**
+**Nigdy nie wysyłamy na realne adresy; klonujemy wyłącznie własne/autoryzowane serwisy (mocki).**
 
 ## SET (Social-Engineer Toolkit)
 

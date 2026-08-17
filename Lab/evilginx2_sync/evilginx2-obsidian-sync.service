@@ -1,0 +1,18 @@
+[Unit]
+Description=Evilginx2 -> Obsidian session sync (.139)
+Documentation=file:///root/Obsidian/XMask/maldev2/Lab/evilginx2_sync/README.md
+After=network.target
+
+[Service]
+Type=simple
+# Skrypt czyta /opt/evilginx2/config/data.db (buntdb) i zapisuje notatki
+# do /root/Obsidian/XMask/maldev2/Lab/Sessions/
+ExecStart=/usr/bin/python3 /root/Obsidian/XMask/maldev2/Lab/evilginx2_sync/evilginx2_obsidian_sync.py
+Restart=on-failure
+RestartSec=5
+User=root
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
