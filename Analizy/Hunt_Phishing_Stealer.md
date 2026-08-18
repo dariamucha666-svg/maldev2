@@ -1,14 +1,14 @@
 ---
 title: "Hunt: phishing + stealer"
-date: 2026-08-17
+date: 2026-08-18
 tags: [hunt, phishing, stealer, pipeline]
 ---
 
 # Hunt — phishing i stealery (static)
 
-Wygenerowano `2026-08-17 02:06 UTC` skryptem `hunt_phishing_stealer.py`. Tylko odczyt raportów / endpointów / katalogu. **Bez detonacji, bez budowy narzędzi.**
+Wygenerowano `2026-08-18 02:06 UTC` skryptem `hunt_phishing_stealer.py`. Tylko odczyt raportów / endpointów / katalogu. **Bez detonacji, bez budowy narzędzi.**
 
-Trafienia: **18** próbek · hunt stealer **7** · hunt phishing **16**.
+Trafienia: **19** próbek · hunt stealer **7** · hunt phishing **17**.
 
 Powiązane: [[Klasyfikacja_Korpus]] · [[Role_Tags]] · [[Dashboard_IOC]] · [[1b3ceba6 Chrome bank stealer]]
 
@@ -16,13 +16,14 @@ Powiązane: [[Klasyfikacja_Korpus]] · [[Role_Tags]] · [[Dashboard_IOC]] · [[1
 
 | hash | rola | rodzina | hunt | markery |
 |------|------|---------|------|---------|
+| `cti_enrichme` | ? | — | stealer | nfc-card |
 | `0fa3360a6a00` | dropper | Android.Dropper.Porntok | phishing | webview |
 | `184ed09b7a83` | dropper | — | phishing | webview |
 | `44f9d5c684fb` | dropper | Android.Dropper.ShellTemplate | phishing | webview |
 | `a1416a250bf7` | dropper | Android.Dropper.ShellTemplate | phishing | webview |
 | `f651876e9185` | dropper | Android.Dropper.CodoPreload | phishing | webview |
 | `7d8b4974a693` | packed | — | phishing | webview |
-| `cti_enrichme` | packed | — | stealer | nfc-card |
+| `2a46a2565d4f` | phishing | — | phishing | webview |
 | `417406b7e03f` | phishing | Android.Phishing.WebView | phishing | webview |
 | `7b44413023a9` | phishing | — | phishing | webview |
 | `fdbee28882e9` | phishing | Android.Phishing.FaWebView | phishing | webview |
@@ -39,7 +40,7 @@ Powiązane: [[Klasyfikacja_Korpus]] · [[Role_Tags]] · [[Dashboard_IOC]] · [[1
 
 | marker | n próbek |
 |--------|---------:|
-| webview | 16 |
+| webview | 17 |
 | sms | 3 |
 | nfc-card | 2 |
 | catalog | 1 |
