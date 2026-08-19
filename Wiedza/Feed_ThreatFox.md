@@ -6,17 +6,17 @@ tags: [wiedza, feed, threatfox, ioc]
 
 # Feed — ThreatFox (świeże IoC, 24h, 10)
 
-Wygenerowano: 2026-08-19 12:00:03 UTC · źródło: `threatfox-api.abuse.ch` · skrypt `Narzedzia/update_wiedza.sh`
+Wygenerowano: 2026-08-19 18:00:02 UTC · źródło: `threatfox-api.abuse.ch` · skrypt `Narzedzia/update_wiedza.sh`
 
 | IoC | Typ zagrożenia | Typ IoC | Malware | Conf. | Pierwsze |
 |-----|----------------|---------|---------|-------|----------|
-| `2.57.241.129:80` | botnet_cc | ip:port | Cobalt Strike | 75 | 2026-08-19 11:48:03 |
-| `sensacoukwekch.com` | botnet_cc | domain | Lumma Stealer | 50 | 2026-08-19 11:47:06 |
-| `inatehub.cyou` | botnet_cc | domain | Lumma Stealer | 50 | 2026-08-19 11:47:05 |
-| `nucleji.my` | botnet_cc | domain | Lumma Stealer | 50 | 2026-08-19 11:47:05 |
-| `lunarise.bet` | botnet_cc | domain | Lumma Stealer | 50 | 2026-08-19 11:47:05 |
-| `moonskyo.run` | botnet_cc | domain | Lumma Stealer | 50 | 2026-08-19 11:47:05 |
-| `185.91.126.112:443` | botnet_cc | ip:port | Remcos | 50 | 2026-08-19 11:46:04 |
-| `45.74.3.160:2404` | botnet_cc | ip:port | Remcos | 50 | 2026-08-19 11:46:04 |
-| `77.110.108.14:9001` | botnet_cc | ip:port | Remcos | 50 | 2026-08-19 11:46:04 |
-| `80.97.160.237:23401` | botnet_cc | ip:port | Remcos | 50 | 2026-08-19 11:46:04 |
+| `109.123.245.226:56003` | botnet_cc | ip:port | PureRAT | 75 | 2026-08-19 17:57:04 |
+| `109.123.245.226:56001` | botnet_cc | ip:port | PureRAT | 75 | 2026-08-19 17:57:03 |
+| `109.123.245.226:56002` | botnet_cc | ip:port | PureRAT | 75 | 2026-08-19 17:57:03 |
+| `hjertegull.no` | payload_delivery | domain | ClearFake | 90 | 2026-08-19 17:56:39 |
+| `www.uniticstudio.com` | payload_delivery | domain | IClickFix | 75 | 2026-08-19 17:52:48 |
+| `namaste.cat` | payload_delivery | domain | IClickFix | 75 | 2026-08-19 17:52:47 |
+| `ncsirt.org.sz` | payload_delivery | domain | IClickFix | 75 | 2026-08-19 17:52:47 |
+| `necckaduna.com.ng` | payload_delivery | domain | IClickFix | 75 | 2026-08-19 17:52:47 |
+| `necckaduna.gov.ng` | payload_delivery | domain | IClickFix | 75 | 2026-08-19 17:52:47 |
+| `obesidadydiabetes.info` | payload_delivery | domain | IClickFix | 75 | 2026-08-19 17:52:47 |
