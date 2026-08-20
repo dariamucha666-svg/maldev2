@@ -1,22 +1,22 @@
 ---
 title: "Feed — ThreatFox IoC"
-date: 2026-08-19
+date: 2026-08-20
 tags: [wiedza, feed, threatfox, ioc]
 ---
 
 # Feed — ThreatFox (świeże IoC, 24h, 10)
 
-Wygenerowano: 2026-08-19 18:00:02 UTC · źródło: `threatfox-api.abuse.ch` · skrypt `Narzedzia/update_wiedza.sh`
+Wygenerowano: 2026-08-20 00:00:02 UTC · źródło: `threatfox-api.abuse.ch` · skrypt `Narzedzia/update_wiedza.sh`
 
 | IoC | Typ zagrożenia | Typ IoC | Malware | Conf. | Pierwsze |
 |-----|----------------|---------|---------|-------|----------|
-| `109.123.245.226:56003` | botnet_cc | ip:port | PureRAT | 75 | 2026-08-19 17:57:04 |
-| `109.123.245.226:56001` | botnet_cc | ip:port | PureRAT | 75 | 2026-08-19 17:57:03 |
-| `109.123.245.226:56002` | botnet_cc | ip:port | PureRAT | 75 | 2026-08-19 17:57:03 |
-| `hjertegull.no` | payload_delivery | domain | ClearFake | 90 | 2026-08-19 17:56:39 |
-| `www.uniticstudio.com` | payload_delivery | domain | IClickFix | 75 | 2026-08-19 17:52:48 |
-| `namaste.cat` | payload_delivery | domain | IClickFix | 75 | 2026-08-19 17:52:47 |
-| `ncsirt.org.sz` | payload_delivery | domain | IClickFix | 75 | 2026-08-19 17:52:47 |
-| `necckaduna.com.ng` | payload_delivery | domain | IClickFix | 75 | 2026-08-19 17:52:47 |
-| `necckaduna.gov.ng` | payload_delivery | domain | IClickFix | 75 | 2026-08-19 17:52:47 |
-| `obesidadydiabetes.info` | payload_delivery | domain | IClickFix | 75 | 2026-08-19 17:52:47 |
+| `gue-be.be` | payload_delivery | domain | ClearFake | 90 | 2026-08-19 23:42:14 |
+| `fincloudsolution.com` | payload_delivery | domain | ClearFake | 90 | 2026-08-19 23:32:13 |
+| `ru4gcxzf.cardoslim.com` | payload_delivery | domain | ClearFake | 100 | 2026-08-19 23:28:42 |
+| `cardoslim.com` | payload_delivery | domain | ClearFake | 100 | 2026-08-19 23:25:45 |
+| `http://dsfdsfs.xsph.ru/L1nc0In.php` | botnet_cc | url | DCRat | 100 | 2026-08-19 22:50:07 |
+| `mc6rm56y.biodentax.us` | payload_delivery | domain | ClearFake | 100 | 2026-08-19 22:48:11 |
+| `biodentax.us` | payload_delivery | domain | ClearFake | 100 | 2026-08-19 22:46:21 |
+| `nkzfatjf.gut--drops.com` | payload_delivery | domain | ClearFake | 100 | 2026-08-19 22:37:11 |
+| `https://biddingdossierrfi.com/?95e41d41` | botnet_cc | url | ClearFake | 100 | 2026-08-19 22:14:05 |
+| `https://subscontract.axisstone.de/bidnow/` | botnet_cc | url | ClearFake | 100 | 2026-08-19 22:13:20 |
