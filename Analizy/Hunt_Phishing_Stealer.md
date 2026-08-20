@@ -1,14 +1,14 @@
 ---
 title: "Hunt: phishing + stealer"
-date: 2026-08-19
+date: 2026-08-20
 tags: [hunt, phishing, stealer, pipeline]
 ---
 
 # Hunt — phishing i stealery (static)
 
-Wygenerowano `2026-08-19 02:06 UTC` skryptem `hunt_phishing_stealer.py`. Tylko odczyt raportów / endpointów / katalogu. **Bez detonacji, bez budowy narzędzi.**
+Wygenerowano `2026-08-20 02:10 UTC` skryptem `hunt_phishing_stealer.py`. Tylko odczyt raportów / endpointów / katalogu. **Bez detonacji, bez budowy narzędzi.**
 
-Trafienia: **19** próbek · hunt stealer **7** · hunt phishing **17**.
+Trafienia: **27** próbek · hunt stealer **7** · hunt phishing **25**.
 
 Powiązane: [[Klasyfikacja_Korpus]] · [[Role_Tags]] · [[Dashboard_IOC]] · [[1b3ceba6 Chrome bank stealer]]
 
@@ -17,12 +17,20 @@ Powiązane: [[Klasyfikacja_Korpus]] · [[Role_Tags]] · [[Dashboard_IOC]] · [[1
 | hash | rola | rodzina | hunt | markery |
 |------|------|---------|------|---------|
 | `cti_enrichme` | ? | — | stealer | nfc-card |
+| `03a49341e60a` | dropper | — | phishing | webview |
 | `0fa3360a6a00` | dropper | Android.Dropper.Porntok | phishing | webview |
 | `184ed09b7a83` | dropper | — | phishing | webview |
+| `2d5c8851bbdb` | dropper | — | phishing | webview |
+| `43169ca3b2d8` | dropper | — | phishing | webview |
 | `44f9d5c684fb` | dropper | Android.Dropper.ShellTemplate | phishing | webview |
+| `467227502142` | dropper | — | phishing | webview |
+| `53b7128250ca` | dropper | — | phishing | webview |
 | `a1416a250bf7` | dropper | Android.Dropper.ShellTemplate | phishing | webview |
+| `b0a980b60f1b` | dropper | — | phishing | webview |
 | `f651876e9185` | dropper | Android.Dropper.CodoPreload | phishing | webview |
 | `7d8b4974a693` | packed | — | phishing | webview |
+| `8dfb0686ea46` | packed | — | phishing | webview |
+| `d0796f3779b9` | packed | — | phishing | webview |
 | `2a46a2565d4f` | phishing | — | phishing | webview |
 | `417406b7e03f` | phishing | Android.Phishing.WebView | phishing | webview |
 | `7b44413023a9` | phishing | — | phishing | webview |
@@ -40,7 +48,7 @@ Powiązane: [[Klasyfikacja_Korpus]] · [[Role_Tags]] · [[Dashboard_IOC]] · [[1
 
 | marker | n próbek |
 |--------|---------:|
-| webview | 17 |
+| webview | 25 |
 | sms | 3 |
 | nfc-card | 2 |
 | catalog | 1 |
