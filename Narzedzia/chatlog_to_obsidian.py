@@ -172,7 +172,7 @@ def tool_result_text(blocks):
 
 def dsh_sessions():
     res = []
-    for f in sorted(glob.glob(os.path.join(DSH_ROOT, "*", "session-*", "session.jsonl.zstd"))):
+    for f in sorted(glob.glob(os.path.join(DSH_ROOT, "*", "*", "session.jsonl.zstd"))):
         sid = os.path.basename(os.path.dirname(f))
         res.append((sid, f))
     return res
@@ -182,11 +182,12 @@ def dsh_events(path):
     try:
         raw = subprocess.run(["zstd", "-dc", path], capture_output=True, check=True).stdout.decode("utf-8", "replace")
     except Exception as e:
-        return [], 0, None, None, "zstd: %s" % e
+        return [], 0, None, None, None, "zstd: %s" % e
     events = []
     max_seq = -1
     title = None
     cwd = None
+    origin = None
     for line in raw.splitlines():
         line = line.strip()
         if not line:
@@ -201,6 +202,7 @@ def dsh_events(path):
         data = o.get("data") or {}
         if t == "session":
             cwd = o.get("cwd")
+            origin = o.get("origin")
             continue
         if t == "session/title":
             title = (data.get("title") or "").strip() or title
@@ -235,7 +237,7 @@ def dsh_events(path):
             txt = tool_result_text(msg.get("content"))
             events.append({"role": "tool", "ts": to_iso(o.get("time")), "text": trunc(txt, TRUNC_TOOL), "tool": "result"})
             continue
-    return events, max_seq, title, cwd, None
+    return events, max_seq, title, cwd, origin, None
 
 
 def goose_sessions():
@@ -565,7 +567,7 @@ def main():
     daily_new = []
 
     for sid, path in dsh_sessions():
-        events, max_seq, title, cwd, err = dsh_events(path)
+        events, max_seq, title, cwd, origin, err = dsh_events(path)
         if err:
             sys.stderr.write("[dsh:%s] %s\n" % (sid, err))
             continue
@@ -575,6 +577,8 @@ def main():
             continue
         source = "DSH"
         title = title or sid
+        if origin == "subagent":
+            title = "[subagent] " + title
         out = os.path.join(CHAT_DIR, source, day + "_" + slugify(title) + "-" + uniq(source, sid) + ".md")
         content = render_session(source, sid, title, cwd, day, events)
         if write_if_changed(out, content):
