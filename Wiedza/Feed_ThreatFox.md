@@ -6,17 +6,17 @@ tags: [wiedza, feed, threatfox, ioc]
 
 # Feed — ThreatFox (świeże IoC, 24h, 10)
 
-Wygenerowano: 2026-08-21 00:00:03 UTC · źródło: `threatfox-api.abuse.ch` · skrypt `Narzedzia/update_wiedza.sh`
+Wygenerowano: 2026-08-21 06:00:02 UTC · źródło: `threatfox-api.abuse.ch` · skrypt `Narzedzia/update_wiedza.sh`
 
 | IoC | Typ zagrożenia | Typ IoC | Malware | Conf. | Pierwsze |
 |-----|----------------|---------|---------|-------|----------|
-| `chefvoyage.com` | payload_delivery | domain | ClearFake | 90 | 2026-08-20 23:54:37 |
-| `4vhdn6ve.cognigenpluss.com` | payload_delivery | domain | ClearFake | 100 | 2026-08-20 23:52:05 |
-| `cognigenpluss.com` | payload_delivery | domain | ClearFake | 100 | 2026-08-20 23:48:37 |
-| `43.140.219.182:443` | botnet_cc | ip:port | Cobalt Strike | 75 | 2026-08-20 23:47:00 |
-| `c0jcfjcz.eloncod.com` | payload_delivery | domain | ClearFake | 100 | 2026-08-20 23:44:37 |
-| `eloncod.com` | payload_delivery | domain | ClearFake | 100 | 2026-08-20 23:42:57 |
-| `owxqk8og.dantilock.com` | payload_delivery | domain | ClearFake | 100 | 2026-08-20 23:42:33 |
-| `dantilock.com` | payload_delivery | domain | ClearFake | 100 | 2026-08-20 23:39:57 |
-| `verokase.xyz` | botnet_cc | domain | ClearFake | 90 | 2026-08-20 23:38:06 |
-| `immorein-wyne.ch` | payload_delivery | domain | ClearFake | 90 | 2026-08-20 23:24:35 |
+| `e4i5spo3yx.workers.dev` | botnet_cc | domain | php.shin_webshell | 50 | 2026-08-21 05:58:30 |
+| `hulywali.space` | botnet_cc | domain | ClearFake | 90 | 2026-08-21 05:51:19 |
+| `89g7yx01.en-biobooster.com` | payload_delivery | domain | ClearFake | 100 | 2026-08-21 05:47:49 |
+| `acua-burn.com` | payload_delivery | domain | ClearFake | 100 | 2026-08-21 05:46:34 |
+| `unionswissnautic.ch` | payload_delivery | domain | ClearFake | 90 | 2026-08-21 05:46:29 |
+| `en-biobooster.com` | payload_delivery | domain | ClearFake | 100 | 2026-08-21 05:44:22 |
+| `https://faceit-verification.help/` | payload_delivery | url | Unknown malware | 90 | 2026-08-21 05:30:07 |
+| `waescherei-leo.ch` | payload_delivery | domain | ClearFake | 90 | 2026-08-21 05:09:58 |
+| `iptrade.ch` | payload_delivery | domain | ClearFake | 90 | 2026-08-21 05:09:58 |
+| `mnmasonichomes.org` | payload_delivery | domain | ClearFake | 90 | 2026-08-21 05:09:57 |
