@@ -30,6 +30,7 @@ Wpisy automatyczne dopisuje `Narzedzia/update_wiedza.sh` (sekcja `### Auto`).
 - Skrypt `Narzedzia/update_wiedza.sh` (MalwareBazaar + CISA KEV + ThreatFox) + cron `/etc/cron.d/obsidian-wiedza`.
 
 ### Auto
+- `2026-08-21 12:00:05 UTC` Feedy: MalwareBazaar (10) · CISA KEV (10) · ThreatFox (10) — m.in. PureLogsStealer (js); RemusStealer (exe); unknown (exe); unknown (exe); ConnectWise (exe); unknown (exe)
 - `2026-08-21 06:00:02 UTC` Feedy: MalwareBazaar (10) · CISA KEV (10) · ThreatFox (10) — m.in. unknown (exe); Mirai (elf); unknown (exe); unknown (js); unknown (macho); unknown (elf)
 - `2026-08-21 00:00:03 UTC` Feedy: MalwareBazaar (5) · CISA KEV (10) · ThreatFox (10) — m.in. Vidar (exe); unknown (exe); unknown (exe); unknown (js); unknown (zip); CVE-2026-72530 TrueConf
 - `2026-08-20 18:00:03 UTC` Feedy: MalwareBazaar (10) · CISA KEV (10) · ThreatFox (10) — m.in. Mirai (elf); unknown (exe); unknown (exe); unknown (exe); Vidar (exe); Mirai (elf)

@@ -6,17 +6,17 @@ tags: [wiedza, feed, threatfox, ioc]
 
 # Feed — ThreatFox (świeże IoC, 24h, 10)
 
-Wygenerowano: 2026-08-21 06:00:02 UTC · źródło: `threatfox-api.abuse.ch` · skrypt `Narzedzia/update_wiedza.sh`
+Wygenerowano: 2026-08-21 12:00:05 UTC · źródło: `threatfox-api.abuse.ch` · skrypt `Narzedzia/update_wiedza.sh`
 
 | IoC | Typ zagrożenia | Typ IoC | Malware | Conf. | Pierwsze |
 |-----|----------------|---------|---------|-------|----------|
-| `e4i5spo3yx.workers.dev` | botnet_cc | domain | php.shin_webshell | 50 | 2026-08-21 05:58:30 |
-| `hulywali.space` | botnet_cc | domain | ClearFake | 90 | 2026-08-21 05:51:19 |
-| `89g7yx01.en-biobooster.com` | payload_delivery | domain | ClearFake | 100 | 2026-08-21 05:47:49 |
-| `acua-burn.com` | payload_delivery | domain | ClearFake | 100 | 2026-08-21 05:46:34 |
-| `unionswissnautic.ch` | payload_delivery | domain | ClearFake | 90 | 2026-08-21 05:46:29 |
-| `en-biobooster.com` | payload_delivery | domain | ClearFake | 100 | 2026-08-21 05:44:22 |
-| `https://faceit-verification.help/` | payload_delivery | url | Unknown malware | 90 | 2026-08-21 05:30:07 |
-| `waescherei-leo.ch` | payload_delivery | domain | ClearFake | 90 | 2026-08-21 05:09:58 |
-| `iptrade.ch` | payload_delivery | domain | ClearFake | 90 | 2026-08-21 05:09:58 |
-| `mnmasonichomes.org` | payload_delivery | domain | ClearFake | 90 | 2026-08-21 05:09:57 |
+| `8.137.92.225:443` | botnet_cc | ip:port | Cobalt Strike | 75 | 2026-08-21 11:48:09 |
+| `68.64.178.130:8081` | botnet_cc | ip:port | Cobalt Strike | 75 | 2026-08-21 11:48:07 |
+| `68.64.178.130:9443` | botnet_cc | ip:port | Cobalt Strike | 75 | 2026-08-21 11:48:07 |
+| `162.251.92.64:800` | botnet_cc | ip:port | Cobalt Strike | 75 | 2026-08-21 11:47:47 |
+| `156.225.18.45:33333` | botnet_cc | ip:port | Cobalt Strike | 75 | 2026-08-21 11:47:46 |
+| `122.51.12.180:8443` | botnet_cc | ip:port | Cobalt Strike | 75 | 2026-08-21 11:47:41 |
+| `dujexi.workers.dev` | botnet_cc | domain | php.shin_webshell | 50 | 2026-08-21 11:46:55 |
+| `checkout.lat` | botnet_cc | domain | ClearFake | 90 | 2026-08-21 11:43:30 |
+| `eng--enerflow.com` | payload_delivery | domain | ClearFake | 100 | 2026-08-21 11:33:33 |
+| `346cf14b787747160f789525e9843663b05a7e588f8f` | payload | sha256_hash | Vidar | 95 | 2026-08-21 11:10:51 |
