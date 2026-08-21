@@ -1,12 +1,12 @@
 ---
 title: "Hunt: phishing + stealer"
-date: 2026-08-20
+date: 2026-08-21
 tags: [hunt, phishing, stealer, pipeline]
 ---
 
 # Hunt — phishing i stealery (static)
 
-Wygenerowano `2026-08-20 02:10 UTC` skryptem `hunt_phishing_stealer.py`. Tylko odczyt raportów / endpointów / katalogu. **Bez detonacji, bez budowy narzędzi.**
+Wygenerowano `2026-08-21 02:08 UTC` skryptem `hunt_phishing_stealer.py`. Tylko odczyt raportów / endpointów / katalogu. **Bez detonacji, bez budowy narzędzi.**
 
 Trafienia: **27** próbek · hunt stealer **7** · hunt phishing **25**.
 
